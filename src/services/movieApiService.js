@@ -28,7 +28,7 @@ const MOVIE_LIST = [
         views: 2500,
         rating: 9.1,
         img: pulpfiction,
-        end: buildDate(10 * 1000),
+        end: buildDate(2 * 60 * 1000),
     },
     {
         id: 3,
@@ -36,7 +36,7 @@ const MOVIE_LIST = [
         views: 400,
         rating: 8.9,
         img: goodbyelenin,
-        end: buildDate(10 * 1000),
+        end: buildDate(30 * 60 * 1000),
     },
     {
         id: 4,
@@ -44,7 +44,7 @@ const MOVIE_LIST = [
         views: 1200,
         rating: 8.8,
         img: harryapezzi,
-        end: buildDate(10 * 1000),
+        end: buildDate(30 * 60 * 1000),
     },
     {
         id: 5,
@@ -52,7 +52,7 @@ const MOVIE_LIST = [
         views: 700,
         rating: 9.0,
         img: gattaca,
-        end: buildDate(10 * 1000),
+        end: buildDate(30 * 60 * 1000),
     },
     {
         id: 6,
@@ -60,7 +60,7 @@ const MOVIE_LIST = [
         views: 100,
         rating: 8.2,
         img: hotfuzz,
-        end: buildDate(10 * 1000),
+        end: buildDate(30 * 60 * 1000),
     },
 ];
 
