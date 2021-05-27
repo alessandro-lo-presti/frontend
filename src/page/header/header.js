@@ -10,7 +10,7 @@ const headerTemplate = `
                 Brandname
             </div>
 
-            <nav class="nav">
+            <nav class="nav" id="nav">
                 <ul class="nav-list">
 
                     <li class="nav-link">
@@ -31,4 +31,10 @@ const headerTemplate = `
 
 export const header = ()=> {
     writePageHTML(headerTemplate);
+
+    /*
+    document.querySelectorAll('.nav-link').forEach((item => {
+        item.addEventListener('click', event => console.log("prova"));
+    }));
+    */
 };
