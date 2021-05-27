@@ -10,14 +10,14 @@
 
         .nav-link {
             margin-left: 10px;
-        }
 
-        .nav-link:hover {
-            text-decoration: underline;
-        }
+            &:hover {
+                text-decoration: underline;
+            }
 
-        .nav-link.active {
-            text-decoration: underline;
+            &.active {
+                text-decoration: underline;
+            }
         }
 
     }
