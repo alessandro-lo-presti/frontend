@@ -1,0 +1,14 @@
+@import "reset.scss";
+
+body {
+    background-color: lightgray;
+}
+
+#app {
+    background-color: white;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
