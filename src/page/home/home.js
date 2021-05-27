@@ -33,8 +33,7 @@ const buildHome = (movielist) => `
 `;
 
 const handleMoviecountdown = () => {
-    console.log("handle countdown!");
-
+    
     //document getselector all
     const cards = document.querySelectorAll('.card');
 
