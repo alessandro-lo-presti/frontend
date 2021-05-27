@@ -3,38 +3,61 @@ import { writeMainHTML } from "../../common/common";
 import "./home.scss";
 
 const timer = (end, date) => `
-    ${Math.floor(((end - date) / 1000) / 3600 % 24)}:
-    ${Math.floor(((end - date) / 1000) / 60 % 60)}:
-    ${Math.floor(((end - date) / 1000)) % 60}
-`
+    -${("" + Math.floor(((end - date) / 1000 / 3600) % 24)).padStart(
+        2,
+        "0"
+    )}:${("" + Math.floor(((end - date) / 1000 / 60) % 60)).padStart(
+    2,
+    "0"
+)}:${("" + (Math.floor((end - date) / 1000) % 60)).padStart(2, "0")}
+`;
 
 const movieTemplate = (movie, date) => `
-    <div class="card">
-        
+    <div class="card" data-countdown-timestamp="${movie.end}">
         <div class="card-img">
             <img src="${movie.img}" alt="${movie.name}">
         </div>
-
         <div class="card-infos">
             <span class="card-info">${movie.name}</span>
             <span class="card-info countdown">
-                ${timer(movie.end, date)}
             </span>
         </div>
 
     </div>
 `;
 
-const buildHome = movielist => `
+const buildHome = (movielist) => `
     <div class="card-wrapper">
-        ${movielist.map(movie => movieTemplate(movie, new Date())).join("")}
+        ${movielist.map((movie) => movieTemplate(movie, new Date())).join("")}
     </div>
 `;
 
-export const home = () => {
-    movieApiService.movieList()
-        .then(movielist => {
-                writeMainHTML(buildHome(movielist))
-            })
-        .catch(() => writeMainHTML("Errore ricezione dati"))
+const handleMoviecountdown = () => {
+    console.log("handle countdown!");
+
+    //document getselector all
+
+    //per ogni card -> leggere il data-countdown-timestamp
+
+    //aggiornare il countdown html
+
+    //se countdown < 0 rimuovere dal dom la card
+};
+
+export const loadHome = () => {
+    console.log("load home start");
+    movieApiService
+        .movieList()
+        .then((movielist) => {
+            //la list è caricata
+
+            //1 mettere i dati in pagina
+            const html = buildHome(movielist);
+            writeMainHTML(html);
+
+            //gestire eventuali logiche
+            const intervalId = setInterval(handleMoviecountdown, 1000); //TODO gestire cambio pagina cancellare interval!
+            handleMoviecountdown();
+        })
+        .catch(() => writeMainHTML("Errore ricezione dati"));
 };

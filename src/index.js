@@ -1,10 +1,9 @@
-import { header } from "./page/header/header";
-import { main } from "./common/loadMain"
+import { initializeHeader } from "./page/header/header";
 import "./style/index.scss";
-import { home } from "./page/home/home";
-import { rankingPage } from "./ranking/ranking";
+import { loadHome } from "./page/home/home";
+import { loadRanking } from "./page/ranking/ranking";
 
-header();
-main();
-home();
-//rankingPage();
+initializeHeader();
+
+// loadHome();
+loadRanking();

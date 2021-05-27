@@ -1,5 +1,4 @@
 .header {
-
     .container {
         height: 70px;
         padding: 0 50px;
@@ -10,21 +9,18 @@
 
         .nav-list {
             display: flex;
-    
+
             .nav-link {
                 margin-left: 10px;
-    
+
                 &:hover {
                     text-decoration: underline;
                 }
-    
+
                 &.active {
                     text-decoration: underline;
                 }
             }
-    
         }
-
     }
-    
 }
