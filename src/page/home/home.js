@@ -16,14 +16,14 @@ const movieTemplate = (movie) => `
     </div>
 `;
 
-const buildHome = movieList => `
+const buildHome = movielist => `
     <div class="class-wrapper">
-        ${movieList.map(movie => movieTemplate(movie).join(""))}
+        ${movielist.map(movie => movieTemplate(movie)).join("")}
     </div>
 `;
 
 export const home = () => {
     movieApiService.movieList()
-        .then(movielist => writeMainHTML(buildHome(movieList)))
-        .catch()
+        .then(movielist => writeMainHTML(buildHome(movielist)))
+        .catch(() => writeMainHTML("Errore ricezione dati"))
 };
