@@ -32,6 +32,9 @@ const buildHome = (movielist) => `
     </div>
 `;
 
+//stoppare intervallo
+let intervalId;
+
 const handleMoviecountdown = () => {
     
     //document getselector all
@@ -42,15 +45,17 @@ const handleMoviecountdown = () => {
     //aggiornare il countdown html
 
     //se countdown < 0 rimuovere dal dom la card
-    
-    cards.forEach(card => {
 
-        const endCard = Date.parse(card.getAttribute('data-countdown-timestamp'));
-        const time = new Date();
-
-        (endCard - time > 0) ? card.querySelector('.countdown').innerHTML = timer(endCard, time) : card.remove();
-        
-    });
+    if(cards.length) {
+        cards.forEach(card => {
+            const endCard = Date.parse(card.getAttribute('data-countdown-timestamp'));
+            const time = new Date();
+            (endCard - time > 0) ? card.querySelector('.countdown').innerHTML = timer(endCard, time) : card.remove();
+        });
+    }
+    else {
+        clearInterval(intervalId);
+    }
     
 };
 
@@ -66,8 +71,12 @@ export const loadHome = () => {
             writeMainHTML(html);
 
             //gestire eventuali logiche
-            const intervalId = setInterval(handleMoviecountdown, 1000); //TODO gestire cambio pagina cancellare interval!
+            intervalId = setInterval(handleMoviecountdown, 1000); //TODO gestire cambio pagina cancellare interval!
             handleMoviecountdown();
+
+            document.querySelectorAll('.nav-link').forEach(item => {
+                item.addEventListener('click', () => clearInterval(intervalId));
+            });
         })
-        .catch(() => writeMainHTML("Errore ricezione dati"));
+        
 };
