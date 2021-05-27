@@ -6,5 +6,5 @@ import { rankingPage } from "./ranking/ranking";
 
 header();
 main();
-//home();
-rankingPage();
+home();
+//rankingPage();

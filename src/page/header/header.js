@@ -32,9 +32,8 @@ const headerTemplate = `
 export const header = ()=> {
     writePageHTML(headerTemplate);
 
-    /*
     document.querySelectorAll('.nav-link').forEach((item => {
         item.addEventListener('click', event => console.log("prova"));
     }));
-    */
+    
 };
