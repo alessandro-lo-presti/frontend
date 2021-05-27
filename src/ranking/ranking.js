@@ -35,24 +35,27 @@ const buildRanking = movieList => `
             </div>
 
             <div class="movie-name">
-                <h2>Nome</h2>
-                <button id="movie-name-button">
-                    p
-                </button>
+                <h2>
+                    Nome
+                    <span id="movie-name-button">&#43;</span>
+                    <span id="movie-name-reverse-button">&#45;</span>
+                </h2>
             </div>
 
             <div class="movie-rating">
-                <h2>Voto</h2>
-                <button id="movie-rating-button">
-                    p
-                </button>
+                <h2>
+                    Voto
+                    <span id="movie-rating-button">&#43;</span>
+                    <span id="movie-rating-reverse-button">&#45;</span>
+                </h2>
             </div>
 
             <div class="movie-views">
-                <h2>Visual</h2>
-                <button id="movie-views-button">
-                    p
-                </button>
+                <h2>
+                    Visual
+                    <span id="movie-views-button">&#43;</span>
+                    <span id="movie-views-reverse-button">&#45;</span>
+                </h2>
             </div>
 
         </div>
@@ -71,14 +74,26 @@ export const rankingPage = () => {
                 writeMainHTML(buildRanking(movielist.sort(comperator.orderByName)));
             });
 
+            document.getElementById('movie-name-reverse-button').addEventListener('click', event => {
+                writeMainHTML(buildRanking(movielist.sort(comperator.orderByName).reverse()));
+            });
+
             //ordina rating
             document.getElementById('movie-rating-button').addEventListener('click', event => {
                 writeMainHTML(buildRanking(movielist.sort(comperator.orderByRating)));
             });
 
+            document.getElementById('movie-rating-reverse-button').addEventListener('click', event => {
+                writeMainHTML(buildRanking(movielist.sort(comperator.orderByRating).reverse()));
+            });
+
             //ordina views
             document.getElementById('movie-views-button').addEventListener('click', event => {
                 writeMainHTML(buildRanking(movielist.sort(comperator.orderByViews)));
+            });
+
+            document.getElementById('movie-views-reverse-button').addEventListener('click', event => {
+                writeMainHTML(buildRanking(movielist.sort(comperator.orderByViews).reverse()));
             });
 
         })
