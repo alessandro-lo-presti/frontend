@@ -5,56 +5,54 @@ import "./ranking.scss";
 
 //table
 const recordTemplate = (movie, index) => `
-    <div class="movie-table-record">
-        <div class="movie-id">
+    <tr class="movie-table-record">
+        <td class="movie-id">
            ${index + 1}
-        </div>
-        <div class="movie-name">
+        </td>
+        <td class="movie-name">
             ${movie.name}
-        </div>
-        <div class="movie-rating">
+        </td>
+        <td class="movie-rating">
             ${movie.rating}
-        </div>
-        <div class="movie-views">
+        </td>
+        <td class="movie-views">
             ${movie.views}
-        </div>    
-    </div>
+        </td>    
+    </tr>
 `;
 
 //table
 const buildRanking = (movieList) => `
-    <div class="movie-table">
-        <div class="movie-table-record">
-            <div class="movie-id">
-                <h2>Id</h2>
-            </div>
-            <div class="movie-name">
-                <h2>
-                    Nome
-                    <span id="movie-name-button">&#43;</span>
-                    <span id="movie-name-reverse-button">&#45;</span>
-                </h2>
-            </div>
-            <div class="movie-rating">
-                <h2>
-                    Voto
-                    <span id="movie-rating-button">&#43;</span>
-                    <span id="movie-rating-reverse-button">&#45;</span>
-                </h2>
-            </div>
-            <div class="movie-views">
-                <h2>
-                    Visual
-                    <span id="movie-views-button">&#43;</span>
-                    <span id="movie-views-reverse-button">&#45;</span>
-                </h2>
-            </div>
-        </div>
+    <table class="movie-table">
+        <thead class="movie-table-record">
+            <th class="movie-id">
+                Id
+            </th>
+            <th class="movie-name">  
+                Nome
+                <span id="movie-name-button">&#43;</span>
+                <span id="movie-name-reverse-button">&#45;</span>
+            </th>
+            <th class="movie-rating">
+                Voto
+                <span id="movie-rating-button">&#43;</span>
+                <span id="movie-rating-reverse-button">&#45;</span>
+            </th>
+            <th class="movie-views">
+                Visual
+                <span id="movie-views-button">&#43;</span>
+                <span id="movie-views-reverse-button">&#45;</span>
+            </th>
+        </thead>
 
+        <tbody id="tbody">
         ${movieList
-            .map((movie, index) => recordTemplate(movie, index))
-            .join("")}
-    </div>
+            .map((movie, index) => recordTemplate(movie, index)).join("")
+        }
+        </tbody>
+
+        
+    </table>
 `;
 
 //controller
@@ -73,61 +71,51 @@ export const loadRanking = () => {
 
             writeMainHTML(html); //il controller mette in pagina la view
 
+            const tablebody = document.getElementById('tbody');
+
             //ordina nomi
             document
                 .getElementById("movie-name-button")
                 .addEventListener("click", (event) => {
-                    writeMainHTML(
-                        buildRanking(movielist.sort(comparator.orderByName))
-                    );
+                   tablebody.innerHTML = movielist.sort(comparator.orderByName).map((movie, index) => 
+                   recordTemplate(movie, index)).join("");
                 });
 
             document
                 .getElementById("movie-name-reverse-button")
                 .addEventListener("click", (event) => {
-                    writeMainHTML(
-                        buildRanking(
-                            movielist.sort(comparator.orderByName).reverse()
-                        )
-                    );
+                    tablebody.innerHTML = movielist.sort(comparator.orderByName).reverse().map((movie, index) => 
+                    recordTemplate(movie, index)).join("");
                 });
 
             //ordina rating
             document
                 .getElementById("movie-rating-button")
                 .addEventListener("click", (event) => {
-                    writeMainHTML(
-                        buildRanking(movielist.sort(comparator.orderByRating))
-                    );
+                    tablebody.innerHTML = movielist.sort(comparator.orderByRating).map((movie, index) => 
+                   recordTemplate(movie, index)).join("");
                 });
 
             document
                 .getElementById("movie-rating-reverse-button")
                 .addEventListener("click", (event) => {
-                    writeMainHTML(
-                        buildRanking(
-                            movielist.sort(comparator.orderByRating).reverse()
-                        )
-                    );
+                    tablebody.innerHTML = movielist.sort(comparator.orderByRating).reverse().map((movie, index) => 
+                    recordTemplate(movie, index)).join("");
                 });
 
             //ordina views
             document
                 .getElementById("movie-views-button")
                 .addEventListener("click", (event) => {
-                    writeMainHTML(
-                        buildRanking(movielist.sort(comparator.orderByViews))
-                    );
+                    tablebody.innerHTML = movielist.sort(comparator.orderByViews).map((movie, index) => 
+                    recordTemplate(movie, index)).join("");
                 });
 
             document
                 .getElementById("movie-views-reverse-button")
                 .addEventListener("click", (event) => {
-                    writeMainHTML(
-                        buildRanking(
-                            movielist.sort(comparator.orderByViews).reverse()
-                        )
-                    );
+                    tablebody.innerHTML = movielist.sort(comparator.orderByViews).reverse().map((movie, index) => 
+                    recordTemplate(movie, index)).join("");
                 });
         })
         .catch(() => writeMainHTML("Errore ricezione dati"));
