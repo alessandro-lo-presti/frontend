@@ -1,0 +1,33 @@
+.movie-table {
+    width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    text-align: center;
+
+    .movie-table-record {
+        display: flex;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid black;
+        }
+
+        & > div {
+            width: 100px;
+            padding: 10px 0;
+        }
+
+        & > div:not(.movie-views){
+            border-right: 1px solid black;
+        }
+
+        .movie-name {
+            width: 200px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+    }
+
+}
