@@ -1,7 +1,9 @@
 import { writePageHTML } from "./common";
 
 const mainTemplate = `
-    <main class="main" id="main"></main>
+    <main class="main">
+        <div class="container" id="main-container"></div>
+    </main>
 `;
 
 export const main = ()=> {
