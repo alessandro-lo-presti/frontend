@@ -12,11 +12,11 @@ const headerTemplate = `
             <ul class="nav-list">
 
                 <li class="nav-link">
-                    <a href="">Home</a>
+                    Home
                 </li>
 
                 <li class="nav-link">
-                    <a href="">Classifica</a>
+                    Classifica
                 </li>
                 
             </ul>
