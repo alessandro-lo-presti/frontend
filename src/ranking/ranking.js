@@ -2,11 +2,11 @@ import { writeMainHTML } from "../common/common";
 import { movieApiService } from "../services/movieApiService";
 import "./ranking.scss"
 
-const recordTemplate = movie => `
+const recordTemplate = (movie, index) => `
     <div class="movie-table-record">
 
         <div class="movie-id">
-           ${movie.id}
+           ${index + 1}
         </div>
 
         <div class="movie-name">
@@ -47,7 +47,7 @@ const buildRanking = movieList => `
 
         </div>
 
-        ${movieList.map(movie => recordTemplate(movie)).join("")}
+        ${movieList.map((movie, index) => recordTemplate(movie, index)).join("")}
     </div>
 `;
 

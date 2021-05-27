@@ -10,7 +10,7 @@
         display: flex;
 
         &:not(:last-child) {
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid lightgrey;
         }
 
         & > div {
@@ -19,7 +19,7 @@
         }
 
         & > div:not(.movie-views){
-            border-right: 1px solid black;
+            border-right: 1px solid lightgrey;
         }
 
         .movie-name {
