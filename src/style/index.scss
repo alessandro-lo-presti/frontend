@@ -16,5 +16,6 @@ body {
 }
 
 .main .container{
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
+    padding: 60px 0;
 }

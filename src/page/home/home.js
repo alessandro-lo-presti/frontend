@@ -1,5 +1,6 @@
 import { movieApiService } from "../../services/movieApiService";
 import { writeMainHTML } from "../../common/common";
+import "./home.scss";
 
 const movieTemplate = (movie) => `
     <div class="card">
@@ -17,7 +18,7 @@ const movieTemplate = (movie) => `
 `;
 
 const buildHome = movielist => `
-    <div class="class-wrapper">
+    <div class="card-wrapper">
         ${movielist.map(movie => movieTemplate(movie)).join("")}
     </div>
 `;

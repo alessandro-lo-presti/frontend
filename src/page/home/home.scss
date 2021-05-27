@@ -1,0 +1,14 @@
+.card-wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .card {
+        height: 300px;
+        margin-bottom: 30px;
+        width: calc(100% / 3 - 80px);
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+}
