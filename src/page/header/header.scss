@@ -1,23 +1,29 @@
 .header {
-    height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    .nav-list {
+    .container {
+        height: 70px;
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid black;
 
-        .nav-link {
-            margin-left: 10px;
-
-            &:hover {
-                text-decoration: underline;
+        .nav-list {
+            display: flex;
+    
+            .nav-link {
+                margin-left: 10px;
+    
+                &:hover {
+                    text-decoration: underline;
+                }
+    
+                &.active {
+                    text-decoration: underline;
+                }
             }
-
-            &.active {
-                text-decoration: underline;
-            }
+    
         }
 
     }
+    
 }

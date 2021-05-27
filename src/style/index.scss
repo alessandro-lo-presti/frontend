@@ -1,15 +1,20 @@
 @import "reset.scss";
 
-body {
-    background-color: lightgray;
+* {
+    box-sizing: border-box;
 }
 
-#app {
-    background-color: white;
+body {
+    background-color: lightgray;
 }
 
 .container {
     max-width: 1000px;
     margin: auto;
     padding: 0 20px;
+    background-color: white;
+}
+
+.main {
+    height: calc(100vh - 70px);
 }
