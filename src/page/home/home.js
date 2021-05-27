@@ -36,12 +36,23 @@ const handleMoviecountdown = () => {
     console.log("handle countdown!");
 
     //document getselector all
+    const cards = document.querySelectorAll('.card');
 
     //per ogni card -> leggere il data-countdown-timestamp
 
     //aggiornare il countdown html
 
     //se countdown < 0 rimuovere dal dom la card
+    
+    cards.forEach(card => {
+
+        const endCard = Date.parse(card.getAttribute('data-countdown-timestamp'));
+        const time = new Date();
+
+        (endCard - time > 0) ? card.querySelector('.countdown').innerHTML = timer(endCard, time) : card.remove();
+        
+    });
+    
 };
 
 export const loadHome = () => {
