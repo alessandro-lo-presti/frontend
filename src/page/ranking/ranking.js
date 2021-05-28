@@ -25,20 +25,14 @@ const buildRanking = (movieList) => `
             <th class="movie-id">
                 Id
             </th>
-            <th class="movie-name">  
+            <th class="movie-name" id="movie-name">  
                 Nome
-                <span id="movie-name-button">&#43;</span>
-                <span id="movie-name-reverse-button">&#45;</span>
             </th>
-            <th class="movie-rating">
+            <th class="movie-rating" id="movie-rating">
                 Voto
-                <span id="movie-rating-button">&#43;</span>
-                <span id="movie-rating-reverse-button">&#45;</span>
             </th>
-            <th class="movie-views">
+            <th class="movie-views" id="movie-views">
                 Visual
-                <span id="movie-views-button">&#43;</span>
-                <span id="movie-views-reverse-button">&#45;</span>
             </th>
         </thead>
 
@@ -72,48 +66,37 @@ export const loadRanking = () => {
 
             //ordina nomi
             document
-                .getElementById("movie-name-button")
+                .getElementById("movie-name")
                 .addEventListener("click", (event) => {
-                   tablebody.innerHTML = movielist.sort(comparator.orderByName).map((movie, index) => 
-                   recordTemplate(movie, index)).join("");
-                });
-
-            document
-                .getElementById("movie-name-reverse-button")
-                .addEventListener("click", (event) => {
-                    tablebody.innerHTML = movielist.sort(comparator.orderByName).reverse().map((movie, index) => 
+                    const modify = movielist.sort(comparator.orderByName).map((movie, index) => 
                     recordTemplate(movie, index)).join("");
+                    const mreverse = movielist.sort(comparator.orderByName).reverse().map((movie, index) => 
+                    recordTemplate(movie, index)).join("");
+                    tablebody.innerHTML == modify ? tablebody.innerHTML = mreverse : tablebody.innerHTML = modify;
                 });
 
             //ordina rating
             document
-                .getElementById("movie-rating-button")
+                .getElementById("movie-rating")
                 .addEventListener("click", (event) => {
-                    tablebody.innerHTML = movielist.sort(comparator.orderByRating).map((movie, index) => 
-                   recordTemplate(movie, index)).join("");
-                });
-
-            document
-                .getElementById("movie-rating-reverse-button")
-                .addEventListener("click", (event) => {
-                    tablebody.innerHTML = movielist.sort(comparator.orderByRating).reverse().map((movie, index) => 
+                    const modify = movielist.sort(comparator.orderByRating).map((movie, index) => 
                     recordTemplate(movie, index)).join("");
+                    const mreverse = movielist.sort(comparator.orderByRating).reverse().map((movie, index) => 
+                    recordTemplate(movie, index)).join("");
+                    tablebody.innerHTML == modify ? tablebody.innerHTML = mreverse : tablebody.innerHTML = modify;
                 });
 
             //ordina views
             document
-                .getElementById("movie-views-button")
+                .getElementById("movie-views")
                 .addEventListener("click", (event) => {
-                    tablebody.innerHTML = movielist.sort(comparator.orderByViews).map((movie, index) => 
+                    const modify = movielist.sort(comparator.orderByViews).map((movie, index) => 
                     recordTemplate(movie, index)).join("");
+                    const mreverse = movielist.sort(comparator.orderByViews).reverse().map((movie, index) => 
+                    recordTemplate(movie, index)).join("");
+                    tablebody.innerHTML == modify ? tablebody.innerHTML = mreverse : tablebody.innerHTML = modify;
                 });
 
-            document
-                .getElementById("movie-views-reverse-button")
-                .addEventListener("click", (event) => {
-                    tablebody.innerHTML = movielist.sort(comparator.orderByViews).reverse().map((movie, index) => 
-                    recordTemplate(movie, index)).join("");
-                });
         })
         .catch(() => writeMainHTML("Errore ricezione dati"));
 };

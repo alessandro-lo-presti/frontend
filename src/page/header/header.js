@@ -4,7 +4,6 @@ import { loadHome } from "../home/home";
 export const initializeHeader = () => {
     document.querySelectorAll(".nav-link").forEach((item) => {
         item.addEventListener("click", (event) => {
-
             document.querySelector('.active').classList.remove('active');
             event.target.classList.add('active');
 
