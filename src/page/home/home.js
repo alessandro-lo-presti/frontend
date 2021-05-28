@@ -57,7 +57,6 @@ const handleMoviecountdown = () => {
 };
 
 export const loadHome = () => {
-    console.log("load home start");
     movieApiService
         .movieList()
         .then((movielist) => {
@@ -72,7 +71,8 @@ export const loadHome = () => {
             handleMoviecountdown();
 
             document.querySelectorAll('.nav-link').forEach(item => {
-                item.addEventListener('click', () => clearInterval(intervalId));
+                if(item.getAttribute('data-section') == 'RANKING') 
+                    item.addEventListener('click', () => clearInterval(intervalId));
             });
         })
         

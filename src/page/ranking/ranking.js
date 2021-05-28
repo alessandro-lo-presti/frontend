@@ -1,7 +1,6 @@
 import { writeMainHTML } from "../../common/common";
 import { comparator } from "../../common/comparator";
 import { movieApiService } from "../../services/movieApiService";
-import "./ranking.scss";
 
 //table
 const recordTemplate = (movie, index) => `
