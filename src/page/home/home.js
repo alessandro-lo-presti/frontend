@@ -13,21 +13,18 @@ const timer = (end, date) => `
 `;
 
 const movieTemplate = (movie, date) => `
-    <div class="card" data-countdown-timestamp="${movie.end}">
-        <div class="card-img">
-            <img src="${movie.img}" alt="${movie.name}">
-        </div>
-        <div class="card-infos">
-            <span class="card-info">${movie.name}</span>
-            <span class="card-info countdown">
-            </span>
+    <div class="card mx-3" data-countdown-timestamp="${movie.end}">
+        <img class="card-img-top" src="${movie.img}" alt="${movie.name}">
+        <div class="card-body text-center">
+            <h4 class="card-text">${movie.name}</h4>
+            <p class="card-text countdown"></p>
         </div>
 
     </div>
 `;
 
 const buildHome = (movielist) => `
-    <div class="card-wrapper">
+    <div class="row row-cols-1 row-cols-md-4 g-4 my-3 d-flex justify-content-center">
         ${movielist.map((movie) => movieTemplate(movie, new Date())).join("")}
     </div>
 `;

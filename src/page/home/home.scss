@@ -1,34 +1,11 @@
-.card-wrapper {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-
-    .card {
-        height: 300px;
-        margin-bottom: 30px;
-        width: calc(100% / 3 - 60px);
-        border: 1px solid lightgrey;
-        border-radius: 5px;
-        
-        .card-img {
-            height: 60%;
-            border-bottom: 1px solid lightgrey;
-
-            img {
-                height: 100%;
-                width: 100%;
-            }
-        }
-
-        .card-infos {
-            height: 40%;
-            padding: 20px 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-        }
-
+.card {
+    height: 400px;
+    padding: 0;
+    
+    img {
+        height: 70%;
+        width:  100%;
+        padding: 12px;
     }
 
 }

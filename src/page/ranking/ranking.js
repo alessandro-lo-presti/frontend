@@ -23,8 +23,8 @@ const recordTemplate = (movie, index) => `
 
 //table
 const buildRanking = (movieList) => `
-    <table class="movie-table">
-        <thead class="movie-table-record">
+    <table class="table">
+        <thead class="table-dark">
             <th class="movie-id">
                 Id
             </th>
@@ -64,7 +64,7 @@ export const loadRanking = () => {
 
             //buildo la view
             const html = `
-                <div id="movie-table-container">
+                <div id="movie-table-container" class="row mt-5">
                     ${buildRanking(movielist)}
                 </div>
             `; // --> view
