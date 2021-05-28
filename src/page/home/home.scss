@@ -18,17 +18,18 @@
             img {
                 height: 100%;
                 width: 100%;
-                opacity: 0.6;
+                //opacity: 0.6;
             }
 
             .card-body {
                 position: absolute;
+                display: none;
                 width: 100%;
                 top: 70%;
                 left: 50%;
                 transform: translateX(-50%);
                 text-align: center;
-                color: black;
+                color: white;
                 font-size: 17px;
 
                 h4 {
@@ -36,6 +37,24 @@
                     margin-bottom: 10px;
                 }
             }
+
+            .card-layer {
+                height: 100%;
+                width: 100%;
+                display: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: #2b2d2f;
+                color: white;
+                opacity: 0.5;
+            }
+
+            &:hover .card-layer, &:hover .card-body {
+                display: block;
+            }
+
+
         }
       }
 
@@ -65,12 +84,19 @@
                     height: 600px;
 
                     .card-body {
+                        //display: block;
                         font-size: 20px;
 
                         h4 {
                             font-size: 30px;
                         }
                     }
+
+                    /*
+                    .card-layer {
+                        display: block;
+                    }
+                    */
 
                 }
             }

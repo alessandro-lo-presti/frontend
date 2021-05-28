@@ -15,11 +15,13 @@ const timer = (end, date) => `
 const movieTemplate = (movie, date) => `
     <div class="card" data-countdown-timestamp="${movie.end}">
         <img class="card-img-top" src="${movie.img}" alt="${movie.name}">
+        <div class="card-layer">
+        </div>
         <div class="card-body">
             <h4 class="card-text">${movie.name}</h4>
             <p class="card-text countdown"></p>
         </div>
-
+        
     </div>
 `;
 
