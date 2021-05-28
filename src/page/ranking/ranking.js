@@ -2,7 +2,6 @@ import { writeMainHTML } from "../../common/common";
 import { comparator } from "../../common/comparator";
 import { movieApiService } from "../../services/movieApiService";
 
-//table
 const recordTemplate = (movie, index) => `
     <tr class="movie-table-record">
         <td class="movie-id">
@@ -20,7 +19,6 @@ const recordTemplate = (movie, index) => `
     </tr>
 `;
 
-//table
 const buildRanking = (movieList) => `
     <table class="table">
         <thead class="table-dark">

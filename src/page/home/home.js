@@ -29,19 +29,11 @@ const buildHome = (movielist) => `
     </div>
 `;
 
-//stoppare intervallo
+//interval
 let intervalId;
 
 const handleMoviecountdown = () => {
-    
-    //document getselector all
     const cards = document.querySelectorAll('.card');
-
-    //per ogni card -> leggere il data-countdown-timestamp
-
-    //aggiornare il countdown html
-
-    //se countdown < 0 rimuovere dal dom la card
 
     if(cards.length) {
         cards.forEach(card => {
@@ -53,7 +45,6 @@ const handleMoviecountdown = () => {
     else {
         clearInterval(intervalId);
     }
-    
 };
 
 export const loadHome = () => {
