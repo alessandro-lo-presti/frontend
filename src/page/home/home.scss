@@ -63,6 +63,15 @@
 
                 .card {
                     height: 600px;
+
+                    .card-body {
+                        font-size: 20px;
+
+                        h4 {
+                            font-size: 25px;
+                        }
+                    }
+
                 }
             }
       }
