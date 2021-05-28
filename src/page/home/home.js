@@ -13,9 +13,9 @@ const timer = (end, date) => `
 `;
 
 const movieTemplate = (movie, date) => `
-    <div class="card mx-3" data-countdown-timestamp="${movie.end}">
+    <div class="card" data-countdown-timestamp="${movie.end}">
         <img class="card-img-top" src="${movie.img}" alt="${movie.name}">
-        <div class="card-body text-center">
+        <div class="card-body">
             <h4 class="card-text">${movie.name}</h4>
             <p class="card-text countdown"></p>
         </div>
@@ -24,7 +24,7 @@ const movieTemplate = (movie, date) => `
 `;
 
 const buildHome = (movielist) => `
-    <div class="row row-cols-1 row-cols-md-5 g-4 my-3 d-flex justify-content-center">
+    <div class="card-group">
         ${movielist.map((movie) => movieTemplate(movie, new Date())).join("")}
     </div>
 `;
