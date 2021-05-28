@@ -1,3 +1,42 @@
-#movie-name, #movie-rating, #movie-views {
-    cursor: pointer;
+#movie-table-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+
+    .table {
+        width: 80%;
+        text-align: center;
+
+        thead {
+            background-color: #2b2d2f;
+            color: white;
+
+            th {
+                padding: 10px;
+            }
+        }
+
+        tbody {
+
+            tr {
+                td {
+                    padding: 10px;
+
+                    &:first-child {
+                        border-left: 1px solid lightgrey;
+                    }
+
+                    &:last-child {
+                        border-right: 1px solid lightgrey;
+                    }
+                }
+
+                &:not(tbody:last-child) {
+                    border-bottom: 1px solid lightgray;
+                }
+            }
+
+        }
+
+    }
 }

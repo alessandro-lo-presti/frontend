@@ -13,7 +13,7 @@ const buildTbodyRow = (movie, index) => `
 `;
 
 const builgBasePageHtml = () => `
-<div id="movie-table-container" class="row mt-5">
+<div id="movie-table-container">
     <table class="table">
         <thead class="table-dark">
             <th class="movie-id movie-table-header-column" data-field="id">
