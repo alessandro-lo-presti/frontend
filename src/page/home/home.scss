@@ -33,9 +33,41 @@
                         margin-bottom: 10px;
                     }
                 }
+            }
+        }
+
+    }
+
+    @media screen and (max-width: 992px) {
+        
+        .container {
+            .card-group {
+
+                .card {
+                    width: calc(33% - 20px);
+                }
 
             }
         }
+
+    }
+
+    @media screen and (max-width: 768px) {
+        
+        .container {
+            .card-group {
+                flex-direction: column;
+                align-items: center;
+
+                .card {
+                    width: 100%;
+                    max-width: 240px;
+                    margin: 0 0 30px;
+                }
+
+            }
+        }
+
     }
 
 }

@@ -28,6 +28,21 @@
                 }
             }
 
+            i {
+                display: none;
+            }
+
+            @media screen and (max-width:768px) {
+                li {
+                    display: none;
+                }
+
+                i {
+                    display: inline;
+                    font-size: 20px;
+                }
+            }
+
         }
     }
 

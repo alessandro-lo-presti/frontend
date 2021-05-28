@@ -6,6 +6,7 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <% for(var i=0; i < htmlWebpackPlugin.files.css; i++) { %>
         <link href="<%= htmlWebpackPlugin.files.css[i] %>" rel="stylesheet" />
         <% } %> <% for(var i=0; i < htmlWebpackPlugin.files.chunks; i++) { %>
@@ -26,6 +27,7 @@
                         <li class="nav-item">
                             <a class="nav-link" data-section="RANKING">Classifica</a>
                         </li>
+                        <i class="fas fa-bars"></i>
                     </ul>
                 </div>
               </nav>
