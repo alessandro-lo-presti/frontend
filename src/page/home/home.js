@@ -1,6 +1,5 @@
 import { movieApiService } from "../../services/movieApiService";
 import { writeMainHTML } from "../../common/common";
-import "./home.scss";
 
 const timer = (end, date) => `
     -${("" + Math.floor(((end - date) / 1000 / 3600) % 24)).padStart(

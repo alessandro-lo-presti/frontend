@@ -1,7 +1,6 @@
 import { writeMainHTML } from "../../common/common";
 import { movieApiService } from "../../services/movieApiService";
 import { orderByFieldAndDirection } from "./../../common/comparator";
-import "./ranking.scss";
 
 const buildTbodyRow = (movie, index) => `
     <tr class="movie-table-record">
@@ -66,9 +65,6 @@ const movieListError = () => {
     writeMainHTML("Errore ricezione dati");
 };
 
-const cleanUp = () => {
-    console.log("RANKING clean up function");
-};
 
 //controller
 const orderingData = {
@@ -78,6 +74,4 @@ const orderingData = {
 let movieList = null;
 export const loadRanking = () => {
     movieApiService.movieList().then(movieListSuccess).catch(movieListError);
-
-    return cleanUp;
 };

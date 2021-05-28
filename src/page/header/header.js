@@ -1,6 +1,5 @@
 import { loadRanking } from "../ranking/ranking";
 import { loadHome } from "../home/home";
-import "./header.scss";
 
 let currentSection = null; //id sezione
 let currentSectionCleanUp = null; //callback cleanup

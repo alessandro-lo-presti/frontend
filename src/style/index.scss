@@ -1,16 +1,7 @@
 @import "reset.scss";
+@import "variable.scss";
+@import "common.scss";
+@import "../page/header/header.scss";
+@import "../page/home/home.scss";
+@import "../page/ranking/ranking.scss";
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-size: 15px;
-    font-family: sans-serif;
-}
-
-.container {
-    max-width: 1080px;
-    margin: auto;
-    padding: 0 20px;
-}
