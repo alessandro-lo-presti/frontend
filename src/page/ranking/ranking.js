@@ -70,9 +70,14 @@ export const loadRanking = () => {
                 .addEventListener("click", (event) => {
                     const modify = movielist.sort(comparator.orderByName).map((movie, index) => 
                     recordTemplate(movie, index)).join("");
-                    const mreverse = movielist.sort(comparator.orderByName).reverse().map((movie, index) => 
-                    recordTemplate(movie, index)).join("");
-                    tablebody.innerHTML == modify ? tablebody.innerHTML = mreverse : tablebody.innerHTML = modify;
+
+                    if(tablebody.innerHTML == modify) {
+                        tablebody.innerHTML = movielist.sort(comparator.orderByName).reverse().map((movie, index) => 
+                        recordTemplate(movie, index)).join("");;
+                    }
+                    else {
+                        tablebody.innerHTML = modify;
+                    }
                 });
 
             //ordina rating
@@ -81,9 +86,14 @@ export const loadRanking = () => {
                 .addEventListener("click", (event) => {
                     const modify = movielist.sort(comparator.orderByRating).map((movie, index) => 
                     recordTemplate(movie, index)).join("");
-                    const mreverse = movielist.sort(comparator.orderByRating).reverse().map((movie, index) => 
-                    recordTemplate(movie, index)).join("");
-                    tablebody.innerHTML == modify ? tablebody.innerHTML = mreverse : tablebody.innerHTML = modify;
+
+                    if(tablebody.innerHTML == modify) {
+                        tablebody.innerHTML = movielist.sort(comparator.orderByRating).reverse().map((movie, index) => 
+                        recordTemplate(movie, index)).join("");
+                    }
+                    else {
+                        tablebody.innerHTML = modify;
+                    }
                 });
 
             //ordina views
@@ -92,9 +102,14 @@ export const loadRanking = () => {
                 .addEventListener("click", (event) => {
                     const modify = movielist.sort(comparator.orderByViews).map((movie, index) => 
                     recordTemplate(movie, index)).join("");
-                    const mreverse = movielist.sort(comparator.orderByViews).reverse().map((movie, index) => 
-                    recordTemplate(movie, index)).join("");
-                    tablebody.innerHTML == modify ? tablebody.innerHTML = mreverse : tablebody.innerHTML = modify;
+
+                    if(tablebody.innerHTML == modify) {
+                        tablebody.innerHTML = movielist.sort(comparator.orderByViews).reverse().map((movie, index) => 
+                        recordTemplate(movie, index)).join("");
+                    }
+                    else {
+                        tablebody.innerHTML = modify;
+                    }
                 });
 
         })
