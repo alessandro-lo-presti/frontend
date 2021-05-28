@@ -1,118 +1,83 @@
 import { writeMainHTML } from "../../common/common";
-import { comparator } from "../../common/comparator";
 import { movieApiService } from "../../services/movieApiService";
+import { orderByFieldAndDirection } from "./../../common/comparator";
 import "./ranking.scss";
 
-const recordTemplate = (movie, index) => `
+const buildTbodyRow = (movie, index) => `
     <tr class="movie-table-record">
-        <td class="movie-id">
-           ${index + 1}
-        </td>
-        <td class="movie-name">
-            ${movie.name}
-        </td>
-        <td class="movie-rating">
-            ${movie.rating}
-        </td>
-        <td class="movie-views">
-            ${movie.views}
-        </td>    
+        <td class="movie-id">${index + 1}</td>
+        <td class="movie-name">${movie.name}</td>
+        <td class="movie-rating">${movie.rating}</td>
+        <td class="movie-views">${movie.views}</td>    
     </tr>
 `;
 
-const buildRanking = (movieList) => `
+const builgBasePageHtml = () => `
+<div id="movie-table-container" class="row mt-5">
     <table class="table">
         <thead class="table-dark">
-            <th class="movie-id">
+            <th class="movie-id movie-table-header-column" data-field="id">
                 Id
             </th>
-            <th class="movie-name" id="movie-name">  
+            <th class="movie-name movie-table-header-column"  data-field="name">  
                 Nome
             </th>
-            <th class="movie-rating" id="movie-rating">
+            <th class="movie-rating movie-table-header-column" data-field="rating">
                 Voto
             </th>
-            <th class="movie-views" id="movie-views">
+            <th class="movie-views movie-table-header-column" data-field="views">
                 Visual
             </th>
         </thead>
-
         <tbody id="tbody">
-        ${movieList
-            .map((movie, index) => recordTemplate(movie, index)).join("")
-        }
-        </tbody>
-
-        
+        </tbody>        
     </table>
-`;
+</div>`;
+
+const buildTBody = (movieList) => {
+    movieList.sort(
+        orderByFieldAndDirection(orderingData.field, orderingData.direction)
+    );
+    document.getElementById("tbody").innerHTML = movieList
+        .map(buildTbodyRow)
+        .join("");
+};
+
+const movieListSuccess = (movieList) => {
+    writeMainHTML(builgBasePageHtml());
+    buildTBody(movieList);
+
+    document.querySelectorAll(".movie-table-header-column").forEach((item) => {
+        item.addEventListener("click", (event) => {
+            const field = event.target.getAttribute("data-field");
+            if (orderingData.field === field) {
+                orderingData.direction =
+                    orderingData.direction === "ASC" ? "DESC" : "ASC";
+            } else {
+                orderingData.field = field;
+            }
+            buildTBody(movieList);
+        });
+    });
+};
+
+const movieListError = () => {
+    movieList = null;
+    writeMainHTML("Errore ricezione dati");
+};
+
+const cleanUp = () => {
+    console.log("RANKING clean up function");
+};
 
 //controller
+const orderingData = {
+    field: "views",
+    direction: "DESC",
+};
+let movieList = null;
 export const loadRanking = () => {
-    movieApiService
-        .movieList()
-        .then((movielist) => {
-            //i dati sono arrivati! -> model
+    movieApiService.movieList().then(movieListSuccess).catch(movieListError);
 
-            //buildo la view
-            const html = `
-                <div id="movie-table-container" class="row mt-5">
-                    ${buildRanking(movielist)}
-                </div>
-            `; // --> view
-
-            writeMainHTML(html); //il controller mette in pagina la view
-
-            const tablebody = document.getElementById('tbody');
-
-            //ordina nomi
-            document
-                .getElementById("movie-name")
-                .addEventListener("click", (event) => {
-                    const change = movielist.sort(comparator.orderByName).map((movie, index) => 
-                    recordTemplate(movie, index)).join("");
-
-                    if(tablebody.innerHTML == change) {
-                        tablebody.innerHTML = movielist.sort(comparator.orderByName).reverse().map((movie, index) => 
-                        recordTemplate(movie, index)).join("");;
-                    }
-                    else {
-                        tablebody.innerHTML = change;
-                    }
-                });
-
-            //ordina rating
-            document
-                .getElementById("movie-rating")
-                .addEventListener("click", (event) => {
-                    const change = movielist.sort(comparator.orderByRating).map((movie, index) => 
-                    recordTemplate(movie, index)).join("");
-
-                    if(tablebody.innerHTML == change) {
-                        tablebody.innerHTML = movielist.sort(comparator.orderByRating).reverse().map((movie, index) => 
-                        recordTemplate(movie, index)).join("");
-                    }
-                    else {
-                        tablebody.innerHTML = change;
-                    }
-                });
-
-            //ordina views
-            document
-                .getElementById("movie-views")
-                .addEventListener("click", (event) => {
-                    const change = movielist.sort(comparator.orderByViews).map((movie, index) => 
-                    recordTemplate(movie, index)).join("");
-
-                    if(tablebody.innerHTML == change) {
-                        tablebody.innerHTML = movielist.sort(comparator.orderByViews).reverse().map((movie, index) => 
-                        recordTemplate(movie, index)).join("");
-                    }
-                    else {
-                        tablebody.innerHTML = change;
-                    }
-                });
-
-        })
-        .catch(() => writeMainHTML("Errore ricezione dati"));
+    return cleanUp;
 };

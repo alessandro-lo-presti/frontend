@@ -28,16 +28,6 @@ const orderByRating = (a, b) => {
     }
 };
 
-export const orderByFieldAndDirection = (field, direction) => (a, b) => {
-    let result = 0;
-    if (a[field] < b[field]) {
-        result = direction === "ASC" ? -1 : +1;
-    } else if (a[field] > b[field]) {
-        result = direction === "ASC" ? 1 : -1;
-    }
-    return result;
-};
-
 export const comparator = {
     orderByName: orderByName,
     orderByViews: orderByViews,

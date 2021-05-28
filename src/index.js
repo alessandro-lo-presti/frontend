@@ -1,8 +1,6 @@
-import { initializeHeader } from "./page/header/header";
-import "./style/index.scss";
-import { loadHome } from "./page/home/home";
-import { loadRanking } from "./page/ranking/ranking";
 import "bootstrap/scss/bootstrap.scss";
+import { initializeHeader } from "./page/header/header";
+import { loadHome } from "./page/home/home";
+import "./style/index.scss";
 
 initializeHeader();
-loadHome();

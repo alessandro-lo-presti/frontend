@@ -29,42 +29,56 @@ const buildHome = (movielist) => `
     </div>
 `;
 
-//interval
-let intervalId;
-
 const handleMoviecountdown = () => {
-    const cards = document.querySelectorAll('.card');
+    const cards = document.querySelectorAll(".card");
 
-    if(cards.length) {
-        cards.forEach(card => {
-            const endCard = Date.parse(card.getAttribute('data-countdown-timestamp'));
+    if (cards.length) {
+        cards.forEach((card) => {
+            const endCard = Date.parse(
+                card.getAttribute("data-countdown-timestamp")
+            );
             const time = new Date();
-            (endCard - time > 0) ? card.querySelector('.countdown').innerHTML = timer(endCard, time) : card.remove();
+            endCard - time > 0
+                ? (card.querySelector(".countdown").innerHTML = timer(
+                      endCard,
+                      time
+                  ))
+                : card.remove();
         });
-    }
-    else {
+    } else {
         clearInterval(intervalId);
     }
 };
 
+const movieListSuccess = (movielist) => {
+    //la list è caricata
+
+    //1 mettere i dati in pagina
+    const html = buildHome(movielist);
+    writeMainHTML(html);
+
+    //gestire eventuali logiche
+    intervalId = setInterval(handleMoviecountdown, 1000); //TODO gestire cambio pagina cancellare interval!
+    handleMoviecountdown();
+
+    document.querySelectorAll(".nav-link").forEach((item) => {
+        if (item.getAttribute("data-section") == "RANKING")
+            item.addEventListener("click", () => clearInterval(intervalId));
+    });
+};
+const movieListError = () => {
+    writeMainHTML("<div>Errore nel caricare i dati!</div>");
+};
+
+//interval
+let intervalId;
+const cleanUp = () => {
+    console.log("HOME -> cleaning controller");
+    clearInterval(intervalId);
+};
+
 export const loadHome = () => {
-    movieApiService
-        .movieList()
-        .then((movielist) => {
-            //la list è caricata
+    movieApiService.movieList().then(movieListSuccess).catch(movieListError);
 
-            //1 mettere i dati in pagina
-            const html = buildHome(movielist);
-            writeMainHTML(html);
-
-            //gestire eventuali logiche
-            intervalId = setInterval(handleMoviecountdown, 1000); //TODO gestire cambio pagina cancellare interval!
-            handleMoviecountdown();
-
-            document.querySelectorAll('.nav-link').forEach(item => {
-                if(item.getAttribute('data-section') == 'RANKING') 
-                    item.addEventListener('click', () => clearInterval(intervalId));
-            });
-        })
-        
+    return cleanUp;
 };
