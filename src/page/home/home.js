@@ -24,7 +24,7 @@ const movieTemplate = (movie, date) => `
 `;
 
 const buildHome = (movielist) => `
-    <div class="row row-cols-1 row-cols-md-4 g-4 my-3 d-flex justify-content-center">
+    <div class="row row-cols-1 row-cols-md-5 g-4 my-3 d-flex justify-content-center">
         ${movielist.map((movie) => movieTemplate(movie, new Date())).join("")}
     </div>
 `;
