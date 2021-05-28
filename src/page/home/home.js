@@ -24,7 +24,7 @@ const movieTemplate = (movie, date) => `
 `;
 
 const buildHome = (movielist) => `
-    <div class="card-group">
+    <div class="card-group grid-container">
         ${movielist.map((movie) => movieTemplate(movie, new Date())).join("")}
     </div>
 `;
