@@ -1,6 +1,7 @@
 import { writeMainHTML } from "../../common/common";
 import { comparator } from "../../common/comparator";
 import { movieApiService } from "../../services/movieApiService";
+import "./ranking.scss";
 
 const recordTemplate = (movie, index) => `
     <tr class="movie-table-record">
@@ -68,15 +69,15 @@ export const loadRanking = () => {
             document
                 .getElementById("movie-name")
                 .addEventListener("click", (event) => {
-                    const modify = movielist.sort(comparator.orderByName).map((movie, index) => 
+                    const change = movielist.sort(comparator.orderByName).map((movie, index) => 
                     recordTemplate(movie, index)).join("");
 
-                    if(tablebody.innerHTML == modify) {
+                    if(tablebody.innerHTML == change) {
                         tablebody.innerHTML = movielist.sort(comparator.orderByName).reverse().map((movie, index) => 
                         recordTemplate(movie, index)).join("");;
                     }
                     else {
-                        tablebody.innerHTML = modify;
+                        tablebody.innerHTML = change;
                     }
                 });
 
@@ -84,15 +85,15 @@ export const loadRanking = () => {
             document
                 .getElementById("movie-rating")
                 .addEventListener("click", (event) => {
-                    const modify = movielist.sort(comparator.orderByRating).map((movie, index) => 
+                    const change = movielist.sort(comparator.orderByRating).map((movie, index) => 
                     recordTemplate(movie, index)).join("");
 
-                    if(tablebody.innerHTML == modify) {
+                    if(tablebody.innerHTML == change) {
                         tablebody.innerHTML = movielist.sort(comparator.orderByRating).reverse().map((movie, index) => 
                         recordTemplate(movie, index)).join("");
                     }
                     else {
-                        tablebody.innerHTML = modify;
+                        tablebody.innerHTML = change;
                     }
                 });
 
@@ -100,15 +101,15 @@ export const loadRanking = () => {
             document
                 .getElementById("movie-views")
                 .addEventListener("click", (event) => {
-                    const modify = movielist.sort(comparator.orderByViews).map((movie, index) => 
+                    const change = movielist.sort(comparator.orderByViews).map((movie, index) => 
                     recordTemplate(movie, index)).join("");
 
-                    if(tablebody.innerHTML == modify) {
+                    if(tablebody.innerHTML == change) {
                         tablebody.innerHTML = movielist.sort(comparator.orderByViews).reverse().map((movie, index) => 
                         recordTemplate(movie, index)).join("");
                     }
                     else {
-                        tablebody.innerHTML = modify;
+                        tablebody.innerHTML = change;
                     }
                 });
 
