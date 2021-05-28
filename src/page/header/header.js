@@ -1,5 +1,6 @@
 import { loadRanking } from "../ranking/ranking";
 import { loadHome } from "../home/home";
+import "./header.scss";
 
 export const initializeHeader = () => {
     document.querySelectorAll(".nav-link").forEach((item) => {
