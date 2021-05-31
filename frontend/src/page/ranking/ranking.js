@@ -76,8 +76,6 @@ export const loadRanking = () => {
     movieApiService
         .movieList()
         .then((response) => response.json())
-        .then((data) => {
-            movieListSuccess(data);
-        })
+        .then(movieListSuccess)
         .catch(movieListError);
 };
