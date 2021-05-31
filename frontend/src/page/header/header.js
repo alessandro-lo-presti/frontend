@@ -28,7 +28,7 @@ const headerTemplate = `
 let currentSection = null; //id sezione
 let currentSectionCleanUp = null; //callback cleanup
 
-export const loadHeader = () => {
+export const loadHeader = (token) => {
     writePageHTML(headerTemplate);
 
     document.querySelectorAll(".nav-link").forEach((item) => {
@@ -45,10 +45,10 @@ export const loadHeader = () => {
             if (currentSectionCleanUp) currentSectionCleanUp();
             currentSection = section;
             currentSectionCleanUp =
-                section == "HOME" ? loadHome() : loadRanking();
+                section == "HOME" ? loadHome(token) : loadRanking(token);
         });
     });
 
     currentSection = "HOME";
-    currentSectionCleanUp = loadHome();
+    currentSectionCleanUp = loadHome(token);
 };

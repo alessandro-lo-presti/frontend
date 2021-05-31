@@ -17,7 +17,7 @@ const tryToLogin = () => {
     const password = document.getElementById('password').value;
         signIn(username, password)
             .then(response => response.json())
-            .then(data => data.response == 'logged' ? loadHeader() : null)
+            .then(data => data.response == 'logged' ? loadHeader(data.response) : null)
             .catch(error => console.log(error));
 }
 

@@ -1,7 +1,7 @@
 const pathApi = "http://localhost:3000/movie";
 
-const movielist = async () => {
-    return await fetch(pathApi, {
+const movielist = async (token) => {
+    return await fetch(pathApi + "?token=" + token, {
         method: "GET",
     });
 };

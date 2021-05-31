@@ -72,9 +72,9 @@ const orderingData = {
     direction: "DESC",
 };
 let movieList = null;
-export const loadRanking = () => {
+export const loadRanking = (token) => {
     movieApiService
-        .movieList()
+        .movieList(token)
         .then((response) => response.json())
         .then(movieListSuccess)
         .catch(movieListError);

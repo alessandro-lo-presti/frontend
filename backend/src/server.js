@@ -13,7 +13,7 @@ app.use(cors());
 app.get('/login', loginApi);
 
 //auth
-app.get("/movie", movieApi);
+app.get("/movie", isLogged, movieApi);
 
 app.listen(port, () =>
     console.log(`Web app server listening on port ${port}!`)

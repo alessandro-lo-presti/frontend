@@ -100,9 +100,9 @@ const cleanUp = () => {
     clearInterval(intervalId);
 };
 
-export const loadHome = () => {
+export const loadHome = (token) => {
     movieApiService
-        .movieList()
+        .movieList(token)
         .then((response) => response.json())
         .then(movieListSuccess)
         .catch(movieListError);
