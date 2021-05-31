@@ -1,0 +1,40 @@
+{
+    "movies": [
+        {
+            "id": 1,
+            "name": "Braveheart",
+            "views": 1000,
+            "rating": 8.5
+        },
+        {
+            "id": 2,
+            "name": "Pulp Fiction",
+            "views": 2500,
+            "rating": 9.1
+        },
+        {
+            "id": 3,
+            "name": "Goodbye Lenin",
+            "views": 400,
+            "rating": 8.9
+        },
+        {
+            "id": 4,
+            "name": "Harry a Pezzi",
+            "views": 1200,
+            "rating": 8.8
+        },
+        {
+            "id": 5,
+            "name": "Gattaca",
+            "views": 700,
+            "rating": 9.0
+        },
+        {
+            "id": 6,
+            "name": "Hot Fuzz",
+            "views": 100,
+            "rating": 8.2
+        }
+    ]
+}

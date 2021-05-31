@@ -65,6 +65,7 @@ const MOVIE_LIST = [
 ];
 
 const movielist = () => {
+
     return new Promise((resolve, reject) => {
         resolve(MOVIE_LIST);
     });

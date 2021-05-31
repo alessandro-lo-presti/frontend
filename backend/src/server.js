@@ -1,12 +1,15 @@
 import cors from "cors";
 import express from "express";
+import movies from "../data/movies.json";
 
 const app = express();
 const port = 3000;
 
 app.use(cors());
 
-app.get("/movie", (req, res) => {});
+app.get("/movie", (req, res) => {
+    res.json(movies);
+});
 /*
 app.get("/movie/:id",  (req, res) => {});
 app.put("/movie/:id", (req, res) => {});
