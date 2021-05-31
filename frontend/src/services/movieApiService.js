@@ -5,7 +5,7 @@ import hotfuzz from "../assets/images/hotfuzz.jpg";
 import harryapezzi from "../assets/images/harryapezzi.jpg";
 import braveheart from "../assets/images/braveheart.jpg";
 
-
+const pathApi = 'http://localhost:3000/movie';
 
 const buildDate = (delay) => {
     const date = new Date();
@@ -64,10 +64,9 @@ const MOVIE_LIST = [
     },
 ];
 
-const movielist = () => {
-
-    return new Promise((resolve, reject) => {
-        resolve(MOVIE_LIST);
+const movielist = async () => {
+    return await fetch(pathApi, {
+        method: 'GET'
     });
 };
 

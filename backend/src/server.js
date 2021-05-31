@@ -1,14 +1,17 @@
 import cors from "cors";
 import express from "express";
-import movies from "../data/movies.json";
+import dataMovies from "../data/movies.json";
 
 const app = express();
 const port = 3000;
 
-app.use(cors());
+//app.use(cors());
 
 app.get("/movie", (req, res) => {
-    res.json(movies);
+    const date = new Date();
+    //dataMovies.movies.forEach((movie, index) => movie = {...movie, img: '', end: new Date().setTime(date.getTime() + (index + 1) * 60000)});
+    dataMovies.movies.forEach((movie, index) => console(movie));
+    res.json(dataMovies);
 });
 /*
 app.get("/movie/:id",  (req, res) => {});

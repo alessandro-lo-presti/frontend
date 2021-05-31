@@ -57,7 +57,7 @@ const movieListSuccess = (movielist) => {
     //1 mettere i dati in pagina
     const html = buildHome(movielist);
     writeMainHTML(html);
-
+    
     //gestire eventuali logiche
     intervalId = setInterval(handleMoviecountdown, 1000); //TODO gestire cambio pagina cancellare interval!
     handleMoviecountdown();
@@ -78,8 +78,21 @@ const cleanUp = () => {
     clearInterval(intervalId);
 };
 
+/*
+const movielist = (data) => {
+    const date = new Date();
+    return data.movies.map(element => element = {...element, img: '', end: date.setTime(date.getTime() + 10000)});
+}
+*/
+
 export const loadHome = () => {
-    movieApiService.movieList().then(movieListSuccess).catch(movieListError);
+    movieApiService.movieList()
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // movieListSuccess(data)
+    })
+    .catch(movieListError);
 
     return cleanUp;
 };
