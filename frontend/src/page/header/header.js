@@ -28,7 +28,12 @@ const headerTemplate = `
 let currentSection = null; //id sezione
 let currentSectionCleanUp = null; //callback cleanup
 
+const setSessionToken = (token) => {
+    localStorage.setItem('token', token);
+}
+
 export const loadHeader = (token) => {
+    setSessionToken(token);
     writePageHTML(headerTemplate);
 
     document.querySelectorAll(".nav-link").forEach((item) => {
