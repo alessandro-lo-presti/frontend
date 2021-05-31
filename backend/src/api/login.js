@@ -1,7 +1,12 @@
-export const loginApi = (req, res) => 
-    (req.query.username == 'ale' && req.query.password == '123456')
-    ? res.status(200).json({"response": 'logged'})
-    : res.status(401).json({'response': 'not authorized'});
+const token = "logged";
 
-export const isLogged = (req, res, next) =>
-    req.query.token == 'logged' ? next() : res.status(401).json({'message': 'Not Authorized'});
+export const loginApi = (req, res) =>
+    req.body.username == "ale" && req.body.password == "123456"
+        ? res.status(200).json({ response: token })
+        : res.status(401).send();
+
+export const isLogged = (req, res, next) => {
+    req.headers.token && req.headers.token == token
+        ? next()
+        : res.status(401).json({ message: "Not Authorized" });
+};

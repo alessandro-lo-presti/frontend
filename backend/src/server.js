@@ -1,16 +1,17 @@
-import express from "express";
-import { movieApi } from "./api/movie.js";
+import json from "body-parser";
 import cors from "cors";
+import express from "express";
 import { isLogged, loginApi } from "./api/login.js";
+import { movieApi } from "./api/movie.js";
 
 const app = express();
 const port = 3000;
 
-//app.use(express.urlencoded({extended: true}));
+app.use(json());
 app.use(cors());
 
 //guest
-app.get('/login', loginApi);
+app.post("/login", loginApi);
 
 //auth
 app.get("/movie", isLogged, movieApi);

@@ -65,16 +65,15 @@ const movieListError = () => {
     writeMainHTML("Errore ricezione dati");
 };
 
-
 //controller
 const orderingData = {
     field: "views",
     direction: "DESC",
 };
 let movieList = null;
-export const loadRanking = (token) => {
+export const loadRanking = () => {
     movieApiService
-        .movieList(token)
+        .movieList()
         .then((response) => response.json())
         .then(movieListSuccess)
         .catch(movieListError);

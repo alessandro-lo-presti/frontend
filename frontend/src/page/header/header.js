@@ -28,12 +28,7 @@ const headerTemplate = `
 let currentSection = null; //id sezione
 let currentSectionCleanUp = null; //callback cleanup
 
-const setSessionToken = (token) => {
-    localStorage.setItem('token', token);
-}
-
-export const loadHeader = (token) => {
-    setSessionToken(token);
+export const loadWebApp = () => {
     writePageHTML(headerTemplate);
 
     document.querySelectorAll(".nav-link").forEach((item) => {
@@ -50,10 +45,10 @@ export const loadHeader = (token) => {
             if (currentSectionCleanUp) currentSectionCleanUp();
             currentSection = section;
             currentSectionCleanUp =
-                section == "HOME" ? loadHome(token) : loadRanking(token);
+                section == "HOME" ? loadHome() : loadRanking();
         });
     });
 
     currentSection = "HOME";
-    currentSectionCleanUp = loadHome(token);
+    currentSectionCleanUp = loadHome();
 };

@@ -1,8 +1,13 @@
+import { TokenService } from "./tokenService";
+
 const pathApi = "http://localhost:3000/movie";
 
-const movielist = async (token) => {
-    return await fetch(pathApi + "?token=" + token, {
+const movielist = async () => {
+    return await fetch(pathApi, {
         method: "GET",
+        headers: {
+            token: TokenService.getToken(),
+        },
     });
 };
 

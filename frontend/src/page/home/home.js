@@ -8,7 +8,6 @@ import harryapezzi from "../../assets/images/harryapezzi.jpg";
 import hotfuzz from "../../assets/images/hotfuzz.jpg";
 import pulpfiction from "../../assets/images/pulpfiction.jpg";
 
-
 const timer = (end, date) => `
     -${("" + Math.floor(((end - date) / 1000 / 3600) % 24)).padStart(
         2,
@@ -100,9 +99,9 @@ const cleanUp = () => {
     clearInterval(intervalId);
 };
 
-export const loadHome = (token) => {
+export const loadHome = () => {
     movieApiService
-        .movieList(token)
+        .movieList()
         .then((response) => response.json())
         .then(movieListSuccess)
         .catch(movieListError);
