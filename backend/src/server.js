@@ -1,7 +1,7 @@
 import express from "express";
 import { movieApi } from "./api/movie.js";
 import cors from "cors";
-import { loginApi } from "./api/login.js";
+import { isLogged, loginApi } from "./api/login.js";
 
 const app = express();
 const port = 3000;
