@@ -1,6 +1,8 @@
 import { movieApiService } from "../../services/movieApiService";
 import { writeMainHTML } from "../../common/common";
 
+import braveheart from "../../assets/images/braveheart.jpg";
+
 const timer = (end, date) => `
     -${("" + Math.floor(((end - date) / 1000 / 3600) % 24)).padStart(
         2,
@@ -11,9 +13,20 @@ const timer = (end, date) => `
 )}:${("" + (Math.floor((end - date) / 1000) % 60)).padStart(2, "0")}
 `;
 
-const movieTemplate = (movie, date) => `
+const imageFromTitle = (title) => {
+    switch (title) {
+        case "Braveheart":
+            return braveheart;
+        default:
+            return braveheart;
+    }
+};
+
+const movieTemplate = (movie) => `
     <div class="card" data-countdown-timestamp="${movie.end}">
-        <img class="card-img-top" src="${movie.img}" alt="${movie.name}">
+        <img class="card-img-top" src="${imageFromTitle(movie.name)}" alt="${
+    movie.name
+}"> 
         <div class="card-layer">
         </div>
         <div class="card-body">
@@ -26,7 +39,7 @@ const movieTemplate = (movie, date) => `
 
 const buildHome = (movielist) => `
     <div class="card-group grid-container">
-        ${movielist.map((movie) => movieTemplate(movie, new Date())).join("")}
+        ${movielist.map(movieTemplate).join("")}
     </div>
 `;
 
@@ -35,9 +48,7 @@ const handleMoviecountdown = () => {
 
     if (cards.length) {
         cards.forEach((card) => {
-            const endCard = Date.parse(
-                card.getAttribute("data-countdown-timestamp")
-            );
+            const endCard = card.getAttribute("data-countdown-timestamp");
             const time = new Date();
             endCard - time > 0
                 ? (card.querySelector(".countdown").innerHTML = timer(
@@ -57,15 +68,10 @@ const movieListSuccess = (movielist) => {
     //1 mettere i dati in pagina
     const html = buildHome(movielist);
     writeMainHTML(html);
-    
+
     //gestire eventuali logiche
     intervalId = setInterval(handleMoviecountdown, 1000); //TODO gestire cambio pagina cancellare interval!
     handleMoviecountdown();
-
-    document.querySelectorAll(".nav-link").forEach((item) => {
-        if (item.getAttribute("data-section") == "RANKING")
-            item.addEventListener("click", () => clearInterval(intervalId));
-    });
 };
 const movieListError = () => {
     writeMainHTML("<div>Errore nel caricare i dati!</div>");
@@ -86,13 +92,14 @@ const movielist = (data) => {
 */
 
 export const loadHome = () => {
-    movieApiService.movieList()
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        // movieListSuccess(data)
-    })
-    .catch(movieListError);
+    movieApiService
+        .movieList()
+        .then((response) => response.json())
+        .then((data) => {
+            // console.log(data);
+            movieListSuccess(data);
+        })
+        .catch(movieListError);
 
     return cleanUp;
 };
