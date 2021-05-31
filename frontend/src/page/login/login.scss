@@ -1,0 +1,29 @@
+.login {
+    width: 300px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid lightgray;
+    border-radius: 5px;
+
+    h1 {
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 22px;
+    }
+
+    h1, label {
+        color: #2b2d2f;
+    }
+
+    input {
+        margin: 15px 0;
+    }
+
+}

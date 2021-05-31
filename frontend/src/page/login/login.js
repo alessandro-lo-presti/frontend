@@ -4,6 +4,7 @@ import { loadHeader } from "../header/header";
 
 const loginTemplate = `
     <div class='login'>
+        <h1>Login</h1>
         <label for="username">Username</label>
         <input type="text" name"username" id="username">
         <label for="password">Password</label>
