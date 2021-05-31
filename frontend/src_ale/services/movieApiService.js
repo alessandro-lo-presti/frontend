@@ -5,8 +5,6 @@ import hotfuzz from "../assets/images/hotfuzz.jpg";
 import harryapezzi from "../assets/images/harryapezzi.jpg";
 import braveheart from "../assets/images/braveheart.jpg";
 
-
-
 const buildDate = (delay) => {
     const date = new Date();
     date.setTime(date.getTime() + delay); //ms
@@ -65,6 +63,7 @@ const MOVIE_LIST = [
 ];
 
 const movielist = () => {
+    //fetch http://localhost:3000/movie
     return new Promise((resolve, reject) => {
         resolve(MOVIE_LIST);
     });
@@ -73,3 +72,13 @@ const movielist = () => {
 export const movieApiService = {
     movieList: movielist,
 };
+
+//REST
+/*
+risorsa -> BASE_URL/movie
+GET -> lista movies
+GET -> /movie/<id> -> 1 risorsa con quell'id
+POST -> crea una nuova risolsa 
+PUT /movie/<id> -> update
+DELETE /movie/<id> -> remove
+*/
