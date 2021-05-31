@@ -73,5 +73,11 @@ const orderingData = {
 };
 let movieList = null;
 export const loadRanking = () => {
-    movieApiService.movieList().then(movieListSuccess).catch(movieListError);
+    movieApiService
+        .movieList()
+        .then((response) => response.json())
+        .then((data) => {
+            movieListSuccess(data);
+        })
+        .catch(movieListError);
 };
