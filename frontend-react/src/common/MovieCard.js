@@ -9,7 +9,6 @@ import hotfuzz from "../assets/images/hotfuzz.jpg";
 import pulpfiction from "../assets/images/pulpfiction.jpg";
 
 const imageFromTitle = (title) => {
-    console.log(title);
     switch (title) {
         case "Braveheart":
             return braveheart;
@@ -28,43 +27,42 @@ const imageFromTitle = (title) => {
     }
 };
 
-const timer = (end, date) => `
-    -${("" + Math.floor(((end - date) / 1000 / 3600) % 24)).padStart(
+const timer = (end) => {
+    console.log(Math.floor(((end) / 1000 / 3600) % 24));
+    return `
+    -${("" + Math.floor(((end) / 1000 / 3600) % 24)).padStart(
         2,
         "0"
-    )}:${("" + Math.floor(((end - date) / 1000 / 60) % 60)).padStart(
+    )}:${("" + Math.floor(((end) / 1000 / 60) % 60)).padStart(
     2,
     "0"
-)}:${("" + (Math.floor((end - date) / 1000) % 60)).padStart(2, "0")}
+)}:${("" + (Math.floor((end) / 1000) % 60)).padStart(2, "0")}
 `;
+}
 
 class MovieCard extends Component {
 
-    countdownHandler = () => {
-        const cards = document.querySelectorAll(".card");
-        
-        if (cards.length) {
-            cards.forEach((card) => {
-                const endCard = card.getAttribute("data-countdown-timestamp");
-                const time = new Date();
-                endCard - time > 0
-                    ? (card.querySelector(".countdown").innerHTML = timer(
-                          endCard,
-                          time
-                      ))
-                    : card.remove();
-            });
-        }
+    componentDidMount() {
+        console.log('movieCard componentDidMount');
+    }
+
+    componentDidUpdate() {
+        console.log('movieCard componentDidMount');
+    }
+
+    componentWillUnmount() {
+        console.log('movieCard componentWillUnmount');
     }
 
     
     render() {
+        console.log('movieCard render');
         return (
-        <Card className='card' data-countdown-timestamp={this.props.end}>
+        <Card className='card'>
             <img src={imageFromTitle(this.props.title)} alt={this.props.title} />
             <div className='card-info'>
                 <h3>{this.props.title}</h3>
-                <p className='countdown'></p>
+                <p className='countdown'>{timer(this.props.end)}</p>
             </div>
         </Card>
         );
