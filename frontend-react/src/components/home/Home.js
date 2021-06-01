@@ -20,15 +20,16 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if(lockTimer)
+    if(lockTimer) {
       timer();
+    }
   });
 
   const timer = () => {
     const movielist = movies;
     const movietimeleft = arrayTimeLeft;
 
-    const interval =setInterval(() => {
+    setTimeout(() => {
       const now = new Date();
       if(movielist.length > 0){
         movielist.forEach((movie, index) => {
@@ -42,9 +43,6 @@ function Home() {
           }
           setArrayTimeLeft(movietimeleft);
         });
-      }
-      else {
-        clearInterval(interval);
       }
     }, 1000);
   }
