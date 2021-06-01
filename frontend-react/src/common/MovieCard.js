@@ -40,33 +40,17 @@ const timer = (end) => {
 `;
 }
 
-class MovieCard extends Component {
+function MovieCard(props) {
 
-    componentDidMount() {
-        console.log('movieCard componentDidMount');
-    }
-
-    componentDidUpdate() {
-        console.log('movieCard componentDidMount');
-    }
-
-    componentWillUnmount() {
-        console.log('movieCard componentWillUnmount');
-    }
-
-    
-    render() {
-        console.log('movieCard render');
-        return (
-        <Card className='card'>
-            <img src={imageFromTitle(this.props.title)} alt={this.props.title} />
-            <div className='card-info'>
-                <h3>{this.props.title}</h3>
-                <p className='countdown'>{timer(this.props.end)}</p>
-            </div>
-        </Card>
-        );
-    }
+    return (
+    <Card className='card'>
+        <img src={imageFromTitle(props.title)} alt={props.title} />
+        <div className='card-info'>
+            <h3>{props.title}</h3>
+            <p className='countdown'>{timer(props.end)}</p>
+        </div>
+    </Card>
+    );
 }
 
 export default MovieCard;
