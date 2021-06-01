@@ -86,7 +86,7 @@ const movieListSuccess = (movielist) => {
 
     //gestire eventuali logiche
     intervalId = setInterval(handleMoviecountdown, 1000); //TODO gestire cambio pagina cancellare interval!
-    handleMoviecountdown();
+    //handleMoviecountdown();
 };
 const movieListError = () => {
     writeMainHTML("<div>Errore nel caricare i dati!</div>");
