@@ -6,16 +6,22 @@ import { Container, Grid } from '@material-ui/core';
 function Home() {
   const [movies, setMovies] = useState([]);
   const [arrayTimeLeft, setArrayTimeLeft] = useState([]);
+  const [lockTimer, setLockTimer] = useState(0);
 
   useEffect(() => {
     movieApi()
       .then(response => response.json())
       .then(data => {
+        setLockTimer(1);
         setMovies(data);
         setArrayTimeLeft(data.map(movie => movie.end - new Date()));
-        timer();
       })
       .catch(error => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    if(lockTimer)
+      timer();
   });
 
   const timer = () => {

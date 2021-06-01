@@ -28,7 +28,6 @@ const imageFromTitle = (title) => {
 };
 
 const timer = (end) => {
-    console.log(Math.floor(((end) / 1000 / 3600) % 24));
     return `
     -${("" + Math.floor(((end) / 1000 / 3600) % 24)).padStart(
         2,
@@ -41,7 +40,6 @@ const timer = (end) => {
 }
 
 function MovieCard(props) {
-
     return (
     <Card className='card'>
         <img src={imageFromTitle(props.title)} alt={props.title} />

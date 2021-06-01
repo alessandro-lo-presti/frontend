@@ -14,7 +14,6 @@ class Home extends Component {
   }
 
   componentDidMount(propsPrecedenti) {
-    console.log('home componentDidMount');
     movieApi()
       .then(response => response.json())
       .then(data => {
@@ -22,14 +21,6 @@ class Home extends Component {
         this.timer();
       })
       .catch(error => console.log(error));
-  }
-
-  componentDidUpdate() {
-    console.log('home componentDidUpdate');
-  }
-
-  componentWillUnmount() {
-    console.log('home componentWillUnmount');
   }
 
   timer() {
@@ -57,7 +48,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log("render lista movies", this.state.movies);
     return (
       <Container maxWidth="md">
         <Grid container direction="row" justify="flex-start" alignItems="center">
