@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { movieApi } from "../../services/ApiServices";
-import Card from "../../common/Card"
+import MovieCard from "../../common/MovieCard"
+import { Container, Grid } from '@material-ui/core';
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -15,11 +16,13 @@ function Home() {
   });
 
   return (
-    <div className='cards-container'>
-      {movies.map((movie, index) => (
-        <Card key={index} title={movie.name} time={movie.id}/>
-      ))}
-    </div>
+    <Container maxWidth="md">
+      <Grid container direction="row" justify="flex-start" alignItems="center">
+        {movies.map((movie, index) => (
+          <MovieCard key={index} title={movie.name} time={movie.name}/>
+        ))}
+      </Grid>
+    </Container>
   );
 }
 
