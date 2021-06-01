@@ -6,7 +6,7 @@ export const movieApi = (req, res) => {
     res.json(
         dataMovies.movies.map((v, i) => ({
             ...v,
-            end: now + 1000 * 60 * (i + 1),
+            end: now + 1000 * 5 * (i + 1),
         }))
     );
 };

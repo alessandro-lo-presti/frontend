@@ -31,7 +31,7 @@ function Home() {
 
     setTimeout(() => {
       const now = new Date();
-      if(movielist.length > 0){
+      if(movielist.length > 0) {
         movielist.forEach((movie, index) => {
           if(movie.end <= now) {
             movielist.splice(index, 1);
