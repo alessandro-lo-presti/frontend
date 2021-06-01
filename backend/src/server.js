@@ -5,7 +5,7 @@ import { isLogged, loginApi } from "./api/login.js";
 import { movieApi } from "./api/movie.js";
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.use(json());
 app.use(cors());
