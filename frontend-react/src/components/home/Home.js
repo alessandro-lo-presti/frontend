@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { movieApi } from "../../services/ApiServices";
 import MovieCard from "../../common/MovieCard";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 
 const getNow = () => new Date().getTime();
 
@@ -12,6 +12,8 @@ function Home() {
 
     useEffect(() => {
         let intervalId = null;
+
+        //attivare lo spinner
         movieApi()
             .then((response) => response.json())
             .then((data) => {
@@ -19,8 +21,12 @@ function Home() {
                 intervalId = setInterval(() => {
                     setNow(getNow());
                 }, 1000);
+                //disattivarlo
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                console.log(error);
+                //disattivarlo
+            });
 
         return () => {
             if (intervalId) {
@@ -38,16 +44,22 @@ function Home() {
                 justify="flex-start"
                 alignItems="center"
             >
-                {movies
-                    .filter((movie) => movie.end > now)
-                    .map((movie) => (
-                        <MovieCard
-                            key={movie.id}
-                            title={movie.name}
-                            end={movie.end}
-                            now={now}
-                        />
-                    ))}
+                {movies.filter((movie) => movie.end > now).length > 0 ? (
+                    movies
+                        .filter((movie) => movie.end > now)
+                        .map((movie) => (
+                            <MovieCard
+                                key={movie.id}
+                                title={movie.name}
+                                end={movie.end}
+                                now={now}
+                            />
+                        ))
+                ) : (
+                    <Typography variant="h1" component="h2">
+                        Non ci sono film disponibili
+                    </Typography>
+                )}
             </Grid>
         </Container>
     );
