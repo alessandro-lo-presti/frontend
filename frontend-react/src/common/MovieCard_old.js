@@ -1,4 +1,4 @@
-import { Card } from "@material-ui/core";
+import { Card, makeStyles } from "@material-ui/core";
 import braveheart from "../assets/images/braveheart.jpg";
 import gattaca from "../assets/images/gattaca.jpg";
 import goodbyelenin from "../assets/images/goodbyelenin.jpg";
@@ -33,13 +33,13 @@ const formatTimer = (end) => {
 `;
 };
 
-function MovieCard({ title, end, now }) {
+function MovieCard({ title, end }) {
     return (
         <Card>
             <img src={imageFromTitle(title)} alt={title} />
             <div className="card-info">
                 <h3>{title}</h3>
-                <p className="countdown">{formatTimer(end - now)}</p>
+                <p className="countdown">{formatTimer(end)}</p>
             </div>
         </Card>
     );
