@@ -6,7 +6,7 @@ const useStyles = makeStyles({
     table: {
       minWidth: 650,
     },
-  });
+});
 
 function Ranking() {
     const [movies, setMovies] = useState([]);
@@ -23,13 +23,17 @@ function Ranking() {
             });
     }, []);
 
+    const provaClick = () => {
+        console.log(this);
+    }
+
     return (
         <Container maxWidth="md">
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
+                            <TableCell onClick={provaClick}>ID</TableCell>
                             <TableCell>Name</TableCell>
                             <TableCell>Rating</TableCell>
                             <TableCell>Views</TableCell>

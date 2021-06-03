@@ -12,21 +12,6 @@ code {
     monospace;
 }
 
-header {
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-}
-
-header ul {
-  display: flex;
-  list-style: none;
-}
-
-header ul li {
-  margin-left: 10px;
-}
-
 img {
   height: 300px;
 }
