@@ -13,7 +13,6 @@ function Ranking() {
     const classes= useStyles();
 
     useEffect(() => {
-
         movieApi()
             .then((response) => response.json())
             .then((data) => {
@@ -23,7 +22,6 @@ function Ranking() {
                 console.log(error);
             });
     }, []);
-
 
     return (
         <Container maxWidth="md">
@@ -38,14 +36,14 @@ function Ranking() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {movies.map((movie) => (
+                    {movies.map((movie, index) => (
                         <TableRow key={movie.name}>
-                        <TableCell component="th" scope="row">
-                            {movie.id}
-                        </TableCell>
-                        <TableCell>{movie.name}</TableCell>
-                        <TableCell>{movie.rating}</TableCell>
-                        <TableCell>{movie.views}</TableCell>
+                            <TableCell component="th" scope="row">
+                                {index + 1}
+                            </TableCell>
+                            <TableCell>{movie.name}</TableCell>
+                            <TableCell>{movie.rating}</TableCell>
+                            <TableCell>{movie.views}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
