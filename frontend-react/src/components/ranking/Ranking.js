@@ -19,7 +19,6 @@ const orderByFieldAndDirection = (field, direction) => (a, b) => {
 };
 
 function Ranking() {
-    console.log('RANKING');
     const [movies, setMovies] = useState([]);
     const classes= useStyles();
     const [orderingData, setOrderingData] = useState({
@@ -39,7 +38,6 @@ function Ranking() {
     }, []);
 
     const tableHeaderClick = (e) => {
-        console.log('prova');
         const field = e.target.getAttribute('data-field');
 
         setOrderingData({
