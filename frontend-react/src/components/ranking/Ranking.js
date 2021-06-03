@@ -8,9 +8,24 @@ const useStyles = makeStyles({
     },
 });
 
+const orderByFieldAndDirection = (field, direction) => (a, b) => {
+    let result = 0;
+    if (a[field] < b[field]) {
+        result = direction === "ASC" ? -1 : +1;
+    } else if (a[field] > b[field]) {
+        result = direction === "ASC" ? 1 : -1;
+    }
+    return result;
+};
+
 function Ranking() {
+    console.log('RANKING');
     const [movies, setMovies] = useState([]);
     const classes= useStyles();
+    const [orderingData, setOrderingData] = useState({
+        field: 'views',
+        direction: 'DESC'
+    });
 
     useEffect(() => {
         movieApi()
@@ -23,8 +38,14 @@ function Ranking() {
             });
     }, []);
 
-    const provaClick = () => {
-        console.log(this);
+    const tableHeaderClick = (e) => {
+        console.log('prova');
+        const field = e.target.getAttribute('data-field');
+
+        setOrderingData({
+            direction: orderingData.field === field ? (orderingData.direction === 'ASC' ? 'DESC' : 'ASC') : 'ASC',
+            field: field
+        });
     }
 
     return (
@@ -33,14 +54,14 @@ function Ranking() {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell onClick={provaClick}>ID</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Rating</TableCell>
-                            <TableCell>Views</TableCell>
+                            <TableCell onClick={tableHeaderClick} data-field="id">ID</TableCell>
+                            <TableCell onClick={tableHeaderClick} data-field="name">Name</TableCell>
+                            <TableCell onClick={tableHeaderClick} data-field="rating">Rating</TableCell>
+                            <TableCell onClick={tableHeaderClick} data-field="views">Views</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {movies.map((movie, index) => (
+                    {movies.sort(orderByFieldAndDirection(orderingData.field, orderingData.direction)).map((movie, index) => (
                         <TableRow key={movie.name}>
                             <TableCell component="th" scope="row">
                                 {index + 1}
