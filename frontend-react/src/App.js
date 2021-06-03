@@ -6,6 +6,7 @@ import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Ranking from "./components/ranking/Ranking";
+import NotFound from "./components/error/NotFound";
 
 function App() {
     const theme = useMemo(
@@ -30,6 +31,9 @@ function App() {
                     </Route>
                     <Route path="/ranking">
                         <Ranking />
+                    </Route>
+                    <Route path="*">
+                        <NotFound />
                     </Route>
                 </Switch>
             </Router>
