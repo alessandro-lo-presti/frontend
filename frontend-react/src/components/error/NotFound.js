@@ -1,8 +1,12 @@
+import { Container, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({});
+
 function NotFound() {
     return (
-        <div>
+        <Container maxWidth="md">
             404 not found
-        </div>
+        </Container>
     );
 }
 
