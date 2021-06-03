@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { movieApi } from "../../services/ApiServices";
 import MovieCard from "../../common/MovieCard";
-import { Container, Grid, Typography, CircularProgress } from "@material-ui/core";
+import {
+    Container,
+    Grid,
+    Typography,
+    CircularProgress,
+} from "@material-ui/core";
 
 const getNow = () => new Date().getTime();
 
@@ -9,12 +14,10 @@ function Home() {
     console.log("HOME FUNCTION!");
     const [movies, setMovies] = useState([]);
     const [now, setNow] = useState(getNow());
-    const [isLogged, setIsLogged] = useState(false); 
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         let intervalId = null;
-
-        //attivare lo spinner
 
         movieApi()
             .then((response) => response.json())
@@ -23,13 +26,11 @@ function Home() {
                 intervalId = setInterval(() => {
                     setNow(getNow());
                 }, 1000);
-                //disattivarlo
-                setIsLogged(true);
+                setIsLoaded(true);
             })
             .catch((error) => {
                 console.log(error);
-                //disattivarlo
-                setIsLogged(true)
+                setIsLoaded(true);
             });
 
         return () => {
@@ -48,7 +49,7 @@ function Home() {
                 justify="flex-start"
                 alignItems="center"
             >
-                { isLogged ? (
+                {isLoaded ? (
                     movies.filter((movie) => movie.end > now).length > 0 ? (
                         movies
                             .filter((movie) => movie.end > now)
@@ -65,7 +66,9 @@ function Home() {
                             Non ci sono film disponibili
                         </Typography>
                     )
-                ) : <CircularProgress />}
+                ) : (
+                    <CircularProgress />
+                )}
             </Grid>
         </Container>
     );

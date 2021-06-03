@@ -1,10 +1,21 @@
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, makeStyles, Paper, Container } from "@material-ui/core";
+import {
+    TableContainer,
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+    makeStyles,
+    Paper,
+    Container,
+    CircularProgress,
+} from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { movieApi } from "../../services/ApiServices";
 
 const useStyles = makeStyles({
     table: {
-      minWidth: 650,
+        minWidth: 650,
     },
 });
 
@@ -19,49 +30,69 @@ const orderByFieldAndDirection = (field, direction) => (a, b) => {
 };
 
 function Ranking() {
+    const classes = useStyles();
     const [movies, setMovies] = useState([]);
-    const classes= useStyles();
     const [orderingData, setOrderingData] = useState({
-        field: 'views',
-        direction: 'DESC'
+        field: "views",
+        direction: "DESC",
     });
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         movieApi()
             .then((response) => response.json())
             .then((data) => {
                 setMovies(data);
+                setIsLoaded(true);
             })
             .catch((error) => {
                 console.log(error);
+                setIsLoaded(true);
             });
     }, []);
 
-    const tableHeaderClick = (event) => {
-        const field = event.target.getAttribute('data-field');
-
+    const tableHeaderClick = (field) => {
         setOrderingData({
-            direction: orderingData.field === field ? (orderingData.direction === 'ASC' ? 'DESC' : 'ASC') : 'ASC',
-            field: field
+            direction:
+                orderingData.field === field
+                    ? orderingData.direction === "ASC"
+                        ? "DESC"
+                        : "ASC"
+                    : "ASC",
+            field: field,
         });
-    }
+    };
 
-    return (
+    return isLoaded ? (
         <Container maxWidth="md">
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell onClick={tableHeaderClick} data-field="id">ID</TableCell>
-                            <TableCell onClick={tableHeaderClick} data-field="name">Name</TableCell>
-                            <TableCell onClick={tableHeaderClick} data-field="rating">Rating</TableCell>
-                            <TableCell onClick={tableHeaderClick} data-field="views">Views</TableCell>
+                            <TableCell data-field="id">ID</TableCell>
+                            <TableCell onClick={() => tableHeaderClick("name")}>
+                                Name
+                            </TableCell>
+                            <TableCell
+                                onClick={() => tableHeaderClick("rating")}
+                            >
+                                Rating
+                            </TableCell>
+                            <TableCell
+                                onClick={() => tableHeaderClick("views")}
+                            >
+                                Views
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {
-                        movies
-                            .sort(orderByFieldAndDirection(orderingData.field, orderingData.direction))
+                        {movies
+                            .sort(
+                                orderByFieldAndDirection(
+                                    orderingData.field,
+                                    orderingData.direction
+                                )
+                            )
                             .map((movie, index) => (
                                 <TableRow key={movie.name}>
                                     <TableCell component="th" scope="row">
@@ -71,12 +102,13 @@ function Ranking() {
                                     <TableCell>{movie.rating}</TableCell>
                                     <TableCell>{movie.views}</TableCell>
                                 </TableRow>
-                            ))
-                    }
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>
         </Container>
+    ) : (
+        <CircularProgress />
     );
 }
 
