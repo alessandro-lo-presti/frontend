@@ -37,8 +37,8 @@ function Ranking() {
             });
     }, []);
 
-    const tableHeaderClick = (e) => {
-        const field = e.target.getAttribute('data-field');
+    const tableHeaderClick = (event) => {
+        const field = event.target.getAttribute('data-field');
 
         setOrderingData({
             direction: orderingData.field === field ? (orderingData.direction === 'ASC' ? 'DESC' : 'ASC') : 'ASC',
@@ -59,16 +59,20 @@ function Ranking() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {movies.sort(orderByFieldAndDirection(orderingData.field, orderingData.direction)).map((movie, index) => (
-                        <TableRow key={movie.name}>
-                            <TableCell component="th" scope="row">
-                                {index + 1}
-                            </TableCell>
-                            <TableCell>{movie.name}</TableCell>
-                            <TableCell>{movie.rating}</TableCell>
-                            <TableCell>{movie.views}</TableCell>
-                        </TableRow>
-                    ))}
+                    {
+                        movies
+                            .sort(orderByFieldAndDirection(orderingData.field, orderingData.direction))
+                            .map((movie, index) => (
+                                <TableRow key={movie.name}>
+                                    <TableCell component="th" scope="row">
+                                        {index + 1}
+                                    </TableCell>
+                                    <TableCell>{movie.name}</TableCell>
+                                    <TableCell>{movie.rating}</TableCell>
+                                    <TableCell>{movie.views}</TableCell>
+                                </TableRow>
+                            ))
+                    }
                     </TableBody>
                 </Table>
             </TableContainer>
