@@ -22,6 +22,9 @@ export const movieSlice = createSlice({
             state.movies = action.payload;
             state.loading = false;
         },
+        [getMovies.rejected]: (state, action) => {
+          state.loading = false;
+      },
     },
   })
     
