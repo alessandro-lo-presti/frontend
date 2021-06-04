@@ -1,5 +1,7 @@
 import { Container, makeStyles } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 import {Link} from "react-router-dom";  
+import { cleanToken } from "../../redux/slices/loginSlice";
 
 const useStyles = makeStyles({
     header: {
@@ -25,6 +27,11 @@ const useStyles = makeStyles({
 
 function Header() {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const logout = () => {
+        dispatch(cleanToken());
+    }
 
     return (
         <Container maxWidth="md" className={classes.header}>
@@ -35,6 +42,9 @@ function Header() {
                 </Link>
                 <Link to="/ranking" className={classes.link}>
                     <li>Classifica</li>
+                </Link>
+                <Link to="/" className={classes.link} onClick={logout}>
+                    <li>Logout</li>
                 </Link>
             </ul>
         </Container>

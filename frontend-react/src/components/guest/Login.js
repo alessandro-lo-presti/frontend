@@ -1,4 +1,4 @@
-import { Button, Container, makeStyles, TextField } from "@material-ui/core";
+import { Button, CircularProgress, Container, makeStyles, TextField } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { tryLogin } from "../../redux/slices/loginSlice";
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
 function Login() {
     const classes = useStyles();
-    const {token} = useSelector(state => state.token);
+    const {token, waiting} = useSelector(state => state.token, state => state.waiting);
     const dispatch = useDispatch();
 
     const sendLoginData = (event) => {
@@ -46,6 +46,7 @@ function Login() {
                     <TextField id="password" classes={classes.input} label="Password" variant="filled" type="password" placeholder="Inserisci password..."/>
                     <Button className={classes.button} variant="contained" color="primary" type="submit" onClick={sendLoginData}>Invia</Button>
                 </form>
+                { waiting ? <CircularProgress /> : "" }
             </div>
         </Container>
     );

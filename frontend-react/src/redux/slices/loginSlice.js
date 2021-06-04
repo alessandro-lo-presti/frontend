@@ -12,21 +12,30 @@ export const loginSlice = createSlice({
     name: 'login',
     initialState: {
         waiting: false,
-        token: 'default'
+        token: localStorage.getItem("token")
+    },
+    reducers: {
+        cleanToken: (state) => {
+            localStorage.setItem("token", '');
+            state.token = '';
+            state.waiting = false;
+        }
     },
     extraReducers: {
         [tryLogin.pending]: (state) => {
             state.waiting = true;
         },
         [tryLogin.fulfilled]: (state, action) => {
-            console.log('successo');
             state.token = action.payload.response;
             state.status = false;
+            localStorage.setItem("token", state.token);
         },
         [tryLogin.rejected]: (state, action) => {
             state.waiting = false;
         },
     },
 });
+
+export const {cleanToken} = loginSlice.actions;
 
 export default loginSlice.reducer;
