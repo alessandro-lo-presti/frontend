@@ -8,7 +8,7 @@ export const getMovies = createAsyncThunk(
     }
   )
 
-export const rankingSlice = createSlice({
+export const movieSlice = createSlice({
     name: 'fetcher',
     initialState: {
         loading: false,
@@ -25,4 +25,4 @@ export const rankingSlice = createSlice({
     },
   })
     
-  export default rankingSlice.reducer;
+  export default movieSlice.reducer;

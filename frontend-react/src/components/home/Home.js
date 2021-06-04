@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMovies } from "../../redux/slices/homeSlice";
+import { getMovies } from "../../redux/slices/movieSlice";
 import MovieCard from "../../common/MovieCard";
 import {
     Container,

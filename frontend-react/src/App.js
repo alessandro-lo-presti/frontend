@@ -4,11 +4,13 @@ import { ThemeProvider } from "@material-ui/styles";
 import React, { useMemo } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NotFound from "./components/error/NotFound";
+import Login from "./components/guest/Login";
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import Ranking from "./components/ranking/Ranking";
 
 function App() {
+    const logged = false;
     const theme = useMemo(
         () =>
             createMuiTheme({
@@ -23,19 +25,26 @@ function App() {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
 
-                <Header />
-
-                <Switch>
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                    <Route path="/ranking">
-                        <Ranking />
-                    </Route>
-                    <Route path="*">
-                        <NotFound />
-                    </Route>
-                </Switch>
+                {logged ? (
+                    <>
+                        <Header></Header>
+                        <Switch>
+                            <Route exact path="/">
+                                <Home />
+                            </Route>
+                            <Route path="/ranking">
+                                <Ranking />
+                            </Route>
+                            <Route path="*">
+                                <NotFound />
+                            </Route>
+                        </Switch>
+                    </>
+                    ) : (
+                        <Login />
+                    )
+                }
+                
             </ThemeProvider>
         </Router>
     );
