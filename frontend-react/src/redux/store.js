@@ -1,5 +1,8 @@
-import configureStore from "@reduxjs/toolkit";
+import {configureStore} from "@reduxjs/toolkit";
+import homeReducer from "./slices/homeSlice";
 
 export default configureStore({
-    reducer: {},
+    reducer: {
+        movies: homeReducer,
+    },
 });

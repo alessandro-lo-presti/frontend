@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { movieApi } from "../../services/ApiServices";
+import { useDispatch, useSelector } from "react-redux";
+import { getMovies } from "../../redux/slices/homeSlice";
 import MovieCard from "../../common/MovieCard";
 import {
     Container,
@@ -8,30 +9,23 @@ import {
     CircularProgress,
 } from "@material-ui/core";
 
+
 const getNow = () => new Date().getTime();
 
 function Home() {
     console.log("HOME FUNCTION!");
-    const [movies, setMovies] = useState([]);
+    const {movies, loading} = useSelector(state => state.movies, state => state.loading);
+    const dispatch = useDispatch();
     const [now, setNow] = useState(getNow());
-    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         let intervalId = null;
 
-        movieApi()
-            .then((response) => response.json())
-            .then((data) => {
-                setMovies(data);
-                intervalId = setInterval(() => {
-                    setNow(getNow());
-                }, 1000);
-                setIsLoaded(true);
-            })
-            .catch((error) => {
-                console.log(error);
-                setIsLoaded(true);
-            });
+        dispatch(getMovies());
+
+        intervalId = setInterval(() => {
+            setNow(getNow());
+        }, 1000);
 
         return () => {
             if (intervalId) {
@@ -49,7 +43,7 @@ function Home() {
                 justify="flex-start"
                 alignItems="center"
             >
-                {isLoaded ? (
+                {!loading ? (
                     movies.filter((movie) => movie.end > now).length > 0 ? (
                         movies
                             .filter((movie) => movie.end > now)
