@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NotFound from "./components/error/NotFound";
 import Login from "./components/guest/Login";
 import Header from "./components/header/Header";
-import Home from "./components/restricted/home/Home";
+import Home from "./components/home/Home";
 import Ranking from "./components/ranking/Ranking";
 
 function App() {

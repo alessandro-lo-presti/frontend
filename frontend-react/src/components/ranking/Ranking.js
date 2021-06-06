@@ -11,7 +11,8 @@ import {
     CircularProgress,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { movieApi } from "../../services/ApiServices";
+import { useDispatch, useSelector } from "react-redux";
+import { getRankMovies, sortRank } from "../../redux/slices/rankingSlice";
 
 const useStyles = makeStyles({
     table: {
@@ -19,36 +20,17 @@ const useStyles = makeStyles({
     },
 });
 
-const orderByFieldAndDirection = (field, direction) => (a, b) => {
-    let result = 0;
-    if (a[field] < b[field]) {
-        result = direction === "ASC" ? -1 : +1;
-    } else if (a[field] > b[field]) {
-        result = direction === "ASC" ? 1 : -1;
-    }
-    return result;
-};
-
 function Ranking() {
     const classes = useStyles();
-    const [movies, setMovies] = useState([]);
+    const {ranking, loading} = useSelector(state => state.ranking, state => state.loading);
+    const dispatch = useDispatch();
     const [orderingData, setOrderingData] = useState({
         field: "views",
         direction: "DESC",
     });
-    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        movieApi()
-            .then((response) => response.json())
-            .then((data) => {
-                setMovies(data);
-                setIsLoaded(true);
-            })
-            .catch((error) => {
-                console.log(error);
-                setIsLoaded(true);
-            });
+        dispatch(getRankMovies());
     }, []);
 
     const tableHeaderClick = (field) => {
@@ -61,9 +43,10 @@ function Ranking() {
                     : "ASC",
             field: field,
         });
+        dispatch(sortRank({ranking, orderingData}));
     };
 
-    return isLoaded ? (
+    return !loading ? (
         <Container maxWidth="md">
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
@@ -86,13 +69,7 @@ function Ranking() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {movies
-                            .sort(
-                                orderByFieldAndDirection(
-                                    orderingData.field,
-                                    orderingData.direction
-                                )
-                            )
+                        {ranking
                             .map((movie, index) => (
                                 <TableRow key={movie.name}>
                                     <TableCell component="th" scope="row">
