@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getMovies } from "../../../redux/slices/movieSlice";
 import MovieCard from "../../../common/MovieCard";
 import {
     Container,
@@ -8,33 +6,38 @@ import {
     Typography,
     CircularProgress,
 } from "@material-ui/core";
+import { movieErrorAction, movieSelector, movieSuccessAction } from "../../../redux/slices/movieSlice";
+import { movieApi } from "../../../services/ApiServices";
+import { connect } from "react-redux";
 
 const getNow = () => new Date().getTime();
 
-function Home() {
-    console.log("HOME FUNCTION!");
-    const { movies, loading } = useSelector(
-        (state) => state.movies,
-        (state) => state.movies.loading
-    );
-    const dispatch = useDispatch();
+const mapStateToProps = state => ({ movies: movieSelector(state.movies) });
+const mapDispatchToProps = dispatch => ({
+        movieSuccess: movies => dispatch(movieSuccessAction(movies)),
+        movieError: () => dispatch(movieErrorAction),
+    });
+
+function Home(props) {
+    const {movies, movieSuccess, movieError} = props;
     const [now, setNow] = useState(getNow());
+    const loading = false; //todo
 
     useEffect(() => {
         let intervalId = null;
 
-        dispatch(getMovies());
-
-        intervalId = setInterval(() => {
-            setNow(getNow());
-            if (movies && movies.length === 0) {
-                clearInterval(intervalId);
-            }
-        }, 1000);
+        movieApi()
+            .then(response => response.json())
+            .then(data => {
+                movieSuccess(data);
+                intervalId = setInterval(() => {
+                    setNow(getNow());
+                }, 1000);
+            })
+            .catch(movieError);
 
         return () => {
             if (intervalId) {
-                console.log("pulizia home");
                 clearInterval(intervalId);
             }
         };
@@ -74,4 +77,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

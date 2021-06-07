@@ -11,8 +11,9 @@ import {
     CircularProgress,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getMovies, sortRank } from "../../../redux/slices/movieSlice";
+import { connect } from "react-redux";
+import { moviesRankErrorAction, moviesRankSelector, moviesRankSuccessAction } from "../../../redux/slices/rankingSlice";
+import { movieApi } from "../../../services/ApiServices";
 
 const useStyles = makeStyles({
     table: {
@@ -20,21 +21,38 @@ const useStyles = makeStyles({
     },
 });
 
-function Ranking() {
+const orderByFieldAndDirection = (field, direction) => (a, b) => {
+    let result = 0;
+    if (a[field] < b[field]) {
+        result = direction === "ASC" ? -1 : +1;
+    } else if (a[field] > b[field]) {
+        result = direction === "ASC" ? 1 : -1;
+    }
+    return result;
+    };
+
+const mapStateToProps = (state) => ({movies: moviesRankSelector(state.movies)});
+const mapDispatchToProps = dispatch => ({
+        moviesRankSuccess: (movies) => dispatch(moviesRankSuccessAction(movies)),
+        moviesRankError: () => dispatch(moviesRankErrorAction()),
+    });
+
+function Ranking(props) {
     const classes = useStyles();
-    const { movies, loading } = useSelector(
-        (state) => state.movies,
-        (state) => state.loading
-    );
-    const dispatch = useDispatch();
+    const { movies, moviesRankSuccess, moviesRankError } = props;
     const [orderingData, setOrderingData] = useState({
         field: "views",
         direction: "DESC",
     });
+    const loading = false; //
 
     useEffect(() => {
-        dispatch(getMovies());
-    }, [dispatch]);
+        movieApi()
+            .then(response => response.json())
+            .then(data => moviesRankSuccess)
+            .catch(moviesRankError);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const tableHeaderClick = (field) => {
         setOrderingData({
@@ -46,7 +64,6 @@ function Ranking() {
                     : "ASC",
             field: field,
         });
-        dispatch(sortRank({ movies, orderingData }));
     };
 
     return !loading ? (
@@ -72,7 +89,7 @@ function Ranking() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {movies.map((movie, index) => (
+                        {movies.sort(orderByFieldAndDirection(orderingData.field, orderingData.direction)).map((movie, index) => (
                             <TableRow key={movie.name}>
                                 <TableCell component="th" scope="row">
                                     {index + 1}
@@ -91,4 +108,4 @@ function Ranking() {
     );
 }
 
-export default Ranking;
+export default connect(mapStateToProps, mapDispatchToProps)(Ranking);

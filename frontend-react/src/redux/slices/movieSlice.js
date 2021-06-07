@@ -1,49 +1,36 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import { movieApi } from "../../services/ApiServices";
+// state
+const initialState = {
+  movies: [],
+  loading: false,
+};
 
-export const getMovies = createAsyncThunk(
-    'fetcher/getMovies',
-    async () => {
-      return movieApi().then(response => response.json());
-    }
-  )
+// selectors
+export const movieSelector = state => state.movies;
+export const loadingSelector = state => state.loading;
 
-  const orderByFieldAndDirection = (field, direction) => (a, b) => {
-    let result = 0;
-    if (a[field] < b[field]) {
-        result = direction === "ASC" ? -1 : +1;
-    } else if (a[field] > b[field]) {
-        result = direction === "ASC" ? 1 : -1;
-    }
-    return result;
-    };
+// action
+const MOVIE_SUCCESS = "MOVIE_SUCCESS";
+const MOVIE_ERROR = "MOVIE_ERROR";
 
-export const movieSlice = createSlice({
-    name: 'fetcher',
-    initialState: {
-        loading: false,
-        movies: []
-    },
-    reducers: {
-      sortRank: (state, action) => {
-          const {movies, orderingData} = action.payload;
-          state.movies = movies.slice().sort(orderByFieldAndDirection(orderingData.field, orderingData.direction));
-      }
-  },
-    extraReducers: {
-        [getMovies.pending]: (state, action) => {
-            state.loading = true
-        },
-        [getMovies.fulfilled]: (state, action) => {
-            state.movies = action.payload;
-            state.loading = false;
-        },
-        [getMovies.rejected]: (state, action) => {
-          state.loading = false;
-      },
-    },
-  })
+export const movieSuccessAction = movies => ({
+  type: MOVIE_SUCCESS,
+  movies: movies
+});
 
-  export const {sortRank} = movieSlice.actions;
-    
-  export default movieSlice.reducer;
+export const movieErrorAction = () => ({
+  type: MOVIE_ERROR
+});
+
+// reducer
+export const movieReducer = (state = initialState, action) => {
+  switch(action.type) {
+    case MOVIE_SUCCESS:
+      state.loading = false;
+      return { ...state, movies: action.movies };
+    case MOVIE_ERROR:
+      state.loading = false;
+      return {...state, movies: []}
+    default:
+      return state;
+  }
+};
