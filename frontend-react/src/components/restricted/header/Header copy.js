@@ -1,11 +1,7 @@
 import { Container, makeStyles } from "@material-ui/core";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { logoutAction } from "../../../redux/slices/loginSlice";
-
-const mapDispatchToProps = (dispatch) => ({
-    logout: () => dispatch(logoutAction()),
-});
+import { useDispatch } from "react-redux";
+import {Link} from "react-router-dom";  
+import { cleanToken } from "../../../redux/slices/loginSlice";
 
 const useStyles = makeStyles({
     header: {
@@ -13,24 +9,29 @@ const useStyles = makeStyles({
         padding: "0 20px",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
+        alignItems: "center"
     },
     brand: {
-        fontSize: "20px",
+        fontSize: "20px"
     },
     list: {
         display: "flex",
-        listStyle: "none",
+        listStyle: "none" 
     },
     link: {
-        marginLeft: "10px",
-        color: "white",
-        textDecoration: "none",
+    marginLeft: "10px",
+      color: 'white',
+      textDecoration: 'none'
     },
 });
 
-function Header({ logout }) {
+function Header() {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const logout = () => {
+        dispatch(cleanToken());
+    }
 
     return (
         <Container maxWidth="md" className={classes.header}>
@@ -50,4 +51,4 @@ function Header({ logout }) {
     );
 }
 
-export default connect(null, mapDispatchToProps)(Header);
+export default Header;

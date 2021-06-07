@@ -45,7 +45,7 @@ function App() {
                         </Switch>
                     </>
                 ) : (
-                    <Login />
+                    <Login token="123" />
                 )}
             </ThemeProvider>
         </Router>

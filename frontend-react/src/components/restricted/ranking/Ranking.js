@@ -34,7 +34,7 @@ function Ranking() {
 
     useEffect(() => {
         dispatch(getMovies());
-    }, []);
+    }, [dispatch]);
 
     const tableHeaderClick = (field) => {
         setOrderingData({

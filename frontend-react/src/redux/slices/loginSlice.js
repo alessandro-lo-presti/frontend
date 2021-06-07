@@ -1,40 +1,40 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loginApi } from "../../services/ApiServices";
+const initialState = {
+    token: localStorage.getItem("token") || null,
+};
 
-export const tryLogin = createAsyncThunk("login/tryLogin", async (action) => {
-    return loginApi(action.username, action.password).then((response) =>
-        response.json()
-    );
+//tipi di azioni ->servono nel reducer e nelle actiot creator
+const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+const LOGIN_ERROR = "LOGIN_ERROR";
+const LOGOUT = "LOGOUT";
+
+//selettori stato -> valore
+export const tokenSelector = (state) => state.token;
+
+//action creator -> metodi di utilità per creare azioni che userò nel reducer
+export const loginSuccessAction = (token) => ({
+    type: LOGIN_SUCCESS,
+    token: token,
+});
+export const loginErrorAction = () => ({
+    type: LOGIN_ERROR,
+});
+export const logoutAction = () => ({
+    type: LOGOUT,
 });
 
-export const loginSlice = createSlice({
-    name: "login",
-    initialState: {
-        waiting: false,
-        token: localStorage.getItem("token") || null,
-    },
-    reducers: {
-        cleanToken: (state) => {
+//reducer
+export const loginReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case LOGIN_SUCCESS: {
+            localStorage.setItem("token", action.token);
+            return { ...state, token: action.token };
+        }
+        case LOGIN_ERROR:
+        case LOGOUT: {
             localStorage.removeItem("token");
-            state.token = null;
-            state.waiting = false;
-        },
-    },
-    extraReducers: {
-        [tryLogin.pending]: (state) => {
-            state.waiting = true;
-        },
-        [tryLogin.fulfilled]: (state, action) => {
-            state.token = action.payload.response;
-            state.waiting = false;
-            localStorage.setItem("token", state.token);
-        },
-        [tryLogin.rejected]: (state, action) => {
-            state.waiting = false;
-        },
-    },
-});
-
-export const { cleanToken } = loginSlice.actions;
-
-export default loginSlice.reducer;
+            return { ...state, token: null };
+        }
+        default:
+            return state;
+    }
+};
