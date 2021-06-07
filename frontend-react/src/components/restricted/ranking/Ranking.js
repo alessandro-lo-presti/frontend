@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRankMovies, sortRank } from "../../../redux/slices/rankingSlice";
+import { getMovies, sortRank } from "../../../redux/slices/movieSlice";
 
 const useStyles = makeStyles({
     table: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 function Ranking() {
     const classes = useStyles();
-    const {ranking, loading} = useSelector(state => state.ranking, state => state.loading);
+    const {movies, loading} = useSelector(state => state.movies, state => state.loading);
     const dispatch = useDispatch();
     const [orderingData, setOrderingData] = useState({
         field: "views",
@@ -30,7 +30,7 @@ function Ranking() {
     });
 
     useEffect(() => {
-        dispatch(getRankMovies());
+        dispatch(getMovies());
     }, []);
 
     const tableHeaderClick = (field) => {
@@ -43,7 +43,7 @@ function Ranking() {
                     : "ASC",
             field: field,
         });
-        dispatch(sortRank({ranking, orderingData}));
+        dispatch(sortRank({movies, orderingData}));
     };
 
     return !loading ? (
@@ -69,7 +69,7 @@ function Ranking() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {ranking
+                        {movies
                             .map((movie, index) => (
                                 <TableRow key={movie.name}>
                                     <TableCell component="th" scope="row">

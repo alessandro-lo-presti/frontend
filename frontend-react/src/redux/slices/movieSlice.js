@@ -8,12 +8,28 @@ export const getMovies = createAsyncThunk(
     }
   )
 
+  const orderByFieldAndDirection = (field, direction) => (a, b) => {
+    let result = 0;
+    if (a[field] < b[field]) {
+        result = direction === "ASC" ? -1 : +1;
+    } else if (a[field] > b[field]) {
+        result = direction === "ASC" ? 1 : -1;
+    }
+    return result;
+    };
+
 export const movieSlice = createSlice({
     name: 'fetcher',
     initialState: {
         loading: false,
         movies: []
     },
+    reducers: {
+      sortRank: (state, action) => {
+          const {movies, orderingData} = action.payload;
+          state.movies = movies.slice().sort(orderByFieldAndDirection(orderingData.field, orderingData.direction));
+      }
+  },
     extraReducers: {
         [getMovies.pending]: (state, action) => {
             state.loading = true
@@ -27,5 +43,7 @@ export const movieSlice = createSlice({
       },
     },
   })
+
+  export const {sortRank} = movieSlice.actions;
     
   export default movieSlice.reducer;
