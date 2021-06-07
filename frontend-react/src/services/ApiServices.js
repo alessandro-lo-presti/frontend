@@ -4,7 +4,7 @@ export const movieApi = async () => {
     return await fetch(pathApi + "/movie", {
         method: "GET",
         headers: {
-            token: 'logged',
+            token: localStorage.getItem("token"),
         },
     })
 }
