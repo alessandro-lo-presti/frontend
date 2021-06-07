@@ -11,45 +11,45 @@ import Home from "./components/restricted/home/Home";
 import Ranking from "./components/restricted/ranking/Ranking";
 
 function App() {
-    console.log("APP - chaimata!");
-    const theme = useMemo(
-        () =>
-            createMuiTheme({
-                palette: {
-                    type: "dark",
-                },
-            }),
-        []
-    );
-    const { token } = useSelector((state) => state.token);
-    console.log("il token vale", token);
+  console.log("APP - chaimata!");
+  const theme = useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          type: "dark",
+        },
+      }),
+    []
+  );
+  const { token } = useSelector((state) => state.tokenSlice);
+  console.log("il token vale", token);
 
-    return (
-        <Router>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
+  return (
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
 
-                {token ? (
-                    <>
-                        <Header></Header>
-                        <Switch>
-                            <Route exact path="/">
-                                <Home />
-                            </Route>
-                            <Route path="/ranking">
-                                <Ranking />
-                            </Route>
-                            <Route path="*">
-                                <NotFound />
-                            </Route>
-                        </Switch>
-                    </>
-                ) : (
-                    <Login token="123" />
-                )}
-            </ThemeProvider>
-        </Router>
-    );
+        {token ? (
+          <>
+            <Header></Header>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/ranking">
+                <Ranking />
+              </Route>
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
+          </>
+        ) : (
+          <Login token="123" />
+        )}
+      </ThemeProvider>
+    </Router>
+  );
 }
 
 export default App;
