@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import MovieCard from "../../../common/MovieCard";
 import {
-  Container,
-  Grid,
-  Typography,
-  CircularProgress,
+    Container,
+    Grid,
+    Typography,
+    CircularProgress,
 } from "@material-ui/core";
 import {
-  movieErrorAction,
-  movieSelector,
-  movieSuccessAction,
+    movieErrorAction,
+    movieSelector,
+    movieSuccessAction,
 } from "../../../redux/slices/movieSlice";
 import { movieApi } from "../../../services/ApiServices";
 import { connect } from "react-redux";
@@ -18,70 +18,77 @@ const getNow = () => new Date().getTime();
 
 const mapStateToProps = (state) => ({ movies: movieSelector(state) });
 const mapDispatchToProps = (dispatch) => ({
-  movieSuccess: (movies) => dispatch(movieSuccessAction(movies)),
-  movieError: () => dispatch(movieErrorAction),
+    movieSuccess: (movies) => dispatch(movieSuccessAction(movies)),
+    movieError: () => dispatch(movieErrorAction),
 });
 
 function Home(props) {
-  const { movies, movieSuccess, movieError } = props;
-  const [now, setNow] = useState(getNow());
-  const loading = false; //
+    const { movies, movieSuccess, movieError } = props;
+    const [now, setNow] = useState(getNow());
+    const loading = false; //
+    console.log("HOME -> lista movies", movies.length);
 
-  useEffect(() => {
-    let intervalId = null;
+    //effect loading data!
+    useEffect(() => {
+        movieApi()
+            .then((response) => response.json())
+            .then(movieSuccess)
+            .catch(movieError);
+    }, [movieError, movieSuccess]);
 
-    movieApi()
-      .then((response) => response.json())
-      .then((data) => {
-        movieSuccess(data);
-        intervalId = setInterval(() => {
-          const nowTs = getNow();
-          setNow(nowTs);
-          if (
-            movies &&
-            movies.filter((movie) => movie.end > nowTs).length === 0
-          ) {
-            console.log("clear");
-            clearInterval(intervalId);
-          }
-        }, 1000);
-      })
-      .catch(movieError);
+    //responsabile di interval
+    useEffect(() => {
+        let intervalId = null;
+        if (movies && movies.length > 0) {
+            intervalId = setInterval(() => {
+                const nowTs = getNow();
+                setNow(nowTs);
+                if (
+                    movies &&
+                    movies.filter((movie) => movie.end > nowTs).length === 0
+                ) {
+                    clearInterval(intervalId);
+                }
+            }, 1000);
+        }
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        };
+    }, [movies]);
 
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <Container maxWidth="md">
-      <Grid container direction="row" justify="flex-start" alignItems="center">
-        {!loading ? (
-          movies.filter((movie) => movie.end > now).length > 0 ? (
-            movies
-              .filter((movie) => movie.end > now)
-              .map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  title={movie.name}
-                  end={movie.end}
-                  now={now}
-                />
-              ))
-          ) : (
-            <Typography variant="h1" component="h2">
-              Non ci sono film disponibili
-            </Typography>
-          )
-        ) : (
-          <CircularProgress />
-        )}
-      </Grid>
-    </Container>
-  );
+    return (
+        <Container maxWidth="md">
+            <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+            >
+                {!loading ? (
+                    movies.filter((movie) => movie.end > now).length > 0 ? (
+                        movies
+                            .filter((movie) => movie.end > now)
+                            .map((movie) => (
+                                <MovieCard
+                                    key={movie.id}
+                                    title={movie.name}
+                                    end={movie.end}
+                                    now={now}
+                                />
+                            ))
+                    ) : (
+                        <Typography variant="h1" component="h2">
+                            Non ci sono film disponibili
+                        </Typography>
+                    )
+                ) : (
+                    <CircularProgress />
+                )}
+            </Grid>
+        </Container>
+    );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
