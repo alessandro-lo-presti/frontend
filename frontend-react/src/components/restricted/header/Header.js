@@ -1,7 +1,7 @@
 import { Container, makeStyles } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import {Link} from "react-router-dom";  
-import { cleanToken } from "../../redux/slices/loginSlice";
+import { cleanToken } from "../../../redux/slices/loginSlice";
 
 const useStyles = makeStyles({
     header: {

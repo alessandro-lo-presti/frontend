@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRankMovies, sortRank } from "../../redux/slices/rankingSlice";
+import { getRankMovies, sortRank } from "../../../redux/slices/rankingSlice";
 
 const useStyles = makeStyles({
     table: {

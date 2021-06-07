@@ -6,9 +6,9 @@ import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NotFound from "./components/error/NotFound";
 import Login from "./components/guest/Login";
-import Header from "./components/header/Header";
-import Home from "./components/home/Home";
-import Ranking from "./components/ranking/Ranking";
+import Header from "./components/restricted/header/Header";
+import Home from "./components/restricted/home/Home";
+import Ranking from "./components/restricted/ranking/Ranking";
 
 function App() {
     const theme = useMemo(
