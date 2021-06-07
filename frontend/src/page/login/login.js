@@ -22,14 +22,17 @@ const tryToLogin = () => {
         .then((data) => {
             TokenService.setToken(data.response);
             loadWebApp();
+            store.dispatch({ action: "login success", token: token });
         })
         .catch((error) => console.log(error));
 };
 
 export const loadLogin = () => {
     writePageHTML(loginTemplate);
-    document.getElementById("login-form").addEventListener("submit", (event) => {
-        event.preventDefault();
-        tryToLogin();
-    });
+    document
+        .getElementById("login-form")
+        .addEventListener("submit", (event) => {
+            event.preventDefault();
+            tryToLogin();
+        });
 };

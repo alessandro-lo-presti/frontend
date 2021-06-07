@@ -11,6 +11,7 @@ import Home from "./components/restricted/home/Home";
 import Ranking from "./components/restricted/ranking/Ranking";
 
 function App() {
+    console.log("APP - chaimata!");
     const theme = useMemo(
         () =>
             createMuiTheme({
@@ -20,14 +21,15 @@ function App() {
             }),
         []
     );
-    const {token} = useSelector(state => state.token);
+    const { token } = useSelector((state) => state.token);
+    console.log("il token vale", token);
 
     return (
         <Router>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
 
-                {token === 'logged' ? (
+                {token ? (
                     <>
                         <Header></Header>
                         <Switch>
@@ -42,11 +44,9 @@ function App() {
                             </Route>
                         </Switch>
                     </>
-                    ) : (
-                        <Login />
-                    )
-                }
-                
+                ) : (
+                    <Login />
+                )}
             </ThemeProvider>
         </Router>
     );

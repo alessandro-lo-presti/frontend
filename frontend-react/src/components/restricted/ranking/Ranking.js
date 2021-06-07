@@ -22,7 +22,10 @@ const useStyles = makeStyles({
 
 function Ranking() {
     const classes = useStyles();
-    const {movies, loading} = useSelector(state => state.movies, state => state.loading);
+    const { movies, loading } = useSelector(
+        (state) => state.movies,
+        (state) => state.loading
+    );
     const dispatch = useDispatch();
     const [orderingData, setOrderingData] = useState({
         field: "views",
@@ -43,7 +46,7 @@ function Ranking() {
                     : "ASC",
             field: field,
         });
-        dispatch(sortRank({movies, orderingData}));
+        dispatch(sortRank({ movies, orderingData }));
     };
 
     return !loading ? (
@@ -69,17 +72,16 @@ function Ranking() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {movies
-                            .map((movie, index) => (
-                                <TableRow key={movie.name}>
-                                    <TableCell component="th" scope="row">
-                                        {index + 1}
-                                    </TableCell>
-                                    <TableCell>{movie.name}</TableCell>
-                                    <TableCell>{movie.rating}</TableCell>
-                                    <TableCell>{movie.views}</TableCell>
-                                </TableRow>
-                            ))}
+                        {movies.map((movie, index) => (
+                            <TableRow key={movie.name}>
+                                <TableCell component="th" scope="row">
+                                    {index + 1}
+                                </TableCell>
+                                <TableCell>{movie.name}</TableCell>
+                                <TableCell>{movie.rating}</TableCell>
+                                <TableCell>{movie.views}</TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>

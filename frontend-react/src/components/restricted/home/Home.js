@@ -9,12 +9,14 @@ import {
     CircularProgress,
 } from "@material-ui/core";
 
-
 const getNow = () => new Date().getTime();
 
 function Home() {
     console.log("HOME FUNCTION!");
-    const {movies, loading} = useSelector(state => state.movies, state => state.loading);
+    const { movies, loading } = useSelector(
+        (state) => state.movies,
+        (state) => state.movies.loading
+    );
     const dispatch = useDispatch();
     const [now, setNow] = useState(getNow());
 
@@ -25,6 +27,9 @@ function Home() {
 
         intervalId = setInterval(() => {
             setNow(getNow());
+            if (movies && movies.length === 0) {
+                clearInterval(intervalId);
+            }
         }, 1000);
 
         return () => {
