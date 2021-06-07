@@ -6,7 +6,7 @@ const initialState = {
 // selectors
 export const tokenSelector = (state) => state.tokenSlice.token;
 
-//action
+// action
 const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 const LOGIN_ERROR = "LOGIN_ERROR";
 const LOGOUT = "LOGOUT";
@@ -24,7 +24,7 @@ export const logoutAction = () => ({
   type: LOGOUT,
 });
 
-//reducer
+// reducer
 export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS: {
