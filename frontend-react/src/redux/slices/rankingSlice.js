@@ -1,12 +1,10 @@
 // state
 const initialState = {
   movies: [],
-  loading: false,
 };
 
 // selectors
 export const moviesRankSelector = (state) => state.rankingSlice.movies;
-export const loadingRankSelector = (state) => state.rankingSlice.loading;
 
 // action
 const MOVIE_RANK_SUCCESS = "MOVIE_RANK_SUCCESS";
@@ -25,10 +23,8 @@ export const moviesRankErrorAction = () => ({
 export const rankingReducer = (state = initialState, action) => {
   switch (action.type) {
     case MOVIE_RANK_SUCCESS:
-      state.loading = false;
       return { ...state, movies: action.movies };
     case MOVIE_RANK_ERROR:
-      state.loading = false;
       return { ...state, movies: [] };
     default:
       return state;

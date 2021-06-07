@@ -5,6 +5,7 @@ import {
   makeStyles,
   TextField,
 } from "@material-ui/core";
+import { useState } from "react";
 import { connect } from "react-redux";
 import { loginApi } from "../../services/ApiServices";
 import {
@@ -13,23 +14,14 @@ import {
   tokenSelector,
 } from "./../../redux/slices/loginSlice";
 
-//redux - start
-//utility per leggere properties da stato
-const mapStateToProps = (state) => {
-  console.log("map state to props", state);
-  return {
-    token: tokenSelector(state),
-  };
-};
-//utility per dispatchare action
-const mapDispatchToProps = (dispatch) => {
-  console.log("map dispatch to props");
-  return {
-    loginSuccess: (token) => dispatch(loginSuccessAction(token)),
-    loginError: () => dispatch(loginErrorAction()),
-  };
-};
-//redux - finish
+const mapStateToProps = (state) => ({
+  token: tokenSelector(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loginSuccess: (token) => dispatch(loginSuccessAction(token)),
+  loginError: () => dispatch(loginErrorAction()),
+});
 
 const useStyles = makeStyles({
   formContaniner: {
@@ -54,22 +46,27 @@ const useStyles = makeStyles({
 });
 
 function Login(props) {
-  console.log("login component", props);
   const classes = useStyles();
-
-  const { token, loginSuccess, loginError } = props;
-
-  console.log("LOGIN - token", token);
+  const { loginSuccess, loginError } = props;
+  const [waiting, setWaiting] = useState(false);
 
   const sendLoginData = (event) => {
     event.preventDefault();
     const username = document.getElementById("name").value;
     const password = document.getElementById("password").value;
 
+    setWaiting(true);
+
     loginApi(username, password)
       .then((r) => r.json())
-      .then((r) => loginSuccess(r.response))
-      .catch(loginError);
+      .then((r) => {
+        setWaiting(false);
+        loginSuccess(r.response);
+      })
+      .catch(() => {
+        setWaiting(false);
+        loginError();
+      });
   };
 
   return (
@@ -101,6 +98,7 @@ function Login(props) {
           >
             Invia
           </Button>
+          {waiting ? <CircularProgress /> : ""}
         </form>
       </div>
     </Container>

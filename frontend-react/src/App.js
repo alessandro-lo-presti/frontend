@@ -11,7 +11,6 @@ import Home from "./components/restricted/home/Home";
 import Ranking from "./components/restricted/ranking/Ranking";
 
 function App() {
-  console.log("APP - chaimata!");
   const theme = useMemo(
     () =>
       createMuiTheme({
@@ -22,7 +21,6 @@ function App() {
     []
   );
   const { token } = useSelector((state) => state.tokenSlice);
-  console.log("il token vale", token);
 
   return (
     <Router>

@@ -38,6 +38,7 @@ const orderByFieldAndDirection = (field, direction) => (a, b) => {
 const mapStateToProps = (state) => ({
   movies: moviesRankSelector(state),
 });
+
 const mapDispatchToProps = (dispatch) => ({
   moviesRankSuccess: (movies) => dispatch(moviesRankSuccessAction(movies)),
   moviesRankError: () => dispatch(moviesRankErrorAction()),
@@ -50,15 +51,22 @@ function Ranking(props) {
     field: "views",
     direction: "DESC",
   });
-  const loading = false; //
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
+
     movieApi()
       .then((response) => response.json())
-      .then(moviesRankSuccess)
-      .catch(moviesRankError);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      .then((data) => {
+        setLoading(false);
+        moviesRankSuccess(data);
+      })
+      .catch(() => {
+        setLoading(false);
+        moviesRankError();
+      });
+  }, [moviesRankSuccess, moviesRankError]);
 
   const tableHeaderClick = (field) => {
     setOrderingData({
