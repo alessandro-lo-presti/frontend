@@ -37,16 +37,11 @@ function Home(props) {
         intervalId = setInterval(() => {
           const nowTs = getNow();
           setNow(nowTs);
-          console.log(
-            "lunghezza array",
-            nowTs,
-            data.filter((movie) => movie.end > nowTs).length,
-            data && data.filter((movie) => movie.end > now).length === 0,
-            data.filter((movie) => movie.end > now).length === 0,
-            data && data.filter((movie) => movie.end > now).length == 0
-          );
-          if (data && data.filter((movie) => movie.end > now).length === 0) {
-            console.log("cancello interval");
+          if (
+            movies &&
+            movies.filter((movie) => movie.end > nowTs).length === 0
+          ) {
+            console.log("clear");
             clearInterval(intervalId);
           }
         }, 1000);
