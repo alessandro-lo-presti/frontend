@@ -47,11 +47,11 @@ const mapDispatchToProps = (dispatch) => ({
 function Ranking(props) {
   const classes = useStyles();
   const { movies, moviesRankSuccess, moviesRankError } = props;
+  const [loading, setLoading] = useState(false);
   const [orderingData, setOrderingData] = useState({
     field: "views",
     direction: "DESC",
   });
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
