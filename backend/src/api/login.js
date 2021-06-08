@@ -14,7 +14,10 @@ export const loginApi = (req, res) => {
 };
 
 export const isLogged = (req, res, next) => {
-  req.headers.token && req.headers.token == token
-    ? next()
-    : res.status(401).json({ message: "Not Authorized" });
+  try {
+    jwt.verify(req.headers.token, "segreto");
+    next();
+  } catch (e) {
+    res.status(401).json({ response: e.message });
+  }
 };
