@@ -71,7 +71,7 @@ function Home(props) {
   return (
     <Container maxWidth="md">
       <Grid container direction="row" justify="flex-start" alignItems="center">
-        {/* {!loading ? (
+        {!loading ? (
           movies.filter((movie) => movie.end > now).length > 0 ? (
             movies
               .filter((movie) => movie.end > now)
@@ -90,7 +90,7 @@ function Home(props) {
           )
         ) : (
           <CircularProgress />
-        )} */}
+        )}
       </Grid>
     </Container>
   );
