@@ -1,23 +1,12 @@
-import jwt from "jsonwebtoken";
+import { DB_SERVICE } from "../db/dbService.js";
+import { JWT_SERVICE } from "../jwt/jwt.js";
 
 export const loginApi = (req, res) => {
-  const user = {
-    username: req.body.username,
-    password: req.body.password,
-  };
+    const userDB = DB_SERVICE.findUser(req.body.username, req.body.password);
 
-  const token = jwt.sign({}, "segreto", { expiresIn: 15 });
-
-  user.username == "ale" && user.password == "123456"
-    ? res.status(200).json({ response: token })
-    : res.status(401).send();
-};
-
-export const isLogged = (req, res, next) => {
-  try {
-    jwt.verify(req.headers.token, "segreto");
-    next();
-  } catch (e) {
-    res.status(401).json({ response: e.message });
-  }
+    if (userDB) {
+        res.status(200).json({ token: JWT_SERVICE.createToken(userDB.id) });
+    } else {
+        res.status(401).send();
+    }
 };

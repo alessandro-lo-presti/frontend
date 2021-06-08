@@ -1,7 +1,8 @@
 import json from "body-parser";
 import cors from "cors";
 import express from "express";
-import { isLogged, loginApi } from "./api/login.js";
+import { checkAuth } from "./api/auth.js";
+import { loginApi } from "./api/login.js";
 import { movieApi } from "./api/movie.js";
 
 const app = express();
@@ -14,8 +15,8 @@ app.use(cors());
 app.post("/login", loginApi);
 
 //auth
-app.get("/movie", isLogged, movieApi);
+app.get("/movie", checkAuth, movieApi);
 
 app.listen(port, () =>
-  console.log(`Web app server listening on port ${port}!`)
+    console.log(`Web app server listening on port ${port}!`)
 );
