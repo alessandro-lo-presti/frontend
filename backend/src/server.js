@@ -18,5 +18,5 @@ app.post("/login", loginApi);
 app.get("/movie", checkAuth, movieApi);
 
 app.listen(port, () =>
-    console.log(`Web app server listening on port ${port}!`)
+  console.log(`Web app server listening on port ${port}!`)
 );

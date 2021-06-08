@@ -1,6 +1,6 @@
 // state
 const initialState = {
-    token: localStorage.getItem("token") || null,
+  token: localStorage.getItem("token") || null,
 };
 
 // selectors
@@ -12,32 +12,31 @@ const LOGIN_ERROR = "LOGIN_ERROR";
 const LOGOUT = "LOGOUT";
 
 export const loginSuccessAction = (token) => ({
-    type: LOGIN_SUCCESS,
-    token: token,
+  type: LOGIN_SUCCESS,
+  token: token,
 });
 
 export const loginErrorAction = () => ({
-    type: LOGIN_ERROR,
+  type: LOGIN_ERROR,
 });
 
 export const logoutAction = () => ({
-    type: LOGOUT,
+  type: LOGOUT,
 });
 
 // reducer
 export const loginReducer = (state = initialState, action) => {
-    console.log("login reducer", action.type);
-    switch (action.type) {
-        case LOGIN_SUCCESS: {
-            localStorage.setItem("token", action.token);
-            return { ...state, token: action.token };
-        }
-        case LOGIN_ERROR:
-        case LOGOUT: {
-            localStorage.removeItem("token");
-            return { ...state, token: null };
-        }
-        default:
-            return state;
+  switch (action.type) {
+    case LOGIN_SUCCESS: {
+      localStorage.setItem("token", action.token);
+      return { ...state, token: action.token };
     }
+    case LOGIN_ERROR:
+    case LOGOUT: {
+      localStorage.removeItem("token");
+      return { ...state, token: null };
+    }
+    default:
+      return state;
+  }
 };
