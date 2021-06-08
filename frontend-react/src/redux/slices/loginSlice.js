@@ -1,6 +1,7 @@
 // state
 const initialState = {
-  token: localStorage.getItem("token") || null,
+  //token: localStorage.getItem("token") || null,
+  token: null,
 };
 
 // selectors

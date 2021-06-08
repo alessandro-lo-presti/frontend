@@ -13,6 +13,7 @@ import {
 } from "../../../redux/slices/movieSlice";
 import { movieApi } from "../../../services/ApiServices";
 import { connect } from "react-redux";
+import { logoutAction } from "../../../redux/slices/loginSlice";
 
 const getNow = () => new Date().getTime();
 
@@ -21,10 +22,11 @@ const mapStateToProps = (state) => ({ movies: movieSelector(state) });
 const mapDispatchToProps = (dispatch) => ({
   movieSuccess: (movies) => dispatch(movieSuccessAction(movies)),
   movieError: () => dispatch(movieErrorAction),
+  logout: () => dispatch(logoutAction),
 });
 
 function Home(props) {
-  const { movies, movieSuccess, movieError } = props;
+  const { movies, movieSuccess, movieError, logout } = props;
   const [now, setNow] = useState(getNow());
   const [loading, setLoading] = useState(false);
 
@@ -37,11 +39,13 @@ function Home(props) {
         setLoading(false);
         movieSuccess(data);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log("movieApi failed", error);
         setLoading(false);
         movieError();
+        logout();
       });
-  }, [movieError, movieSuccess]);
+  }, [movieError, movieSuccess, logout]);
 
   useEffect(() => {
     let intervalId = null;
@@ -67,7 +71,7 @@ function Home(props) {
   return (
     <Container maxWidth="md">
       <Grid container direction="row" justify="flex-start" alignItems="center">
-        {!loading ? (
+        {/* {!loading ? (
           movies.filter((movie) => movie.end > now).length > 0 ? (
             movies
               .filter((movie) => movie.end > now)
@@ -86,7 +90,7 @@ function Home(props) {
           )
         ) : (
           <CircularProgress />
-        )}
+        )} */}
       </Grid>
     </Container>
   );
