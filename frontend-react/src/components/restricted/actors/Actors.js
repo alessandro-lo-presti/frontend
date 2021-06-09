@@ -6,7 +6,7 @@ import {
   actorsErrorAction,
 } from "../../../redux/slices/actorsSlice";
 import { connect } from "react-redux";
-import { CircularProgress, Container } from "@material-ui/core";
+import { CircularProgress, Container, Typography } from "@material-ui/core";
 import ActorCard from "../../../common/ActorCard";
 
 const mapStateToProps = (state) => ({
@@ -43,14 +43,19 @@ function Actors(props) {
       });
   }, [actorsSuccess, actorsError]);
 
-  //TODO gestire caso errore chaimata api
   return (
     <Container maxWidth="md">
       <div className="grid-container">
         {!loading ? (
-          actors.map((actor) => (
-            <ActorCard name={actor.name} actor={actor.id} key={actor.id} />
-          ))
+          actors.length > 0 ? (
+            actors.map((actor) => (
+              <ActorCard name={actor.name} actor={actor.id} key={actor.id} />
+            ))
+          ) : (
+            <Typography variant="h2" component="h2">
+              Nessun risultato
+            </Typography>
+          )
         ) : (
           <CircularProgress />
         )}
