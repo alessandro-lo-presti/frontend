@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NotFound from "./components/error/NotFound";
 import Login from "./components/guest/Login";
+import Actors from "./components/restricted/actors/Actors";
 import Header from "./components/restricted/header/Header";
 import Home from "./components/restricted/home/Home";
 import Ranking from "./components/restricted/ranking/Ranking";
@@ -36,6 +37,9 @@ function App() {
               </Route>
               <Route path="/ranking">
                 <Ranking />
+              </Route>
+              <Route path="/actors">
+                <Actors />
               </Route>
               <Route path="*">
                 <NotFound />

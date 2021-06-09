@@ -23,6 +23,17 @@ const movieApi = () => {
     .then((r) => r.json());
 };
 
+const actorApi = () => {
+  return fetch(pathApi + "/actor", {
+    method: "GET",
+    headers: {
+      token: localStorage.getItem("token"),
+    },
+  })
+    .then(HANDLER_SESSION_EXPIRED)
+    .then((r) => r.json());
+};
+
 const loginApi = (username, password) => {
   return fetch(pathApi + "/login", {
     method: "POST",
@@ -36,4 +47,5 @@ const loginApi = (username, password) => {
 export const ApiService = {
   loginApi: loginApi,
   movieApi: movieApi,
+  actorApi: actorApi,
 };
