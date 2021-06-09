@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import MovieCard from "../../../common/MovieCard";
 import {
+  movieCleanAction,
   movieErrorAction,
   movieSelector,
   movieSuccessAction,
@@ -16,10 +17,11 @@ const mapStateToProps = (state) => ({ movies: movieSelector(state) });
 const mapDispatchToProps = (dispatch) => ({
   movieSuccess: (movies) => dispatch(movieSuccessAction(movies)),
   movieError: () => dispatch(movieErrorAction()),
+  movieClean: () => dispatch(movieCleanAction()),
 });
 
 function Home(props) {
-  const { movies, movieSuccess, movieError } = props;
+  const { movies, movieSuccess, movieError, movieClean } = props;
   const [now, setNow] = useState(getNow());
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +37,9 @@ function Home(props) {
         setLoading(false);
         movieError();
       });
-  }, [movieError, movieSuccess]);
+
+    return () => movieClean();
+  }, [movieError, movieSuccess, movieClean]);
 
   useEffect(() => {
     let intervalId = null;

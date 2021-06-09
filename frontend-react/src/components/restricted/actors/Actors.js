@@ -6,6 +6,7 @@ import {
   actorsErrorAction,
   favouritesSelector,
   updateFavouritesAction,
+  actorsCleanAction,
 } from "../../../redux/slices/actorsSlice";
 import { connect } from "react-redux";
 import { CircularProgress, Container, Typography } from "@material-ui/core";
@@ -20,6 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   actorsSuccess: (actors, favourites) =>
     dispatch(actorsSuccessAction(actors, favourites)),
   actorsError: () => dispatch(actorsErrorAction()),
+  actorsClean: () => dispatch(actorsCleanAction()),
   updateFavourites: (favourites) =>
     dispatch(updateFavouritesAction(favourites)),
 });
@@ -30,6 +32,7 @@ function Actors(props) {
     favouriteIdList,
     actorsSuccess,
     actorsError,
+    actorsClean,
     updateFavourites,
   } = props;
   const [loading, setLoading] = useState(false);
@@ -52,7 +55,9 @@ function Actors(props) {
         setLoading(false);
         actorsError();
       });
-  }, [actorsSuccess, actorsError]);
+
+    return () => actorsClean();
+  }, [actorsSuccess, actorsError, actorsClean]);
 
   const toggleFavoriteActor = (actorId) => {
     ApiService.toggleFavouriteApi(actorId)

@@ -13,6 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
+  moviesRankCleanAction,
   moviesRankErrorAction,
   moviesRankSelector,
   moviesRankSuccessAction,
@@ -42,11 +43,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   moviesRankSuccess: (movies) => dispatch(moviesRankSuccessAction(movies)),
   moviesRankError: () => dispatch(moviesRankErrorAction()),
+  moviesRankClean: () => dispatch(moviesRankCleanAction()),
 });
 
 function Ranking(props) {
   const classes = useStyles();
-  const { movies, moviesRankSuccess, moviesRankError } = props;
+  const { movies, moviesRankSuccess, moviesRankError, moviesRankClean } = props;
   const [loading, setLoading] = useState(false);
   const [orderingData, setOrderingData] = useState({
     field: "views",
@@ -65,7 +67,9 @@ function Ranking(props) {
         setLoading(false);
         moviesRankError();
       });
-  }, [moviesRankSuccess, moviesRankError]);
+
+    return () => moviesRankClean();
+  }, [moviesRankSuccess, moviesRankError, moviesRankClean]);
 
   const tableHeaderClick = (field) => {
     setOrderingData({
