@@ -62,8 +62,20 @@ const loginApi = (username, password) => {
   }).then((r) => r.json());
 };
 
+const toggleFavouriteApi = (actor) => {
+  return fetch(pathApi + "/actor/favourites", {
+    method: "POST",
+    body: JSON.stringify({ favourite: actor }),
+    headers: {
+      token: localStorage.getItem("token"),
+      "Content-Type": "application/json",
+    },
+  });
+};
+
 export const ApiService = {
   loginApi: loginApi,
   movieApi: movieApi,
   waitActorsApi: waitActorsApi,
+  toggleFavouriteApi: toggleFavouriteApi,
 };

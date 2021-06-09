@@ -5,6 +5,9 @@ import danielbruhl from "../assets/images/actors/danielbruhl.jpg";
 import woodyallen from "../assets/images/actors/woodyallen.jpg";
 import simonpegg from "../assets/images/actors/simonpegg.jpg";
 import umathurman from "../assets/images/actors/umathurman.jpg";
+import { favouritesSelector } from "../redux/slices/actorsSlice";
+import { connect } from "react-redux";
+import { ApiService } from "../services/ApiServices";
 
 const imageFromName = (name) => {
   switch (name) {
@@ -43,8 +46,17 @@ const useStyle = makeStyles({
   },
 });
 
-function ActorCard({ name, favourite }) {
+const mapStateToProps = (state) => ({
+  favourites: favouritesSelector(state),
+});
+
+function ActorCard(props) {
   const classes = useStyle();
+  const { actor, name, favourites } = props;
+
+  const toggleFavoriteActor = (actor) => {
+    ApiService.toggleFavouriteApi(actor);
+  };
 
   return (
     <Card className={classes.card}>
@@ -53,10 +65,20 @@ function ActorCard({ name, favourite }) {
         <h3>{name}</h3>
       </div>
       <div className={classes.favouriteBox}>
-        {favourite ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
+        {favourites.includes(actor) ? (
+          <i
+            className="fas fa-star"
+            onClick={() => toggleFavoriteActor(actor)}
+          ></i>
+        ) : (
+          <i
+            className="far fa-star"
+            onClick={() => toggleFavoriteActor(actor)}
+          ></i>
+        )}
       </div>
     </Card>
   );
 }
 
-export default ActorCard;
+export default connect(mapStateToProps)(ActorCard);

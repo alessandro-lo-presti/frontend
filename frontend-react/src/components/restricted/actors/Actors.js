@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { ApiService } from "../../../services/ApiServices";
 import {
   actorsSelector,
-  favouritesSelector,
   actorsSuccessAction,
   actorsErrorAction,
 } from "../../../redux/slices/actorsSlice";
@@ -12,7 +11,6 @@ import ActorCard from "../../../common/ActorCard";
 
 const mapStateToProps = (state) => ({
   actors: actorsSelector(state),
-  favourites: favouritesSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -22,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function Actors(props) {
-  const { actors, favourites, actorsSuccess, actorsError } = props;
+  const { actors, actorsSuccess, actorsError } = props;
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -51,11 +49,7 @@ function Actors(props) {
       <div className="grid-container">
         {!loading ? (
           actors.map((actor) => (
-            <ActorCard
-              name={actor.name}
-              favourite={favourites.includes(actor.id)}
-              key={actor.id}
-            />
+            <ActorCard name={actor.name} actor={actor.id} key={actor.id} />
           ))
         ) : (
           <CircularProgress />
