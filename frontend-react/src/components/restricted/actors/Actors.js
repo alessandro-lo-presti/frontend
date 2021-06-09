@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ApiService } from "../../../services/ApiServices";
 import {
   actorsSelector,
@@ -7,6 +7,8 @@ import {
   actorsErrorAction,
 } from "../../../redux/slices/actorsSlice";
 import { connect } from "react-redux";
+import { CircularProgress, Container, Grid } from "@material-ui/core";
+import ActorCard from "../../../common/ActorCard";
 
 const mapStateToProps = (state) => ({
   actors: actorsSelector(state),
@@ -21,33 +23,39 @@ const mapDispatchToProps = (dispatch) => ({
 
 function Actors(props) {
   const { actors, favourites, actorsSuccess, actorsError } = props;
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
+
     ApiService.waitActorsApi()
       .then((values) => {
         const result = {};
-        values.forEach((value) => {
-          if (value.user_id) {
-            result.favourites = value;
-          } else {
-            result.actors = value;
-          }
-        });
+        values.forEach((value) =>
+          value.user_id ? (result.favourites = value) : (result.actors = value)
+        );
         return result;
       })
-      .then((data) => actorsSuccess(data.actors, data.favourites))
-      .catch(actorsError);
+      .then((data) => {
+        setLoading(false);
+        actorsSuccess(data.actors, data.favourites);
+      })
+      .catch(() => {
+        setLoading(false);
+        actorsError();
+      });
   }, [actorsSuccess, actorsError]);
 
   return (
-    <div>
-      {actors.map((actor) => (
-        <div key={actor.name}>{actor.name}</div>
-      ))}
-      {favourites.map((favourite) => (
-        <div key={favourite}>{favourite}</div>
-      ))}
-    </div>
+    <Container maxWidth="md">
+      <Grid container direction="row" justify="flex-start" alignItems="center">
+        {!loading ? (
+          actors.map((actor) => <ActorCard name={actor.name} />)
+        ) : (
+          <CircularProgress />
+        )}
+      </Grid>
+    </Container>
   );
 }
 

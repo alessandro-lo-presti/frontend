@@ -16,23 +16,27 @@ const USER_DB = [
 const ACTOR_DB = [
   {
     id: 1,
-    name: "Joaquin Phoenix",
+    name: "Mel Gibson",
   },
   {
     id: 2,
-    name: "Denzel Washington",
+    name: "Uma Thurman",
   },
   {
     id: 3,
-    name: "Scarlett Johansson",
+    name: "Daniel Bruhl",
   },
   {
     id: 4,
-    name: "Leonardo di Caprio",
+    name: "Woody Allen",
   },
   {
     id: 5,
-    name: "Penelope Cruz",
+    name: "Ethan Hawke",
+  },
+  {
+    id: 6,
+    name: "Simon Pegg",
   },
 ];
 
