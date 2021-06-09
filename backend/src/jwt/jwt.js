@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const SECRET = "secret";
-const EXPIRES_SECONDS = 15;
+const EXPIRES_SECONDS = 60 * 60;
 
 const createToken = (userId) =>
   jwt.sign(
