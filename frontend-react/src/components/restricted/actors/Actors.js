@@ -1,8 +1,31 @@
 import { useEffect } from "react";
 import { ApiService } from "../../../services/ApiServices";
+import {
+  actorsSelector,
+  favouritesSelector,
+  actorsSuccessAction,
+  actorsErrorAction,
+} from "../../../redux/slices/actorsSlice";
+import { connect } from "react-redux";
 
-function Actors() {
+const mapStateToProps = (state) => ({
+  actors: actorsSelector(state),
+  favourites: favouritesSelector(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actorsSuccess: (actors, favourites) =>
+    dispatch(actorsSuccessAction(actors, favourites)),
+  actorsError: () => dispatch(actorsErrorAction()),
+});
+
+function Actors(props) {
+  const { actors, favourites, actorsSuccess, actorsError } = props;
+  console.log(actors, favourites);
+
   useEffect(() => {
+    const result = {};
+
     ApiService.waitActorsApi().then((values) => {
       values.forEach((value) => {
         if (value.user_id) {
@@ -19,4 +42,4 @@ function Actors() {
   return <div>actors</div>;
 }
 
-export default Actors;
+export default connect(mapStateToProps, mapDispatchToProps)(Actors);

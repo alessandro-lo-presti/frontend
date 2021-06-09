@@ -4,20 +4,20 @@ const initialState = {
 };
 
 // selectors
-const actorsSelector = (state) => state.actorsSlice.actors;
-const favouritesSelector = (state) => state.favouritesSelector;
+export const actorsSelector = (state) => state.actorsSlice.actors;
+export const favouritesSelector = (state) => state.actorsSlice.favourites;
 
 // actions
 const ACTORS_SUCCESS = "ACTORS_SUCCESS";
 const ACTORS_ERROR = "ACTORS_ERROR";
 
-const actorsSuccessAction = (actors, favourites) => ({
+export const actorsSuccessAction = (actors, favourites) => ({
   type: ACTORS_SUCCESS,
   actors: actors,
   favourites: favourites,
 });
 
-const actorsErrorAction = () => ({
+export const actorsErrorAction = () => ({
   type: ACTORS_ERROR,
 });
 
