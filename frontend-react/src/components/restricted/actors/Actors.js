@@ -50,7 +50,13 @@ function Actors(props) {
     <Container maxWidth="md">
       <div className="grid-container">
         {!loading ? (
-          actors.map((actor) => <ActorCard name={actor.name} key={actor.id} />)
+          actors.map((actor) => (
+            <ActorCard
+              name={actor.name}
+              favourite={favourites.includes(actor.id)}
+              key={actor.id}
+            />
+          ))
         ) : (
           <CircularProgress />
         )}

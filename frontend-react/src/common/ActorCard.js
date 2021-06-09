@@ -25,12 +25,35 @@ const imageFromName = (name) => {
   }
 };
 
-function ActorCard({ name }) {
+const useStyle = makeStyles({
+  card: {
+    position: "relative",
+  },
+  favouriteBox: {
+    width: "40px",
+    height: "40px",
+    position: "absolute",
+    top: 0,
+    right: 0,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "lightgray",
+    color: "blue",
+  },
+});
+
+function ActorCard({ name, favourite }) {
+  const classes = useStyle();
+
   return (
-    <Card>
+    <Card className={classes.card}>
       <img src={imageFromName(name)} alt={name} />
       <div className="text-center">
         <h3>{name}</h3>
+      </div>
+      <div className={classes.favouriteBox}>
+        {favourite ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
       </div>
     </Card>
   );
