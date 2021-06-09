@@ -5,12 +5,6 @@ import danielbruhl from "../assets/images/actors/danielbruhl.jpg";
 import woodyallen from "../assets/images/actors/woodyallen.jpg";
 import simonpegg from "../assets/images/actors/simonpegg.jpg";
 import umathurman from "../assets/images/actors/umathurman.jpg";
-import {
-  favouritesSelector,
-  updateFavouritesAction,
-} from "../redux/slices/actorsSlice";
-import { connect } from "react-redux";
-import { ApiService } from "../services/ApiServices";
 
 const imageFromName = (name) => {
   switch (name) {
@@ -49,23 +43,8 @@ const useStyle = makeStyles({
   },
 });
 
-const mapStateToProps = (state) => ({
-  favouriteIdList: favouritesSelector(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  updateFavourites: (favourites) =>
-    dispatch(updateFavouritesAction(favourites)),
-});
-
-function ActorCard({ actor, name, favouriteIdList, updateFavourites }) {
+function ActorCard({ actorId, name, favouriteIdList, toggleFavoriteActor }) {
   const classes = useStyle();
-
-  const toggleFavoriteActor = (actor) => {
-    ApiService.toggleFavouriteApi(actor)
-      .then(updateFavourites)
-      .catch((e) => console.log(e));
-  };
 
   return (
     <Card className={classes.card}>
@@ -74,15 +53,15 @@ function ActorCard({ actor, name, favouriteIdList, updateFavourites }) {
         <h3>{name}</h3>
       </div>
       <div className={classes.favouriteBox}>
-        {favouriteIdList.includes(actor) ? (
+        {favouriteIdList.includes(actorId) ? (
           <i
             className="fas fa-star"
-            onClick={() => toggleFavoriteActor(actor)}
+            onClick={() => toggleFavoriteActor(actorId)}
           ></i>
         ) : (
           <i
             className="far fa-star"
-            onClick={() => toggleFavoriteActor(actor)}
+            onClick={() => toggleFavoriteActor(actorId)}
           ></i>
         )}
       </div>
@@ -90,4 +69,4 @@ function ActorCard({ actor, name, favouriteIdList, updateFavourites }) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActorCard);
+export default ActorCard;

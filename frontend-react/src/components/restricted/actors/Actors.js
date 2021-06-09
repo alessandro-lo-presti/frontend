@@ -4,6 +4,8 @@ import {
   actorsSelector,
   actorsSuccessAction,
   actorsErrorAction,
+  favouritesSelector,
+  updateFavouritesAction,
 } from "../../../redux/slices/actorsSlice";
 import { connect } from "react-redux";
 import { CircularProgress, Container, Typography } from "@material-ui/core";
@@ -11,16 +13,25 @@ import ActorCard from "../../../common/ActorCard";
 
 const mapStateToProps = (state) => ({
   actors: actorsSelector(state),
+  favouriteIdList: favouritesSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actorsSuccess: (actors, favourites) =>
     dispatch(actorsSuccessAction(actors, favourites)),
   actorsError: () => dispatch(actorsErrorAction()),
+  updateFavourites: (favourites) =>
+    dispatch(updateFavouritesAction(favourites)),
 });
 
 function Actors(props) {
-  const { actors, actorsSuccess, actorsError } = props;
+  const {
+    actors,
+    favouriteIdList,
+    actorsSuccess,
+    actorsError,
+    updateFavourites,
+  } = props;
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -43,13 +54,25 @@ function Actors(props) {
       });
   }, [actorsSuccess, actorsError]);
 
+  const toggleFavoriteActor = (actorId) => {
+    ApiService.toggleFavouriteApi(actorId)
+      .then(updateFavourites)
+      .catch((e) => console.log(e));
+  };
+
   return (
     <Container maxWidth="md">
       <div className="grid-container">
         {!loading ? (
           actors.length > 0 ? (
             actors.map((actor) => (
-              <ActorCard name={actor.name} actor={actor.id} key={actor.id} />
+              <ActorCard
+                name={actor.name}
+                actorId={actor.id}
+                favouriteIdList={favouriteIdList}
+                key={actor.id}
+                toggleFavoriteActor={toggleFavoriteActor}
+              />
             ))
           ) : (
             <Typography variant="h2" component="h2">
