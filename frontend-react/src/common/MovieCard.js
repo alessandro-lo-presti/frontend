@@ -37,9 +37,9 @@ function MovieCard({ title, end, now }) {
   return (
     <Card>
       <img src={imageFromTitle(title)} alt={title} />
-      <div className="card-info">
+      <div className="text-center">
         <h3>{title}</h3>
-        <p className="countdown">{formatTimer(end - now)}</p>
+        <p>{formatTimer(end - now)}</p>
       </div>
     </Card>
   );

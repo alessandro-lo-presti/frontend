@@ -1,4 +1,4 @@
-import { Card } from "@material-ui/core";
+import { Card, makeStyles } from "@material-ui/core";
 import melgibosn from "../assets/images/actors/melgibosn.jpg";
 import ethanhawke from "../assets/images/actors/ethanhawke.jpg";
 import danielbruhl from "../assets/images/actors/danielbruhl.jpg";
@@ -29,7 +29,7 @@ function ActorCard({ name }) {
   return (
     <Card>
       <img src={imageFromName(name)} alt={name} />
-      <div className="card-info">
+      <div className="text-center">
         <h3>{name}</h3>
       </div>
     </Card>

@@ -14,5 +14,20 @@ code {
 
 img {
   height: 300px;
-  width: 210px;
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.grid-container {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 30px 20px;
+  grid-template-areas:
+    ". . . ."
+    ". . . .";
 }

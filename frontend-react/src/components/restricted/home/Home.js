@@ -1,9 +1,4 @@
-import {
-  CircularProgress,
-  Container,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { CircularProgress, Container, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import MovieCard from "../../../common/MovieCard";
@@ -65,7 +60,7 @@ function Home(props) {
 
   return (
     <Container maxWidth="md">
-      <Grid container direction="row" justify="flex-start" alignItems="center">
+      <div className="grid-container">
         {!loading ? (
           movies.filter((movie) => movie.end > now).length > 0 ? (
             movies
@@ -86,7 +81,7 @@ function Home(props) {
         ) : (
           <CircularProgress />
         )}
-      </Grid>
+      </div>
     </Container>
   );
 }

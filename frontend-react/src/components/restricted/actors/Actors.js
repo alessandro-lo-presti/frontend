@@ -7,7 +7,7 @@ import {
   actorsErrorAction,
 } from "../../../redux/slices/actorsSlice";
 import { connect } from "react-redux";
-import { CircularProgress, Container, Grid } from "@material-ui/core";
+import { CircularProgress, Container } from "@material-ui/core";
 import ActorCard from "../../../common/ActorCard";
 
 const mapStateToProps = (state) => ({
@@ -48,13 +48,13 @@ function Actors(props) {
 
   return (
     <Container maxWidth="md">
-      <Grid container direction="row" justify="flex-start" alignItems="center">
+      <div className="grid-container">
         {!loading ? (
-          actors.map((actor) => <ActorCard name={actor.name} />)
+          actors.map((actor) => <ActorCard name={actor.name} key={actor.id} />)
         ) : (
           <CircularProgress />
         )}
-      </Grid>
+      </div>
     </Container>
   );
 }
