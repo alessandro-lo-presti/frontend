@@ -48,7 +48,7 @@ const FAVORITE_DB = [
   },
   {
     user_id: 2,
-    favorites: [1, 3, 4],
+    favourites: [1, 3, 4],
   },
 ];
 
@@ -60,10 +60,28 @@ const findUser = (username, password) =>
 const getActors = () => ACTOR_DB;
 
 // favorites
-const getFavoritesByUser = (user) => FAVORITE_DB.find((f) => f.user_id == user);
+const getFavouritesByUser = (user) =>
+  FAVORITE_DB.find((f) => f.user_id == user);
+
+const toggleFavouriteActor = (user, actor) => {
+  let result = false;
+
+  if (ACTOR_DB.find((a) => a.id == actor)) {
+    const user_f = FAVORITE_DB.find((f) => f.user_id == user);
+    const indexFavourites = user_f.favourites.indexOf(actor);
+
+    indexFavourites > -1
+      ? user_f.favourites.splice(indexFavourites, 1)
+      : user_f.favourites.push(actor);
+    result = true;
+  }
+
+  return result;
+};
 
 export const DB_SERVICE = {
   findUser: findUser,
   getActors: getActors,
-  getFavoritesByUser: getFavoritesByUser,
+  getFavouritesByUser: getFavouritesByUser,
+  toggleFavouriteActor: toggleFavouriteActor,
 };
