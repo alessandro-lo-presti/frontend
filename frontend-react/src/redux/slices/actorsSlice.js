@@ -10,6 +10,7 @@ export const favouritesSelector = (state) => state.actorsSlice.favourites;
 // actions
 const ACTORS_SUCCESS = "ACTORS_SUCCESS";
 const ACTORS_ERROR = "ACTORS_ERROR";
+const UPDATE_FAVOURITES = "UPDATE_FAVOURITES";
 
 export const actorsSuccessAction = (actors, favourites) => ({
   type: ACTORS_SUCCESS,
@@ -19,6 +20,11 @@ export const actorsSuccessAction = (actors, favourites) => ({
 
 export const actorsErrorAction = () => ({
   type: ACTORS_ERROR,
+});
+
+export const updateFavouritesAction = (favourites) => ({
+  type: UPDATE_FAVOURITES,
+  favourites: favourites.favourites,
 });
 
 // reducers
@@ -33,6 +39,9 @@ export const actorsReducer = (state = initialState, action) => {
     }
     case ACTORS_ERROR: {
       return { ...initialState, actors: [], favourites: [] };
+    }
+    case UPDATE_FAVOURITES: {
+      return { ...state, favourites: action.favourites };
     }
     default: {
       return state;

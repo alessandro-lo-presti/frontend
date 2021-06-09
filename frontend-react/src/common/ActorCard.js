@@ -5,7 +5,10 @@ import danielbruhl from "../assets/images/actors/danielbruhl.jpg";
 import woodyallen from "../assets/images/actors/woodyallen.jpg";
 import simonpegg from "../assets/images/actors/simonpegg.jpg";
 import umathurman from "../assets/images/actors/umathurman.jpg";
-import { favouritesSelector } from "../redux/slices/actorsSlice";
+import {
+  favouritesSelector,
+  updateFavouritesAction,
+} from "../redux/slices/actorsSlice";
 import { connect } from "react-redux";
 import { ApiService } from "../services/ApiServices";
 
@@ -50,12 +53,19 @@ const mapStateToProps = (state) => ({
   favourites: favouritesSelector(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  updateFavourites: (actors, favourites) =>
+    dispatch(updateFavouritesAction(actors, favourites)),
+});
+
 function ActorCard(props) {
   const classes = useStyle();
-  const { actor, name, favourites } = props;
+  const { actor, name, favourites, updateFavourites } = props;
 
   const toggleFavoriteActor = (actor) => {
-    ApiService.toggleFavouriteApi(actor);
+    ApiService.toggleFavouriteApi(actor)
+      .then(updateFavourites)
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -81,4 +91,4 @@ function ActorCard(props) {
   );
 }
 
-export default connect(mapStateToProps)(ActorCard);
+export default connect(mapStateToProps, mapDispatchToProps)(ActorCard);

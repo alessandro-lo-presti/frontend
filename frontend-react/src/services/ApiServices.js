@@ -70,7 +70,7 @@ const toggleFavouriteApi = (actor) => {
       token: localStorage.getItem("token"),
       "Content-Type": "application/json",
     },
-  });
+  }).then((r) => r.json());
 };
 
 export const ApiService = {

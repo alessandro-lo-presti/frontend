@@ -7,7 +7,7 @@ export const favoriteActorApi = (req, res) =>
 
 export const updateFavouriteActorApi = (req, res) => {
   if (DB_SERVICE.toggleFavouriteActor(req.userId, req.body.favourite)) {
-    res.status(200).send();
+    res.status(200).json(DB_SERVICE.getFavouritesByUser(req.userId));
   } else {
     res.status(400).send();
   }
