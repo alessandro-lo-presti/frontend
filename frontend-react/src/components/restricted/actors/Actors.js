@@ -21,25 +21,34 @@ const mapDispatchToProps = (dispatch) => ({
 
 function Actors(props) {
   const { actors, favourites, actorsSuccess, actorsError } = props;
-  console.log(actors, favourites);
 
   useEffect(() => {
-    const result = {};
+    ApiService.waitActorsApi()
+      .then((values) => {
+        const result = {};
+        values.forEach((value) => {
+          if (value.user_id) {
+            result.favourites = value;
+          } else {
+            result.actors = value;
+          }
+        });
+        return result;
+      })
+      .then((data) => actorsSuccess(data.actors, data.favourites))
+      .catch(actorsError);
+  }, [actorsSuccess, actorsError]);
 
-    ApiService.waitActorsApi().then((values) => {
-      values.forEach((value) => {
-        if (value.user_id) {
-          console.log(value);
-          //   result.favourites = value;
-        } else {
-          //   result.actors = value;
-          console.log(value);
-        }
-      });
-    });
-  }, []);
-
-  return <div>actors</div>;
+  return (
+    <div>
+      {actors.map((actor) => (
+        <div key={actor.name}>{actor.name}</div>
+      ))}
+      {favourites.map((favourite) => (
+        <div key={favourite}>{favourite}</div>
+      ))}
+    </div>
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Actors);

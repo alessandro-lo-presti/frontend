@@ -40,7 +40,7 @@ const ACTOR_DB = [
 const FAVORITE_DB = [
   {
     user_id: 1,
-    favorites: [2, 5],
+    favourites: [2, 5],
   },
   {
     user_id: 2,

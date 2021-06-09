@@ -14,7 +14,7 @@ const ACTORS_ERROR = "ACTORS_ERROR";
 export const actorsSuccessAction = (actors, favourites) => ({
   type: ACTORS_SUCCESS,
   actors: actors,
-  favourites: favourites,
+  favourites: favourites.favourites,
 });
 
 export const actorsErrorAction = () => ({
