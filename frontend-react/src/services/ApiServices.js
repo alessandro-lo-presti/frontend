@@ -34,6 +34,24 @@ const actorApi = () => {
     .then((r) => r.json());
 };
 
+const favoriteApi = () => {
+  return fetch(pathApi + "/actor/favourites", {
+    method: "GET",
+    headers: {
+      token: localStorage.getItem("token"),
+    },
+  })
+    .then(HANDLER_SESSION_EXPIRED)
+    .then((r) => r.json());
+};
+
+const waitActorsApi = () => {
+  const actorPromise = actorApi();
+  const favoritePromise = favoriteApi();
+
+  return Promise.all([actorPromise, favoritePromise]);
+};
+
 const loginApi = (username, password) => {
   return fetch(pathApi + "/login", {
     method: "POST",
@@ -47,5 +65,5 @@ const loginApi = (username, password) => {
 export const ApiService = {
   loginApi: loginApi,
   movieApi: movieApi,
-  actorApi: actorApi,
+  waitActorsApi: waitActorsApi,
 };

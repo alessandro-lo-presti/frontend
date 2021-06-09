@@ -1,27 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ApiService } from "../../../services/ApiServices";
 
 function Actors() {
-  const [actors, setActors] = useState([]);
-  console.log("sono in actors");
-
   useEffect(() => {
-    ApiService.actorApi()
-      .then((data) => {
-        console.log(data);
-        setActors(data);
-        console.log(actors);
-      })
-      .catch(console.log);
+    ApiService.waitActorsApi().then((values) => {
+      values.forEach((value) => {
+        if (value.user_id) {
+          console.log(value);
+          //   result.favourites = value;
+        } else {
+          //   result.actors = value;
+          console.log(value);
+        }
+      });
+    });
   }, []);
 
-  return (
-    <div>
-      {actors.map((actor) => (
-        <li>{actor.name}</li>
-      ))}
-    </div>
-  );
+  return <div>actors</div>;
 }
 
 export default Actors;
