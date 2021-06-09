@@ -1,10 +1,10 @@
 import { Card } from "@material-ui/core";
-import braveheart from "../assets/images/braveheart.jpg";
-import gattaca from "../assets/images/gattaca.jpg";
-import goodbyelenin from "../assets/images/goodbyelenin.jpg";
-import harryapezzi from "../assets/images/harryapezzi.jpg";
-import hotfuzz from "../assets/images/hotfuzz.jpg";
-import pulpfiction from "../assets/images/pulpfiction.jpg";
+import braveheart from "../assets/images/movies/braveheart.jpg";
+import gattaca from "../assets/images/movies/gattaca.jpg";
+import goodbyelenin from "../assets/images/movies/goodbyelenin.jpg";
+import harryapezzi from "../assets/images/movies/harryapezzi.jpg";
+import hotfuzz from "../assets/images/movies/hotfuzz.jpg";
+import pulpfiction from "../assets/images/movies/pulpfiction.jpg";
 
 const imageFromTitle = (title) => {
   switch (title) {
