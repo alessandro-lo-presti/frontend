@@ -1,6 +1,6 @@
 const initialState = {
-  actors: [],
-  favourites: [],
+    actors: [],
+    favourites: [],
 };
 
 // selectors
@@ -13,38 +13,38 @@ const ACTORS_ERROR = "ACTORS_ERROR";
 const UPDATE_FAVOURITES = "UPDATE_FAVOURITES";
 
 export const actorsSuccessAction = (actors, favourites) => ({
-  type: ACTORS_SUCCESS,
-  actors: actors,
-  favourites: favourites.favourites,
+    type: ACTORS_SUCCESS,
+    actors: actors,
+    favourites: favourites.favourites,
 });
 
 export const actorsErrorAction = () => ({
-  type: ACTORS_ERROR,
+    type: ACTORS_ERROR,
 });
 
 export const updateFavouritesAction = (favourites) => ({
-  type: UPDATE_FAVOURITES,
-  favourites: favourites.favourites,
+    type: UPDATE_FAVOURITES,
+    favourites: favourites.favourites,
 });
 
 // reducers
 export const actorsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ACTORS_SUCCESS: {
-      return {
-        ...initialState,
-        actors: action.actors,
-        favourites: action.favourites,
-      };
+    switch (action.type) {
+        case ACTORS_SUCCESS: {
+            return {
+                ...state,
+                actors: action.actors,
+                favourites: action.favourites,
+            };
+        }
+        case ACTORS_ERROR: {
+            return { ...state, actors: [], favourites: [] };
+        }
+        case UPDATE_FAVOURITES: {
+            return { ...state, favourites: action.favourites };
+        }
+        default: {
+            return state;
+        }
     }
-    case ACTORS_ERROR: {
-      return { ...initialState, actors: [], favourites: [] };
-    }
-    case UPDATE_FAVOURITES: {
-      return { ...state, favourites: action.favourites };
-    }
-    default: {
-      return state;
-    }
-  }
 };
