@@ -1,3 +1,23 @@
+import mysql from "mysql";
+
+var db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "movieapp",
+});
+
+const getMoviesData = () => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT * FROM movie", (error, results) => {
+      if (error) {
+        return reject(error);
+      }
+      return resolve(results);
+    });
+  });
+};
+
 // users-data
 const USER_DB = [
   {
@@ -86,4 +106,5 @@ export const DB_SERVICE = {
   getActors: getActors,
   getFavouritesByUser: getFavouritesByUser,
   toggleFavouriteActor: toggleFavouriteActor,
+  getMoviesData: getMoviesData,
 };
