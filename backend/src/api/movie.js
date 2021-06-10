@@ -11,5 +11,5 @@ export const movieApi = (req, res) => {
       }));
       res.json(dataMovies);
     })
-    .catch(() => res.status(500).send());
+    .catch((error) => res.status(error).send());
 };

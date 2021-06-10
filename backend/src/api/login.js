@@ -7,9 +7,6 @@ export const loginApi = (req, res) => {
       res.json({ token: JWT_SERVICE.createToken(user_id) });
     })
     .catch((error) => {
-      if (error === 400) {
-        res.status(400).send();
-      }
-      res.status(500).send();
+      res.status(error).send();
     });
 };
