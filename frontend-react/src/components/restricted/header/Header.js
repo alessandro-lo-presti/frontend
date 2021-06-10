@@ -39,11 +39,11 @@ function Header({ logout }) {
         <Link to="/" className={classes.link}>
           <li>Home</li>
         </Link>
-        <Link to="/ranking" className={classes.link}>
-          <li>Classifica</li>
-        </Link>
         <Link to="/actors" className={classes.link}>
           <li>Attori</li>
+        </Link>
+        <Link to="/ranking" className={classes.link}>
+          <li>Classifica</li>
         </Link>
         <Link to="/" className={classes.link} onClick={logout}>
           <li>Logout</li>
