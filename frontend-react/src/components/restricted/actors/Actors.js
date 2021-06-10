@@ -67,7 +67,7 @@ function Actors(props) {
 
   return (
     <Container maxWidth="md">
-      <div className="grid-container">
+      <div className={actors.length > 0 ? "grid-container" : "text-center"}>
         {!loading ? (
           actors.length > 0 ? (
             actors.map((actor) => (

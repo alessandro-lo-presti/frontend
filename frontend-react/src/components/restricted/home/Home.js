@@ -64,7 +64,13 @@ function Home(props) {
 
   return (
     <Container maxWidth="md">
-      <div className="grid-container">
+      <div
+        className={
+          movies.filter((movie) => movie.end > now).length > 0
+            ? "grid-container"
+            : "text-center"
+        }
+      >
         {!loading ? (
           movies.filter((movie) => movie.end > now).length > 0 ? (
             movies
@@ -78,7 +84,7 @@ function Home(props) {
                 />
               ))
           ) : (
-            <Typography variant="h1" component="h2">
+            <Typography variant="h2" component="h2">
               Non ci sono film disponibili
             </Typography>
           )
