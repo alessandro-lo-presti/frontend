@@ -7,17 +7,6 @@ var db = mysql.createConnection({
   database: "movieapp",
 });
 
-const getMoviesData = () => {
-  return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM movie", (error, results) => {
-      if (error) {
-        return reject(error);
-      }
-      return resolve(results);
-    });
-  });
-};
-
 // users-data
 const USER_DB = [
   {
@@ -73,8 +62,34 @@ const FAVORITE_DB = [
 ];
 
 // users
-const findUser = (username, password) =>
-  USER_DB.find((u) => u.username === username && u.password === password);
+const findUser = (username, password) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `SELECT * FROM user WHERE username = "${username}"`,
+      (error, result) => {
+        if (error) {
+          return reject(error);
+        }
+        if (result.length === 0 || result[0].password != password) {
+          return reject(400);
+        }
+        return resolve(result[0].id);
+      }
+    );
+  });
+};
+
+// movies
+const getMoviesData = () => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT * FROM movie", (error, results) => {
+      if (error) {
+        return reject(error);
+      }
+      return resolve(results);
+    });
+  });
+};
 
 // actors
 const getActors = () => ACTOR_DB;
