@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   header: {
     height: "70px",
     padding: "0 20px",
+    marginBottom: "30px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
