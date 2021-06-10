@@ -1,6 +1,12 @@
 import { DB_SERVICE } from "../db/dbService.js";
 
-export const actorApi = (req, res) => res.json(DB_SERVICE.getActors());
+export const actorApi = (req, res) => {
+  DB_SERVICE.getActors()
+    .then((actors) => {
+      res.status(200).json(actors);
+    })
+    .catch(() => res.status(500).send());
+};
 
 export const favoriteActorApi = (req, res) =>
   res.json(DB_SERVICE.getFavouritesByUser(req.userId));

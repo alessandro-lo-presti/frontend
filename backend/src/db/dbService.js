@@ -80,7 +80,7 @@ const findUser = (username, password) => {
 };
 
 // movies
-const getMoviesData = () => {
+const getMovies = () => {
   return new Promise((resolve, reject) => {
     db.query("SELECT * FROM movie", (error, results) => {
       if (error) {
@@ -92,7 +92,16 @@ const getMoviesData = () => {
 };
 
 // actors
-const getActors = () => ACTOR_DB;
+const getActors = () => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT * FROM actor", (error, results) => {
+      if (error) {
+        return reject(error);
+      }
+      return resolve(results);
+    });
+  });
+};
 
 // favorites
 const getFavouritesByUser = (userId) =>
@@ -121,5 +130,5 @@ export const DB_SERVICE = {
   getActors: getActors,
   getFavouritesByUser: getFavouritesByUser,
   toggleFavouriteActor: toggleFavouriteActor,
-  getMoviesData: getMoviesData,
+  getMovies: getMovies,
 };
