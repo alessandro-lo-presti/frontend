@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   loginError: () => dispatch(loginErrorAction()),
 });
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   formContaniner: {
     display: "flex",
     flexDirection: "column",
@@ -32,10 +32,16 @@ const useStyles = makeStyles({
   },
   form: {
     height: "180px",
-    minWidth: "400px",
+    width: "500px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-around",
+    [theme.breakpoints.down("sm")]: {
+      width: "400px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "300px",
+    },
   },
   button: {
     alignSelf: "center",
@@ -43,7 +49,7 @@ const useStyles = makeStyles({
   title: {
     fontSize: "52px",
   },
-});
+}));
 
 function Login(props) {
   const classes = useStyles();
