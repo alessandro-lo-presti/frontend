@@ -4,7 +4,7 @@ import { JWT_SERVICE } from "../jwt/jwt.js";
 export const loginApi = (req, res) => {
   DB_SERVICE.findUser(req.body.username, req.body.password)
     .then((user_id) => {
-      res.status(200).json({ token: JWT_SERVICE.createToken(user_id) });
+      res.json({ token: JWT_SERVICE.createToken(user_id) });
     })
     .catch((error) => {
       if (error === 400) {

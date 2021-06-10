@@ -3,7 +3,7 @@ import cors from "cors";
 import express from "express";
 import {
   actorApi,
-  favoriteActorApi,
+  favouriteActorApi,
   updateFavouriteActorApi,
 } from "./api/actor.js";
 import { checkAuth } from "./api/auth.js";
@@ -22,7 +22,7 @@ app.post("/login", loginApi);
 //auth
 app.get("/movie", checkAuth, movieApi);
 app.get("/actor", checkAuth, actorApi);
-app.get("/actor/favourites", checkAuth, favoriteActorApi);
+app.get("/actor/favourites", checkAuth, favouriteActorApi);
 app.post("/actor/favourites", checkAuth, updateFavouriteActorApi);
 
 app.listen(port, () =>

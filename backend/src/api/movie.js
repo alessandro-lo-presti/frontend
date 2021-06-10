@@ -9,7 +9,7 @@ export const movieApi = (req, res) => {
         ...v,
         end: now + 1000 * 1 * (i + 1),
       }));
-      res.status(200).json(dataMovies);
+      res.json(dataMovies);
     })
     .catch(() => res.status(500).send());
 };

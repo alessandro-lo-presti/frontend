@@ -104,8 +104,23 @@ const getActors = () => {
 };
 
 // favorites
-const getFavouritesByUser = (userId) =>
-  FAVORITE_DB.find((f) => f.user_id == userId);
+const getFavouritesByUser = (userId) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `SELECT * FROM users_actors WHERE user_id = "${userId}"`,
+      (error, results) => {
+        if (error) {
+          return reject(error);
+        }
+        if (results.length === 0) {
+          return reject(400);
+        }
+        return resolve(results.map((row) => row.actor_id));
+      }
+    );
+  });
+};
+// FAVORITE_DB.find((f) => f.user_id == userId);
 
 const toggleFavouriteActor = (userId, actorId) => {
   let result = false;
