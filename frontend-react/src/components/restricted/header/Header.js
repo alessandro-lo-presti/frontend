@@ -28,6 +28,10 @@ const useStyles = makeStyles({
     color: "white",
     textDecoration: "none",
   },
+  i: {
+    fontSize: "18px",
+    verticalAlign: "middle",
+  },
 });
 
 function Header({ logout }) {
@@ -47,7 +51,7 @@ function Header({ logout }) {
           <li>Classifica</li>
         </Link>
         <Link to="/" className={classes.link} onClick={logout}>
-          <li>Logout</li>
+          <i className={classes.i + " fas fa-sign-out-alt"}></i>
         </Link>
       </ul>
     </Container>
