@@ -1,23 +1,25 @@
 import { DB_SERVICE } from "../db/dbService.js";
 
-export const actorApi = (req, res) => {
-  DB_SERVICE.getActors()
-    .then((actors) => {
-      res.json(actors);
-    })
-    .catch(() => res.status(500).send());
+export const actorApi = async (req, res) => {
+  try {
+    const actors = await DB_SERVICE.getActors();
+    res.json(actors);
+  } catch (error) {
+    res.status(500).send();
+  }
 };
 
-export const favouriteActorApi = (req, res) => {
-  DB_SERVICE.getFavouritesByUser(req.userId)
-    .then((favouriteActorsId) => {
-      if (favouriteActorsId) {
-        res.json(favouriteActorsId);
-      } else {
-        res.status(400).send();
-      }
-    })
-    .catch(() => res.status(500).send());
+export const favouriteActorApi = async (req, res) => {
+  try {
+    const userFavourites = await DB_SERVICE.getFavouritesByUser(req.userId);
+    if (userFavourites) {
+      res.json(userFavourites);
+    } else {
+      res.status(400).send();
+    }
+  } catch (error) {
+    res.status(500).send();
+  }
 };
 
 export const updateFavouriteActorApi = async (req, res) => {
