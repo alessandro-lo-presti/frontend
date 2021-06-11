@@ -15,12 +15,12 @@ const findUser = (username, password) => {
       `SELECT * FROM user WHERE username = "${username}" AND password = "${password}"`,
       (error, result) => {
         if (error) {
-          reject();
+          return reject();
         }
         if (result && result.length === 0) {
           return resolve();
         }
-        return resolve(result ? result[0].id : null);
+        return resolve(result[0].id);
       }
     );
   });
@@ -31,7 +31,7 @@ const getMovies = () => {
   return new Promise((resolve, reject) => {
     pool.query("SELECT * FROM movie", (error, results) => {
       if (error) {
-        reject();
+        return reject();
       }
       return resolve(results);
     });
@@ -45,7 +45,7 @@ const getRanking = () => {
       "SELECT * FROM movie JOIN ranking ON movie.id = ranking.id",
       (error, results) => {
         if (error) {
-          reject();
+          return reject();
         }
         return resolve(results);
       }
@@ -58,7 +58,7 @@ const getActors = () => {
   return new Promise((resolve, reject) => {
     pool.query("SELECT * FROM actor", (error, results) => {
       if (error) {
-        reject();
+        return reject();
       }
       return resolve(results);
     });
@@ -72,12 +72,12 @@ const getFavouritesByUser = (userId) => {
       `SELECT * FROM users_actors WHERE user_id = "${userId}"`,
       (error, results) => {
         if (error) {
-          reject();
+          return reject();
         }
         if (results && results.length === 0) {
           return resolve();
         }
-        return resolve(results ? results.map((row) => row.actor_id) : []);
+        return resolve(results.map((row) => row.actor_id));
       }
     );
   });
@@ -89,9 +89,9 @@ const toggleFavouriteActorCheck = (userId, actorId) => {
       `SELECT * FROM users_actors WHERE user_id = "${userId}"`,
       (error, results) => {
         if (error) {
-          reject();
+          return reject();
         }
-        return resolve(results ? results.map((row) => row.actor_id) : []);
+        return resolve(results.map((row) => row.actor_id));
       }
     );
   });
@@ -101,7 +101,7 @@ const toggleFavouriteActorCheck = (userId, actorId) => {
       `SELECT * FROM user WHERE id = "${userId}"`,
       (error, results) => {
         if (error) {
-          reject();
+          return reject();
         }
         if (results && results.length === 0) {
           return resolve();
@@ -116,7 +116,7 @@ const toggleFavouriteActorCheck = (userId, actorId) => {
       `SELECT * FROM actor WHERE id = "${actorId}"`,
       (error, results) => {
         if (error) {
-          reject();
+          return reject();
         }
         if (results && results.length === 0) {
           return resolve();
@@ -136,7 +136,7 @@ const toggleFavouriteActor = (favourites, userId, actorId) => {
         `INSERT INTO users_actors (user_id, actor_id) VALUES ('${userId}', '${actorId}')`,
         (error) => {
           if (error) {
-            reject();
+            return reject();
           }
           favourites.push(actorId);
           return resolve(favourites);
@@ -149,7 +149,7 @@ const toggleFavouriteActor = (favourites, userId, actorId) => {
         `DELETE FROM users_actors WHERE user_id = "${userId}" AND actor_id = "${actorId}" `,
         (error) => {
           if (error) {
-            reject();
+            return reject();
           }
           favourites.splice(favourites.indexOf(actorId), 1);
           return resolve(favourites);
