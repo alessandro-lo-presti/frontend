@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   header: {
     height: "70px",
     padding: "0 20px",
+    marginBottom: "30px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -27,6 +28,10 @@ const useStyles = makeStyles({
     color: "white",
     textDecoration: "none",
   },
+  i: {
+    fontSize: "18px",
+    verticalAlign: "middle",
+  },
 });
 
 function Header({ logout }) {
@@ -39,14 +44,14 @@ function Header({ logout }) {
         <Link to="/" className={classes.link}>
           <li>Home</li>
         </Link>
-        <Link to="/ranking" className={classes.link}>
-          <li>Classifica</li>
-        </Link>
         <Link to="/actors" className={classes.link}>
           <li>Attori</li>
         </Link>
+        <Link to="/ranking" className={classes.link}>
+          <li>Classifica</li>
+        </Link>
         <Link to="/" className={classes.link} onClick={logout}>
-          <li>Logout</li>
+          <i className={classes.i + " fas fa-sign-out-alt"}></i>
         </Link>
       </ul>
     </Container>
