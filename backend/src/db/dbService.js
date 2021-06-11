@@ -83,8 +83,9 @@ const getFavouritesByUser = (userId) => {
   });
 };
 
-const toggleFavouriteActorCheck = (userId, actorId) => {
-  const userFavourite = new Promise((resolve, reject) => {
+// toggle
+const userFavourites = (userId) => {
+  return new Promise((resolve, reject) => {
     pool.query(
       `SELECT * FROM users_actors WHERE user_id = "${userId}"`,
       (error, results) => {
@@ -95,8 +96,10 @@ const toggleFavouriteActorCheck = (userId, actorId) => {
       }
     );
   });
+};
 
-  const userExist = new Promise((resolve, reject) => {
+const userExist = (userId) => {
+  return new Promise((resolve, reject) => {
     pool.query(
       `SELECT * FROM user WHERE id = "${userId}"`,
       (error, results) => {
@@ -110,8 +113,10 @@ const toggleFavouriteActorCheck = (userId, actorId) => {
       }
     );
   });
+};
 
-  const actorExist = new Promise((resolve, reject) => {
+const actorExist = (actorId) => {
+  return new Promise((resolve, reject) => {
     pool.query(
       `SELECT * FROM actor WHERE id = "${actorId}"`,
       (error, results) => {
@@ -125,8 +130,6 @@ const toggleFavouriteActorCheck = (userId, actorId) => {
       }
     );
   });
-
-  return [userFavourite, userExist, actorExist];
 };
 
 const toggleFavouriteActor = (favourites, userId, actorId) => {
@@ -166,5 +169,7 @@ export const DB_SERVICE = {
   getActors: getActors,
   getFavouritesByUser: getFavouritesByUser,
   toggleFavouriteActor: toggleFavouriteActor,
-  toggleFavouriteActorCheck: toggleFavouriteActorCheck,
+  userFavourites: userFavourites,
+  userExist: userExist,
+  actorExist: actorExist,
 };

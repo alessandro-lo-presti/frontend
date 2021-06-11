@@ -20,27 +20,23 @@ export const favouriteActorApi = (req, res) => {
     .catch(() => res.status(500).send());
 };
 
-export const updateFavouriteActorApi = (req, res) => {
-  Promise.all(
-    DB_SERVICE.toggleFavouriteActorCheck(req.userId, req.body.favourite)
-  )
-    .then((values) => {
-      if (values[1] && values[2]) {
-        return DB_SERVICE.toggleFavouriteActor(
-          values[0],
-          req.userId,
-          req.body.favourite
-        );
-      } else {
-        res.status(400).send();
-      }
-    })
-    .then((data) => {
-      if (data) {
-        res.json(data);
-      } else {
-        res.status(400).send();
-      }
-    })
-    .catch(() => res.status(500).send());
+export const updateFavouriteActorApi = async (req, res) => {
+  try {
+    const userExist = await DB_SERVICE.userExist(req.userId);
+    const actorExist = await DB_SERVICE.actorExist(req.body.favourite);
+
+    if (userExist && actorExist) {
+      const userFavourites = await DB_SERVICE.userFavourites(req.userId);
+      const newFavourites = await DB_SERVICE.toggleFavouriteActor(
+        userFavourites,
+        req.userId,
+        req.body.favourite
+      );
+      res.json(newFavourites);
+    } else {
+      res.status(400).send();
+    }
+  } catch (error) {
+    res.status(500).send();
+  }
 };
