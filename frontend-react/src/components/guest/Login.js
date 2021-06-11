@@ -103,7 +103,13 @@ function Login(props) {
           >
             Invia
           </Button>
-          {waiting ? <CircularProgress /> : ""}
+          {waiting ? (
+            <div className="text-center">
+              <CircularProgress />
+            </div>
+          ) : (
+            ""
+          )}
         </form>
       </div>
     </Container>
