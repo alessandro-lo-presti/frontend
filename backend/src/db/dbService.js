@@ -75,7 +75,7 @@ const toggleFavouriteActorCheck = (userId, actorId) => {
         if (error) {
           return reject(500);
         }
-        return resolve(results.map((row) => row.actor_id));
+        return resolve();
       }
     );
   });
