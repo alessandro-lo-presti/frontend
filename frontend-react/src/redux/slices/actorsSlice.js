@@ -36,7 +36,6 @@ export const updateFavouritesAction = (favourites) => ({
 export const actorsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTORS_SUCCESS: {
-      console.log("reducer", action);
       return {
         ...state,
         actors: action.actors,
