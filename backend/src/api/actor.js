@@ -1,15 +1,28 @@
 import { DB_SERVICE } from "../db/dbService.js";
 
-export const actorApi = (req, res) => res.json(DB_SERVICE.getActors());
+export const actorApi = (req, res) => {
+  DB_SERVICE.getActors()
+    .then((actors) => {
+      res.json(actors);
+    })
+    .catch((error) => res.status(error).send());
+};
 
-export const favoriteActorApi = (req, res) =>
-  res.json(DB_SERVICE.getFavouritesByUser(req.userId));
+export const favouriteActorApi = (req, res) => {
+  DB_SERVICE.getFavouritesByUser(req.userId)
+    .then((favouriteActorsId) => {
+      res.json(favouriteActorsId);
+    })
+    .catch((error) => res.status(error).send());
+};
 
 export const updateFavouriteActorApi = (req, res) => {
-  if (DB_SERVICE.toggleFavouriteActor(req.userId, req.body.favourite)) {
-    const favourites = DB_SERVICE.getFavouritesByUser(req.userId).favourites;
-    res.status(200).json(favourites);
-  } else {
-    res.status(400).send();
-  }
+  Promise.all(
+    DB_SERVICE.toggleFavouriteActorCheck(req.userId, req.body.favourite)
+  )
+    .then((values) =>
+      DB_SERVICE.toggleFavouriteActor(values[0], req.userId, req.body.favourite)
+    )
+    .then((data) => res.json(data))
+    .catch((error) => res.status(error).send());
 };

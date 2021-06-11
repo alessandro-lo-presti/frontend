@@ -1,12 +1,15 @@
-import dataMovies from "../../data/movies.json";
+import { DB_SERVICE } from "../db/dbService.js";
 
 export const movieApi = (req, res) => {
-    const now = new Date().getTime();
+  const now = new Date().getTime();
 
-    res.json(
-        dataMovies.movies.map((v, i) => ({
-            ...v,
-            end: now + 1000 * 1 * (i + 1),
-        }))
-    );
+  DB_SERVICE.getMovies()
+    .then((movies) => {
+      const dataMovies = movies.map((v, i) => ({
+        ...v,
+        end: now + 1000 * 1 * (i + 1),
+      }));
+      res.json(dataMovies);
+    })
+    .catch((error) => res.status(error).send());
 };
