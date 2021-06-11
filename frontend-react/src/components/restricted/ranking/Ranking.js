@@ -124,7 +124,9 @@ function Ranking(props) {
       </TableContainer>
     </Container>
   ) : (
-    <CircularProgress />
+    <div className="text-center">
+      <CircularProgress />
+    </div>
   );
 }
 
