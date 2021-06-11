@@ -15,12 +15,12 @@ const findUser = (username, password) => {
       `SELECT * FROM user WHERE username = "${username}" AND password = "${password}"`,
       (error, result) => {
         if (error) {
-          return reject();
+          reject();
+        } else if (result && result.length === 0) {
+          resolve();
+        } else {
+          resolve(result[0].id);
         }
-        if (result && result.length === 0) {
-          return resolve();
-        }
-        return resolve(result[0].id);
       }
     );
   });
@@ -31,9 +31,10 @@ const getMovies = () => {
   return new Promise((resolve, reject) => {
     pool.query("SELECT * FROM movie", (error, results) => {
       if (error) {
-        return reject();
+        reject();
+      } else {
+        resolve(results);
       }
-      return resolve(results);
     });
   });
 };
@@ -45,9 +46,10 @@ const getRanking = () => {
       "SELECT * FROM movie JOIN ranking ON movie.id = ranking.id",
       (error, results) => {
         if (error) {
-          return reject();
+          reject();
+        } else {
+          resolve(results);
         }
-        return resolve(results);
       }
     );
   });
@@ -58,9 +60,10 @@ const getActors = () => {
   return new Promise((resolve, reject) => {
     pool.query("SELECT * FROM actor", (error, results) => {
       if (error) {
-        return reject();
+        reject();
+      } else {
+        resolve(results);
       }
-      return resolve(results);
     });
   });
 };
@@ -72,12 +75,12 @@ const getFavouritesByUser = (userId) => {
       `SELECT * FROM users_actors WHERE user_id = "${userId}"`,
       (error, results) => {
         if (error) {
-          return reject();
+          reject();
+        } else if (results && results.length === 0) {
+          resolve();
+        } else {
+          resolve(results.map((row) => row.actor_id));
         }
-        if (results && results.length === 0) {
-          return resolve();
-        }
-        return resolve(results.map((row) => row.actor_id));
       }
     );
   });
@@ -90,9 +93,10 @@ const userFavourites = (userId) => {
       `SELECT * FROM users_actors WHERE user_id = "${userId}"`,
       (error, results) => {
         if (error) {
-          return reject();
+          reject();
+        } else {
+          resolve(results.map((row) => row.actor_id));
         }
-        return resolve(results.map((row) => row.actor_id));
       }
     );
   });
@@ -104,12 +108,12 @@ const userExist = (userId) => {
       `SELECT * FROM user WHERE id = "${userId}"`,
       (error, results) => {
         if (error) {
-          return reject();
+          reject();
+        } else if (results && results.length === 0) {
+          resolve();
+        } else {
+          resolve(userId);
         }
-        if (results && results.length === 0) {
-          return resolve();
-        }
-        return resolve(userId);
       }
     );
   });
@@ -121,12 +125,12 @@ const actorExist = (actorId) => {
       `SELECT * FROM actor WHERE id = "${actorId}"`,
       (error, results) => {
         if (error) {
-          return reject();
+          reject();
+        } else if (results && results.length === 0) {
+          resolve();
+        } else {
+          resolve(actorId);
         }
-        if (results && results.length === 0) {
-          return resolve();
-        }
-        return resolve(actorId);
       }
     );
   });
@@ -139,10 +143,11 @@ const toggleFavouriteActor = (favourites, userId, actorId) => {
         `INSERT INTO users_actors (user_id, actor_id) VALUES ('${userId}', '${actorId}')`,
         (error) => {
           if (error) {
-            return reject();
+            reject();
+          } else {
+            favourites.push(actorId);
+            resolve(favourites);
           }
-          favourites.push(actorId);
-          return resolve(favourites);
         }
       );
     });
@@ -152,10 +157,11 @@ const toggleFavouriteActor = (favourites, userId, actorId) => {
         `DELETE FROM users_actors WHERE user_id = "${userId}" AND actor_id = "${actorId}" `,
         (error) => {
           if (error) {
-            return reject();
+            reject();
+          } else {
+            favourites.splice(favourites.indexOf(actorId), 1);
+            resolve(favourites);
           }
-          favourites.splice(favourites.indexOf(actorId), 1);
-          return resolve(favourites);
         }
       );
     });
