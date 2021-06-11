@@ -20,13 +20,9 @@ export const updateFavouriteActorApi = (req, res) => {
   Promise.all(
     DB_SERVICE.toggleFavouriteActorCheck(req.userId, req.body.favourite)
   )
-    .then((values) => {
-      DB_SERVICE.toggleFavouriteActor(
-        values[0],
-        req.userId,
-        req.body.favourite
-      );
-    })
+    .then((values) =>
+      DB_SERVICE.toggleFavouriteActor(values[0], req.userId, req.body.favourite)
+    )
     .then((data) => res.json(data))
     .catch((error) => res.status(error).send());
 };
