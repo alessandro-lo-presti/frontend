@@ -23,6 +23,17 @@ const movieApi = () => {
     .then((r) => r.json());
 };
 
+const rankingApi = () => {
+  return fetch(pathApi + "/movie/ranking", {
+    method: "GET",
+    headers: {
+      token: localStorage.getItem("token"),
+    },
+  })
+    .then(HANDLER_SESSION_EXPIRED)
+    .then((r) => r.json());
+};
+
 const actorApi = () => {
   return fetch(pathApi + "/actor", {
     method: "GET",
@@ -71,6 +82,7 @@ const toggleFavouriteApi = (actor) => {
 export const ApiService = {
   loginApi: loginApi,
   movieApi: movieApi,
+  rankingApi: rankingApi,
   actorApi: actorApi,
   favoriteApi: favoriteApi,
   toggleFavouriteApi: toggleFavouriteApi,

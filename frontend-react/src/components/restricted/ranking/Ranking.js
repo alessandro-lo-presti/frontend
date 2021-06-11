@@ -58,7 +58,7 @@ function Ranking(props) {
   useEffect(() => {
     setLoading(true);
 
-    ApiService.movieApi()
+    ApiService.rankingApi()
       .then((data) => {
         setLoading(false);
         moviesRankSuccess(data);

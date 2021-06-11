@@ -37,6 +37,21 @@ const getMovies = () => {
   });
 };
 
+// ranking
+const getRanking = () => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT * FROM movie JOIN ranking ON movie.id = ranking.id",
+      (error, results) => {
+        if (error) {
+          return reject(500);
+        }
+        return resolve(results);
+      }
+    );
+  });
+};
+
 // actors
 const getActors = () => {
   return new Promise((resolve, reject) => {
@@ -143,6 +158,7 @@ const toggleFavouriteActor = (favourites, userId, actorId) => {
 export const DB_SERVICE = {
   findUser: findUser,
   getMovies: getMovies,
+  getRanking: getRanking,
   getActors: getActors,
   getFavouritesByUser: getFavouritesByUser,
   toggleFavouriteActor: toggleFavouriteActor,
