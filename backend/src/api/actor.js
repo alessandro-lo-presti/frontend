@@ -17,7 +17,16 @@ export const favouriteActorApi = (req, res) => {
 };
 
 export const updateFavouriteActorApi = (req, res) => {
-  DB_SERVICE.toggleFavouriteActor(req.userId, req.body.favourite);
-  // .then((newFavorites) => res.json(newFavorites))
-  // .catch((error) => res.status(error));
+  Promise.all(
+    DB_SERVICE.toggleFavouriteActorCheck(req.userId, req.body.favourite)
+  )
+    .then((values) => {
+      DB_SERVICE.toggleFavouriteActor(
+        values[0],
+        req.userId,
+        req.body.favourite
+      );
+    })
+    .then((data) => res.json(data))
+    .catch((error) => res.status(error).send());
 };

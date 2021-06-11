@@ -67,7 +67,7 @@ const getFavouritesByUser = (userId) => {
   });
 };
 
-const toggleFavouriteActor = (userId, actorId) => {
+const toggleFavouriteActorCheck = (userId, actorId) => {
   const userFavourite = new Promise((resolve, reject) => {
     db.query(
       `SELECT * FROM users_actors WHERE user_id = "${userId}"`,
@@ -88,7 +88,7 @@ const toggleFavouriteActor = (userId, actorId) => {
       if (results.length === 0) {
         return reject(400);
       }
-      return resolve(results.map((row) => row.actor_id));
+      return resolve();
     });
   });
 
@@ -102,38 +102,42 @@ const toggleFavouriteActor = (userId, actorId) => {
         if (results.length === 0) {
           return reject(400);
         }
-        return resolve(results.map((row) => row.actor_id));
+        return resolve();
       }
     );
   });
 
-  Promise.all([userFavourite, userExist, actorExist])
-    .then((values) => {
-      if (!values[0].includes(actorId)) {
-        return new Promise((resolve, reject) => {
-          db.query(
-            `INSERT INTO users_actors (user_id, actor_id) VALUES ('${userId}', '${actorId}')`,
-            (error) => {
-              if (error) {
-                return reject(500);
-              }
-            }
-          );
-        });
-      } else {
-        return new Promise((resolve, reject) => {
-          db.query(
-            `DELETE FROM users_actors WHERE user_id = "${userId}" AND actor_id = "${actorId}" `,
-            (error) => {
-              if (error) {
-                return reject(500);
-              }
-            }
-          );
-        });
-      }
-    })
-    .catch((error) => console.log(error));
+  return [userFavourite, userExist, actorExist];
+};
+
+const toggleFavouriteActor = (favourites, userId, actorId) => {
+  if (!favourites.includes(actorId)) {
+    return new Promise((resolve, reject) => {
+      db.query(
+        `INSERT INTO users_actors (user_id, actor_id) VALUES ('${userId}', '${actorId}')`,
+        (error) => {
+          if (error) {
+            return reject(500);
+          }
+          favourites.push(actorId);
+          return resolve(favourites);
+        }
+      );
+    });
+  } else {
+    return new Promise((resolve, reject) => {
+      db.query(
+        `DELETE FROM users_actors WHERE user_id = "${userId}" AND actor_id = "${actorId}" `,
+        (error) => {
+          if (error) {
+            return reject(500);
+          }
+          favourites.splice(favourites.indexOf(actorId), 1);
+          return resolve(favourites);
+        }
+      );
+    });
+  }
 };
 
 export const DB_SERVICE = {
@@ -142,4 +146,5 @@ export const DB_SERVICE = {
   getActors: getActors,
   getFavouritesByUser: getFavouritesByUser,
   toggleFavouriteActor: toggleFavouriteActor,
+  toggleFavouriteActorCheck: toggleFavouriteActorCheck,
 };
