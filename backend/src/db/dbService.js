@@ -40,10 +40,7 @@ const findUser = (username, password) => {
           console.log(error);
           // throw error;
         }
-        if (
-          (results && result.length === 0) ||
-          result[0].password != password
-        ) {
+        if ((result && result.length === 0) || result[0].password != password) {
           return resolve();
         }
         return resolve(result[0].id);

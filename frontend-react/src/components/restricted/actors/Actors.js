@@ -49,7 +49,6 @@ function Actors(props) {
       })
       .then((data) => {
         setLoading(false);
-        console.log(data.favourites);
         actorsSuccess(data.actors, data.favourites);
       })
       .catch(() => {
