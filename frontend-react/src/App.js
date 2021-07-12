@@ -21,7 +21,8 @@ function App() {
       }),
     []
   );
-  const { token } = useSelector((state) => state.tokenSlice);
+  // const { token } = useSelector((state) => state.tokenSlice);
+  const token = true;
 
   return (
     <Router>

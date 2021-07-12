@@ -1,0 +1,4 @@
+application\MovieApplication.class
+api\MovieApi.class
+model\Movie.class
+response\MovieResponse.class

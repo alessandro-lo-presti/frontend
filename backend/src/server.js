@@ -22,7 +22,7 @@ app.post("/login", loginApi);
 
 //auth
 app.get("/movie", checkAuth, movieApi);
-app.get("/movie/ranking", checkAuth, rankingApi);
+app.get("/ranking", checkAuth, rankingApi);
 app.get("/actor", checkAuth, actorApi);
 app.get("/actor/favourites", checkAuth, favouriteActorApi);
 app.post("/actor/favourites", checkAuth, updateFavouriteActorApi);

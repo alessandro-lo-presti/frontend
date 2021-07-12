@@ -1,7 +1,8 @@
 import { logoutAction } from "../redux/slices/loginSlice";
 import store from "../redux/store";
 
-const pathApi = "http://localhost:3001";
+// const pathApi = "http://localhost:3001";
+const pathApi = "http://localhost:8080/movieapp/api";
 
 const HANDLER_SESSION_EXPIRED = (response) => {
   if (response.status === 401) {
@@ -24,7 +25,7 @@ const movieApi = () => {
 };
 
 const rankingApi = () => {
-  return fetch(pathApi + "/movie/ranking", {
+  return fetch(pathApi + "/ranking", {
     method: "GET",
     headers: {
       token: localStorage.getItem("token"),
